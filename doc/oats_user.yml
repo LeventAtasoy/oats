@@ -1,0 +1,25 @@
+# OATS Initialization File 
+# See oats_ini.yml for other possible values to include in oats_user.yml
+---
+execution:
+
+# #  Separate the folder to put 
+# dir_tests: ENV['HOME'] + '/oats_tests'
+
+  # A YAML array containing test names to be executed by OATS. Each name must
+  # either be a test directory, or another YAML file which contains
+  # test_files.  If an input is a YAML file, the test_files it contains
+  # will be executed after merging in the YAML contents.
+  test_files: [ examples/expectedException ] # C-L,R-U:rec
+
+  # A YAML array listing YAML files describing environments to be executed for
+  # each test. This is a way of multiplexing the test cases. OATS will repeat
+  # the execution of each test files after merging in the oats_data from the
+  # each YAML. Typical use of environments is to repeat the tests for different
+  # environments or different parameters. You may also want to make a copy of
+  # the environment YAML file in dir_tests/environments into your own
+  # dir_environments directory and customize the E-V:rec entries for yourself.
+  environments: # C-L,R-U:rec
+    - qa
+#    - qa_firefox
+

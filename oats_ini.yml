@@ -1,0 +1,268 @@
+# OATS Initialization File
+---
+# To keep maintenance to a minimum, uncomment only the parameters you need in
+# your oats_user.yml or an environment.yml file. When you uncomment a parameter
+# do not forget to uncomment all the parents of the parameters also in order to
+# keep the YAML file valid.
+#  Parameters designated as:
+# * R-U:rec are recommended for use in oats_user.yml
+# * R-U:opt are for occasional use in oats_user.yml
+# * C-L can also be over-ridden via command-line
+# * E-V:recl are recommended for use in environment environment files.
+# * none: are best to leave to system defaults unless required
+
+# String values containing 'Oats.' and 'ENV[' are  evaluated as Ruby
+# expressions referring to the previously loaded YAML Oats.data and environment
+# variables. If after an evaluation resulting value is 'previous_old_value', then
+# previous value is restored.
+# Examples of boolean expressions which can be used in tests:
+#  Oats.data['env']['type'] == 'qa'
+#  Oats.global['agent'] ? "oatsuserapi@gmail.com":'previous_oats_value'
+
+# OATS recognizes the following key modifiers
+# (define) # used by oats_user and environments, adds new keys w/o issuing error messages
+# (default) # used by test.yml, defines default values
+# Advertiser (define): Name
+# Setting this at any level will prevent (define) errors, at least in all keys below
+# and possibly in other branches of Oats.data. Reset it under other branches if needed.
+# define_always: TRUE
+
+# This section contains parameters controlling oats execution.  All
+# parameters in this section plus a few from other sections can be overridden
+# from the commandline (For details, see 'oats.rb \--help'.)
+# * If an input is a YAML file, it may include other test_files which are
+#   executed after merging in the YAML contents.
+# * environments included in the any test YAML are applied to the tests listed in
+#   the YAML, multiplexing the test cases.
+
+# YAML to overlay into the current YAML. Keys in the the included YAMLs are
+# not verified against oats_ini.yml
+# For performance and unambiguity, path should be given relative to the folder
+# of the test for test yamls, or relative to test_dir.
+# Otherwise it will be searched in test_dir.
+# Over-rides used in user, environment, or list YAMLs are checked for consistency
+# with this oats_ini.yml definitions (keys included files are not checked.)
+# Any value specified in this file can be later reset to nil by setting it to NO.
+# The oats_ini.yml will be supplemented by contents of <dir_tests>/aut_ini.yml, if present
+include_yaml:
+# Use if the included YAML entries should override the current YAML entries
+include_yaml_later:
+
+execution:
+
+  # A YAML array containing test names to be executed by OATS. Each name must
+  # either be a test directory, or another YAML file, file.rb, or file.txt.
+  # If the input is a YAML file it is treated as a test suite unless yml_handler is
+  # set.
+  # Test_files in test suite yml files will be executed after merging in their
+  # YAML contents.
+  # In test file is file.rb, it will be executed in a test directory named 'file'
+  # If it is file.txt, each row of the file will be included as an element of the
+  # test_files array, after stripping comments starting with '#'.
+  # Before each test is processed, testName.yml or oats.yml will be read if found
+  # at the same level as the test executable path.
+  # Any other file.extension will be handled by <extension>_handler if set as below
+  yml_handler: # yml_processor.rb
+  test_files: [ examples/occTest/occTestlist.yml ] # C-L,R-U:rec
+
+
+  # A YAML array listing YAML files describing environments to be executed for
+  # each test. This is a way of multiplexing the test cases. OATS will repeat
+  # the execution of each test files after merging in the oats_data from the
+  # each YAML. Typical use of environments is to repeat the tests for different
+  # environments or different parameters. You may also want to make a copy of
+  # the environment YAML file in dir_tests/environments into your own
+  # dir_environments directory and customize the E-V:rec entries for yourself.
+  environments: [ qa.yml ] # C-L,R-U:rec
+
+  # User's directory containing overrides for system supplied environments.
+  dir_environments:  ENV['HOME'] + '/environments' # R-U:opt
+
+  # Execution of a test is skipped if this evaluates to true.
+  no_run:  # C-L,R-U:opt
+
+  # Primary component host in the env from which to pick build version to display in OCC
+  build_version: # web
+
+  # Controls the amount of logs output to the log files.
+  log_level: DEBUG # INFO, WARN, ERROR, FATAL # R-U:opt
+
+  # Root directory for the output results
+  dir_results: ENV['HOME'] + '/results' # C-L,R-U:opt
+
+  # Set this to yes or the IP of the browser host to tail the application error
+  # logs. Typcially used from commandline.
+  tail_logs_ip: # {10.10.20.51 | yes} # C-L:opt
+
+  # Used to switch the root directory to search for test files. The system
+  # searches dir_tests for test_files or environments if they are specified as
+  # relative paths. If a file pattern is given, the first match is used, with
+  # names matching directories are given priority over matches for YAML
+  # files.
+  dir_tests: ENV['OATS_TESTS'] || ENV['OATS_HOME'] + '/oats_tests'
+
+  # Set to copy the test contents to the dir_results before executing the test
+  run_in_dir_results: YES
+
+  # Set to see full stacktrace on ruby tests.
+  full_stacktrace:
+
+  # Ruby Class methods, file names, or paths in test_dir to be executed before and after a oats test.
+  oload_pre:  # String or array of rb file names or paths to be executed
+  oload_post: # in the given order
+
+  # Ruby file names or paths in test_dir to be executed before and after a test yaml.
+  handler_pre_test_list:  # path to handler.rb be executed
+  handler_post_test_list: # path to handler.rb be executed
+
+  # When the test has an error and this is set, no further rtest_* files are executed
+  quit_on_error:
+
+  # Skip the current test if there was a previous test and that it did not pass
+  skip_unless_previous_test_is_ok:
+
+  # To use during initial test development. YES: Skips the comparison of ok folder contents.
+  # UPDATE Synchs the contents of ok with out by adding or removing files to/from ok
+  ok_verify: # UPDATE | YES
+  # out directory existence is not checked unless this is set
+  out_verify:
+
+  # Default time for Oats.wait_until
+  wait_until_timeout: 90
+
+  # Parameters specifically used by Oats Control Center
+  occ:
+    # For agent to contact occ. Also what occ host sees itself as, via ENV['HOSTNAME'].downcase
+    server_host: occ-qa
+    # OCC server port for OCC to request agent to contact
+    server_port: 3000
+    # Agent-server host name to relay to OCC, defaults to downcased hostname if nil
+    agent_host: ENV['HOSTNAME'].downcase
+    # Oats agent/server name to display in OCC. Defaults to agent_host[:port] if non-unique
+    agent_nickname:  # mymach1
+    # Oats agent/server to listen and OCC to contact
+    agent_port: 3010
+    # Timeout for OCC to respond, may take a while if OCC is listing all jobs
+    timeout_waiting_for_occ: 15
+    # Timeout for agent to respond, should respond quickly, unless dead
+    timeout_waiting_for_agent: 10
+  # OCC to redirect for serving static files. Default is each agent machine serves.
+    results_webserver: # ENV['HOSTNAME'].downcase
+    # Controls OCC/client logging
+    log_client: YES
+    # Also copy all Oats output into agent_log. Good for debugging
+    agent_log_all: YES
+    bash_path: C:\apps\cygwin\bin\bash
+    # User service id to bypass login for development w/o network access
+    login_user_service_id: # 2
+
+
+##############################
+# Controls the behavior of selenium related execution.
+selenium:
+
+  # Decides which browser to use for IDE tests. Only this selenium parameter can
+  # be overridden from the commandline.
+  browser_type: firefox  # C-L,R-U:opt
+
+  #Set this to download collection on chrome and IE and make sure to empty the default download directory.
+  default_downloads:
+  # Hosts for each browser type to use webdriver in remote mode.
+  remote_webdriver:
+    oats_dir: c:/users/qatest/oats
+    os: Windows_NT
+    ie: 10.0.11.32:4445 # qa-testing # Remove the value from this entry in order to run ie locally
+    chrome:  # Put in remote driver host to run remotely
+    firefox: #10.0.11.32:4445
+
+  # Additional options to pass webdriver
+  options:
+    chrome:
+      switches: [--start-maximized]
+
+  # For webdriver, this is a non-default profile name is defined via -profilemanager
+  # A non-default executable firefox_path is specified by defining an environment
+  # variable matching this profile name. Will use default if this profile is undefined.
+  firefox_profile: selenium
+
+  # Sets the firefox profile properties indicated.
+  firefox_profile_set:
+    native_events: YES
+#    assume_untrusted_certificate_issuer: NO
+
+  # Conditionally pause and do not close browser at the of oats test involving
+  # selenium. OATS execution will continue after the user presses ENTER (for rb)
+  # or when the user closes the IDE results page.
+  # Default (NIL) implies 0 if the first test is a list, 1 otherwise
+  pause_on_exit: #  -N: always, 0:never, 1:only on failure, N: seconds to pause
+
+  # Set to YES to skip the selenium screen capture
+  skip_capture:
+
+  # Timeout in seconds for capture requests.
+  capture_timeout: 10
+
+  # Set to close the browser session only if an error is raised during execution (not verify)
+  keep_alive: YES
+
+  ide:
+  # Use this port for IDE executions.
+    port: 4445
+    # Minutes to limi tthe full IDE suite execution.
+    # For individual action timeout, need to use "setTimeout millisecs" in test html
+    suite_timeout: 5 # 30 # Default
+  # Applicable only to IDE tests, setting this will skip the GUI execution and
+  # will only regenerate the test HTML files based on the environments so that
+  # they can be manually debugged or executed via the IDE.
+    generate: # C-L,R-U:opt
+
+    # Set NO to remove *.gen* files after a test passes.
+    keep_generated_files: YES
+
+    # Browser to use to show IDE test results. Default inherits from firefox_executable
+    result_browser: explorer # iexplore
+
+    show_result:
+
+#####################################################################
+#####   PARAMETERS BELOW TYPICALLY VARIES ACROSS ENVIRONMENTS   #####
+#####################################################################
+
+
+# Application environment information
+env:
+  type: qa # production
+  web:
+    host: # Fully qualified host name for web host
+    logs: # ["/var/log/messages", "/var/log/httpd/error_log"] # E-V:opt Array of logs to search for errors
+sql:
+  # Choose the DB to connect. When nil, Omysql will raise OatsMysqlNoConnect
+  # causing such tests to be classified as SKIPPED unless the callser rescues it.
+  connect: main
+  main:
+    host:
+    user:
+    password:
+    database:
+
+# Oats::Keywords.process Processes values based  on the
+# <class>:
+#   <list>:
+#    keywords:
+#    <oats_data>
+#<class>:
+keywords:
+  class: # Class file containing methods for each keyword
+  list: # Optional list name under which to find the keywords and data in Oats.data
+
+
+###############
+
+## Used to ssh to servers via PuTTy/plink and execute scripts or access log files
+## See Oats.rssh documentation for more details
+#ssh:
+#  # Putty connection data Login username
+#  username: loguser
+#  # Name for env host or putty session on which to execute cmd_file
+#   # Plink must be setup to auto-login as root_sudo_username into the host
+#  root_sudo_username: # LDAP username to sudo if username is 'root'.

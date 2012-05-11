@@ -1,0 +1,11 @@
+# Sets passwords of the user for the environments defined in the environments
+---
+Campaign:
+  SignIn:
+    password: TestCampaignPassword
+    user: TestCampaignUser
+
+Admin:
+  SignIn:
+    password: TestAdminPassword
+    user: TestAdminUser

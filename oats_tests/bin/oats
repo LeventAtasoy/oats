@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+unless defined? Gem
+  require 'rubygems'
+  gem 'oats'
+end
+require 'oats'
+ENV['OATS_TESTS'] ||= File.expand_path(File.dirname(File.dirname(__FILE__)))
+Oats.run

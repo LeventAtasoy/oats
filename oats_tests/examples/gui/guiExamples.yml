@@ -1,0 +1,7 @@
+# Tests to demo and verify various OATS framework features.
+---
+execution:
+  test_files:
+
+    - examples/webdriverGoogle.rb # Selenium webdriver code using oats apis
+    - examples/seleniumGoogle.rb # native webdriver code

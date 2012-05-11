@@ -1,0 +1,30 @@
+# For full documentation on OATS, please refer to https://github.com/latasoy/oats
+
+keywords:
+  class: # Class file containing methods for each keyword
+  list: # List name under which to find the keywords and data in Oats.data
+
+SampleXlLists:
+  SampleXlList-1:
+    data1: init-value1
+    data2: init-value2
+    data3: init-value3
+
+env:
+  type: qa # production
+  web:
+    host:
+
+sql:
+  # Choose the DB to connect. When nil, Oats.mysql will raise OatsMysqlNoConnect
+  # causing such tests to be classified as SKIPPED unless the callser rescues it.
+  connect: main
+  main:
+    host: mysql.your-network.com
+    user: qauser
+    password: dbPasswd
+    database: dbName
+
+imap:
+  username: testid@gmail.com
+  password: testpasswd

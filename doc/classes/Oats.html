@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Oats</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Oats</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/oats_rb.html">
+                lib/oats.rb
+                </a>
+        <br />
+                <a href="../files/lib/oats_data_rb.html">
+                lib/oats_data.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Return oats.yml entry for given string or the whole hash
+</p>
+<pre>
+ Oats.data['selenium']['browser'] == 'firefox'
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000144">assert</a>&nbsp;&nbsp;
+      <a href="#M000142">assert_equal</a>&nbsp;&nbsp;
+      <a href="#M000143">assert_not_equal</a>&nbsp;&nbsp;
+      <a href="#M000145">browser</a>&nbsp;&nbsp;
+      <a href="#M000168">click</a>&nbsp;&nbsp;
+      <a href="#M000149">context</a>&nbsp;&nbsp;
+      <a href="#M000148">data</a>&nbsp;&nbsp;
+      <a href="#M000169">data</a>&nbsp;&nbsp;
+      <a href="#M000150">debug</a>&nbsp;&nbsp;
+      <a href="#M000151">error</a>&nbsp;&nbsp;
+      <a href="#M000152">exit</a>&nbsp;&nbsp;
+      <a href="#M000154">file</a>&nbsp;&nbsp;
+      <a href="#M000155">filter</a>&nbsp;&nbsp;
+      <a href="#M000157">global</a>&nbsp;&nbsp;
+      <a href="#M000156">ide</a>&nbsp;&nbsp;
+      <a href="#M000158">info</a>&nbsp;&nbsp;
+      <a href="#M000160">mysql</a>&nbsp;&nbsp;
+      <a href="#M000147">oload</a>&nbsp;&nbsp;
+      <a href="#M000159">out_file</a>&nbsp;&nbsp;
+      <a href="#M000162">rput</a>&nbsp;&nbsp;
+      <a href="#M000161">rssh</a>&nbsp;&nbsp;
+      <a href="#M000164">selenium</a>&nbsp;&nbsp;
+      <a href="#M000153">skip_unless_previous_test_is_ok</a>&nbsp;&nbsp;
+      <a href="#M000146">system_capture</a>&nbsp;&nbsp;
+      <a href="#M000163">test</a>&nbsp;&nbsp;
+      <a href="#M000166">unique</a>&nbsp;&nbsp;
+      <a href="#M000165">wait_until</a>&nbsp;&nbsp;
+      <a href="#M000167">warn</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Oats/OatsFilterError.html" class="link">Oats::OatsFilterError</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000144.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000144.html');return false;">
+          <span class="method-name">assert</span><span class="method-args">(test, message = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Raises <a href="OatsTestError.html">OatsTestError</a> unless <a
+href="Oats.html#M000163">test</a> is true
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000142.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000142.html');return false;">
+          <span class="method-name">assert_equal</span><span class="method-args">(expected, actual, pre_message = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Raises <a href="OatsAssertError.html">OatsAssertError</a> unless two
+parameters are &#8217;==&#8217; If given pre_message preceeds the standard
+message showing expected and actuals. Example: <a
+href="Oats.html#M000142">Oats.assert_equal</a>(old_count, new_count,
+&quot;After deletion, creative counts did not decrease.&quot;)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000143.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000143.html');return false;">
+          <span class="method-name">assert_not_equal</span><span class="method-args">(expected, actual, pre_message = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000145.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000145.html');return false;">
+          <span class="method-name">browser</span><span class="method-args">(url_or_site = nil, new_browser = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a <a href="Oats.html#M000145">browser</a> (<a
+href="Oats.html#M000164">selenium</a> driver), logging into RL site or
+opening URL. The <a href="Oats.html#M000145">browser</a> is retrieved and
+reused in the subsequent rtest.*rb executions, but it is automatically
+closed at the end of each <a href="Oats.html">Oats</a> <a
+href="Oats.html#M000163">test</a>. If exists, the <a
+href="Oats.html#M000145">browser</a> is also accessable via the <a
+href="Oats.html#M000157">global</a> $<a
+href="Oats.html#M000164">selenium</a>.
+</p>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">url_or_site:</td><td>A URL, or site:
+
+<pre>
+      [Campaign, Admin, Vendor, VendorApprover,
+      Solutions, SolutionsApprover ]
+</pre>
+<p>
+Required parameter for the first invocation, can be omitted in subsequent
+invocations to get the current <a href="Oats.html#M000145">browser</a>.
+Re-issueing it w/o logging out of the same site will reopen the landing
+page. A different site will cause logout of the old site and login to the
+new site. User will be created if it does not already exists.
+</p>
+</td></tr>
+<tr><td valign="top">new_browser:</td><td>If true, will create a new <a href="Oats.html#M000145">browser</a> while
+keeping the old one.
+
+</td></tr>
+</table>
+<p>
+Methods in addition to the <a href="Oats.html#M000164">selenium</a> driver
+methods are:
+</p>
+<table>
+<tr><td valign="top">login(site):</td><td>Same as <a href="Oats.html#M000145">Oats.browser(url_or_site)</a>, for a
+site. Returns nil if site is not recognized.
+
+</td></tr>
+<tr><td valign="top">logout:</td><td>Logs out of the last logged in sites if any and returns <a
+href="Oats.html#M000145">browser</a>. Logout may not succeed if logout
+button is unavailable.
+
+</td></tr>
+</table>
+<p>
+Examples:
+</p>
+<pre>
+ browser = Oats.browser('Campaign')
+ browser.click(&quot;link=View Advertisers&quot;)
+ browser.login('Admin')
+ browser.logout
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000168" class="method-detail">
+        <a name="M000168"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000168.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000168.html');return false;">
+          <span class="method-name">click</span><span class="method-args">(locator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Simulate a user hover mouver over a object, <a
+href="Oats.html#M000168">click</a> it using left key and release it Use
+this when a standard <a href="Oats.html#M000164">selenium</a> <a
+href="Oats.html#M000168">click</a> command doesn&#8216;t work
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000149" class="method-detail">
+        <a name="M000149"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000149.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000149.html');return false;">
+          <span class="method-name">context</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns hash object containing <a href="Oats.html#M000158">info</a> about
+persistent oats internal variables for the complete oats execution.
+Contents of <a href="Oats.html#M000149">Oats.context</a> are also persisted
+into the results.dump in the results directory.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.context['stop_oats'] == true #  Request stopping oats after current test
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000148" class="method-detail">
+        <a name="M000148"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000148.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000148.html');return false;">
+          <span class="method-name">data</span><span class="method-args">(map_string = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Hash.html">Hash</a> object providing access to the oats.yml state
+entries at the time of <a href="Oats.html#M000163">test</a> execution. Note
+that <a href="Oats.html#M000148">Oats.data</a> contents are isolated from
+modification across tests.
+</p>
+<pre>
+ map_string:: Period seperated YAML path into the current Oats.data
+   If not specified, returns the full hash.
+</pre>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.data 'selenium.browser' == 'firefox
+ Oats.data['selenium']['browser'] == 'firefox'
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000169" class="method-detail">
+        <a name="M000169"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000169.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000169.html');return false;">
+          <span class="method-name">data</span><span class="method-args">(map_str = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000150" class="method-detail">
+        <a name="M000150"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000150.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000150.html');return false;">
+          <span class="method-name">debug</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Output <a href="Oats.html#M000150">debug</a> level log entries.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000151" class="method-detail">
+        <a name="M000151"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000151.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000151.html');return false;">
+          <span class="method-name">error</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Output <a href="Oats.html#M000151">error</a> level log entries.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000152" class="method-detail">
+        <a name="M000152"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000152.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000152.html');return false;">
+          <span class="method-name">exit</span><span class="method-args">(message=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Exit a OATS Test from the middle without throwing an <a
+href="Oats.html#M000151">error</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000154" class="method-detail">
+        <a name="M000154"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000154.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000154.html');return false;">
+          <span class="method-name">file</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns Windows <a href="Oats.html#M000154">file</a> path of a <a
+href="Oats.html#M000154">file</a> name to be used with <a
+href="Oats.html#M000154">file</a> uploads.
+</p>
+<table>
+<tr><td valign="top">name:</td><td>globbed <a href="Oats.html#M000154">file</a> name inside the <a
+href="Oats.html#M000163">test</a> directory or under test/data folder.
+
+</td></tr>
+</table>
+<p>
+Examples: image = <a href="Oats.html#M000154">Oats.file</a>
+&quot;125x125_GIF_4K.gif&quot;
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000155" class="method-detail">
+        <a name="M000155"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000155.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000155.html');return false;">
+          <span class="method-name">filter</span><span class="method-args">(in_file, *param) {|line| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Removes the variabilities from files in &#8216;<a
+href="Oats.html#M000163">Oats.test</a>.result&#8217; by applying prescribed
+<a href="Oats.html#M000155">filter</a> to each line of <a
+href="Oats.html#M000154">file</a> and replaces it. The return value is the
+filtered contents of the <a href="Oats.html#M000154">file</a>. The filtered
+contents are also placed in test.out to be compared as expected results.
+Errors will raise <a href="Oats/OatsFilterError.html">OatsFilterError</a>.
+</p>
+<ul>
+<li>With a block replaces each line with result of the block.
+
+</li>
+<li>Without block, uses a pattern and replacement parameters for filtering.
+
+</li>
+<li>If pattern and replacement is missing it copies the whole input <a
+href="Oats.html#M000154">file</a>.
+
+</li>
+<li>If in_file is a string, no output <a href="Oats.html#M000154">file</a> is
+generated unless <a href="Oats.html#M000159">out_file</a> is given.
+
+</li>
+</ul>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">in_file:</td><td>Name or path of <a href="Oats.html#M000154">file</a> that is to be filtered
+and moved to <a href="Oats.html#M000163">Oats.test</a>.out. It can also be
+String Array or String containing the actual contents. If the <a
+href="Oats.html#M000154">file</a> contains a space, it is assumed to be
+contents. Missing input or <a href="Oats.html#M000154">file</a> raises <a
+href="Oats/OatsFilterError.html">OatsFilterError</a>.
+
+</td></tr>
+<tr><td valign="top"><a href="Oats.html#M000159">out_file</a>:</td><td>File name to use for the output <a href="Oats.html#M000154">file</a>. This
+is an optional parameter which can be skipped. If skipped, basename of the
+infile is used.
+
+</td></tr>
+<tr><td valign="top">pattern:</td><td>A regexp pattern to pass on to a gsub or grep method. Grep is used if
+replacement parameter is unspecified, in other words
+file_contents.grep(/pattern_string/)
+
+</td></tr>
+<tr><td valign="top">replacement:</td><td>Fixed string to replace the pattern by calling
+file_contents.gsub(pattern,replacement)
+
+</td></tr>
+</table>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.filter('input.txt') # Moves input.txt to test.out for auto-verification.
+ Oats.filter('input.txt','output.txt,/this/) # Considers only lines containing 'this'
+ Oats.filter('input.txt',/this.*that/,'thisAndThat') # Replaces indicated content
+ Oats.filter('input.txt') { |line| line unless line == 'this\n' } # Omits 'this\n' line
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000157.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000157.html');return false;">
+          <span class="method-name">global</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Obsolete. Create classes and use class variables to carry over <a
+href="Oats.html#M000157">global</a> <a href="Oats.html#M000158">info</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000156.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000156.html');return false;">
+          <span class="method-name">ide</span><span class="method-args">(input_suite_path, hash = nil )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Runs the input_suite_path from a particular <a
+href="Oats.html#M000163">Oats.test</a>. Assumes <a
+href="Oats.html#M000148">Oats.data</a> is initialized for <a
+href="Oats.html#M000163">Oats.test</a>
+</p>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">input_suite_path:</td><td>path to the IDE suite HTML
+
+</td></tr>
+<tr><td valign="top">hash:</td><td>list from =&gt; to values to use for regeneration of the included <a
+href="Oats.html#M000163">test</a>
+
+</td></tr>
+</table>
+<p>
+cases.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.ide.run('../campaign/rtest.html', 'this_token&quot; =&gt; 'that_value')
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000158.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000158.html');return false;">
+          <span class="method-name">info</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Output <a href="Oats.html#M000158">info</a> level log entries.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000160.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000160.html');return false;">
+          <span class="method-name">mysql</span><span class="method-args">(*sql_input)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Examples
+</p>
+<pre>
+ Oats.mysql('input.sql')  =&gt; produces input.txt and returns its contents
+ Oats.mysql('input.sql', 'output.txt)  =&gt; produces output.txt and returns its contents
+ mysql_results = Oats.mysql &quot;SELECT bu_lastname, FROM BusinessUser where bu_email='levent.atasoy@oats.org;XYZ'&quot;
+ result = Oats.mysql(my_sql_statement)
+ result.is_empty? # true if SQL returns nothing
+ result.last # string value for the last row of a single select statement
+ result[1][2] # second column for the first return result row
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000147.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000147.html');return false;">
+          <span class="method-name">oload</span><span class="method-args">(ruby_file_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Loads the indicated ruby <a href="Oats.html#M000154">file</a> <a
+href="Oats.html#M000154">file</a> after locating it in the tests directory.
+</p>
+<p>
+Parameters: ruby_file_name: Name or path snippet of a the ruby <a
+href="Oats.html#M000154">file</a>. Could be a glob.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.oload 'rtest_AddCreatives'
+ Oats.oload 'verifyAddCreatives/rtest_Add*'
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000159.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000159.html');return false;">
+          <span class="method-name">out_file</span><span class="method-args">(file_name, output = nil, is_assert = nil) {|f| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Oats.html#M000154">file</a> handle to output into the
+out directory with given name Returns the comparison with any previous ok
+<a href="Oats.html#M000154">file</a> if exists.
+</p>
+<p>
+Parameters:
+</p>
+<pre>
+  file_name: Appends '_&lt;count&gt;' to the this name if the file already exists.
+  output: String to output, must supply only if a block is not given.
+  is_assert: If set to true to assert failure when ok file exists and differs.
+ Examples:
+</pre>
+<p>
+<a href="Oats.html#M000159">Oats.out_file</a>(&#8216;my_file.txt&#8217;,
+&quot;Check this string&quot; } <a
+href="Oats.html#M000159">Oats.out_file</a>(&#8216;my_file.txt&#8217;) { |f|
+f.puts &quot;Check this string&quot; }
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000162.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000162.html');return false;">
+          <span class="method-name">rput</span><span class="method-args">(content_file, target_file_path = nil, host = nil, username = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <pre>
+ Copies a file to the server via ssh using PuTTy/plink
+ Assumes pageant with keys for the username is up and running.
+ Returns the result of the standard output and standard error, which is
+ typically empty.
+</pre>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">content_file:</td><td>Path of the content <a href="Oats.html#M000154">file</a>, or the content
+string if <a href="Oats.html#M000154">file</a>
+
+</td></tr>
+</table>
+<pre>
+      does not exist.
+</pre>
+<table>
+<tr><td valign="top">target_file_path:</td><td>Path of the <a href="Oats.html#M000154">file</a> on the server
+
+</td></tr>
+</table>
+<p>
+host/session: Same parameter as in <a
+href="Oats.html#M000161">Oats.rssh</a>
+</p>
+<table>
+<tr><td valign="top">username:</td><td>Same parameter as in <a href="Oats.html#M000161">Oats.rssh</a>
+
+</td></tr>
+</table>
+<p>
+Examples
+</p>
+<pre>
+ Oats.rput 'xxx     xxxxxxx', '/tmp/myfile.txt' , 'qapp001.dyn.wh.oats.org'
+ Oats.rput 'c:/qa/oats-user.yml', '/tmp/myfile.txt' , 'qapp001.dyn.wh.oats.org'
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000161.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000161.html');return false;">
+          <span class="method-name">rssh</span><span class="method-args">(cmd_file, dir = nil , host = nil, username = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <pre>
+ Executes a script on an server via ssh using PuTTy/plink
+ Assumes pageant with keys for the username is up and running.
+ Returns the result of the standard output and standard error.
+</pre>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">cmd_file:</td><td>Path of the executable relative to dir
+
+</td></tr>
+<tr><td valign="top">dir:</td><td>Directory to cd prior to executing cmd_file. Home of user if omitted.
+
+</td></tr>
+</table>
+<p>
+host/session: Name for putty on which to execute cmd_file. Defaults via <a
+href="Oats.html#M000148">Oats.data</a>
+</p>
+<table>
+<tr><td valign="top">username:</td><td>Putty connection <a href="Oats.html#M000148">data</a> Login username.
+Defaults via <a href="Oats.html#M000148">Oats.data</a>.
+
+</td></tr>
+</table>
+<pre>
+      If username is 'root', executes the cmd_file as sudo root with
+      Oats.data[ssh.root_sudo_username].
+      root_sudo_username must be able to
+       - access host via Plink/Pageant
+       - sudo -s on the host
+       - cd to dir without being root.
+</pre>
+<p>
+Examples
+</p>
+<pre>
+ out = Oats.rssh('/rl/www/vhosts/baselevel/automation/run_qr_transfer.pl')
+ Oats.rssh('./run_qr_transfer.pl', /rl/www/vhosts/baselevel/automation')
+ Oats.rssh('cat .config.yaml','/var/www/vhosts/baselevel')
+ Oats.rssh('ls httpd', '/var/log', nil, 'root')
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000164.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000164.html');return false;">
+          <span class="method-name">selenium</span><span class="method-args">(mapping, method = :type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an intermediary object that invokes <a
+href="Oats.html#M000164">selenium</a> with fields optionally mapped based
+on YAML entries. Subsequent invocations (with optional method override)
+</p>
+<pre>
+    object.invoke(field,value, method)
+</pre>
+<p>
+will invoke &#8217;$selenium.method field, value&#8216;
+</p>
+<p>
+Parameters:
+</p>
+<pre>
+ mapping: A string in which YAML nodes are separated by '.' and pointing to
+           the final hash node in Oats.data that containing the field mappings.
+ method:  Default method invoked by selenium. Default is ':type'
+          Methods for 'type' and 'select' can also be called directly
+</pre>
+<p>
+Examples:
+</p>
+<pre>
+ sel = Oats.selenium &quot;SolutionsVendor.create_vendor&quot;
+ sel.invoke &quot;address1&quot;, &quot;21700 Oxnard Street&quot;
+  Will replace address1 with contents of SolutionsVendor:create_vendor:address1
+  in Oats.data
+ sel.type &quot;address1&quot;, &quot;21700 Oxnard Street&quot;
+ sel.select &quot;state&quot;, &quot;label=CALIFORNIA&quot;
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000153" class="method-detail">
+        <a name="M000153"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000153.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000153.html');return false;">
+          <span class="method-name">skip_unless_previous_test_is_ok</span><span class="method-args">(or_if_true = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Raise <a href="OatsTestExit.html">OatsTestExit</a> and SKIP current <a
+href="Oats.html#M000163">test</a> if there was a previous <a
+href="Oats.html#M000163">test</a> and if previous <a
+href="Oats.html#M000163">test</a> dif not pass or or_if_true is true
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000146.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000146.html');return false;">
+          <span class="method-name">system_capture</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Capture system screenshot and logs
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000163.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000163.html');return false;">
+          <span class="method-name">test</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the current <a href="TestData.html">TestData</a> object. You can
+use the public instance methods of <a href="TestData.html">TestData</a> to
+access to <a href="Oats.html#M000163">test</a> path components or other <a
+href="Oats.html#M000163">test</a> information.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000166.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000166.html');return false;">
+          <span class="method-name">unique</span><span class="method-args">(prefix = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a <a href="Oats.html#M000166">unique</a> (within a second) string
+for each host and input name. Same id will be returned if called from the
+same <a href="Oats.html#M000163">test</a> of the host with the same prefix.
+</p>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">prefix:</td><td>Prefix string to use.
+
+</td></tr>
+</table>
+<p>
+Examples:
+</p>
+<pre>
+ Oats.unique          =&gt; &quot;LATASOYHP_22220703&quot;
+ Oats.unique('test')  =&gt; &quot;test_22220732&quot;
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000165.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000165.html');return false;">
+          <span class="method-name">wait_until</span><span class="method-args">(*args) {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Samples the given block each second until it returns true or times out.
+Raises <a href="OatsTestError.html">OatsTestError</a> if times out or
+returns true.
+</p>
+<p>
+Parameters (also allowed as <a href="Hash.html">Hash</a>):
+</p>
+<pre>
+ message: Exception message to issue upon timeout.
+ seconds: For timeout, defaults from Oats.data selenium.command_timeout
+ is_return: Returns false if times out instead of raising OatsTestError.
+</pre>
+<p>
+Example:
+</p>
+<pre>
+ Oats.wait_until(&quot;SolutionsVendor.create_vendor&quot;, 100) do
+   count = count + 1;  count == 10
+ end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000167" class="method-detail">
+        <a name="M000167"></a>
+
+        <div class="method-heading">
+          <a href="Oats.src/M000167.html" target="Code" class="method-signature"
+            onclick="popupCode('Oats.src/M000167.html');return false;">
+          <span class="method-name">warn</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Output warning level log entries.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

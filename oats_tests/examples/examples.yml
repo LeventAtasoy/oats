@@ -1,0 +1,13 @@
+
+# Tests to demo and verify various OATS framework features.
+---
+execution:
+  test_files:
+
+    - examples/occTest/occTestlist.yml # Basic execution
+
+    - examples/core/coreExamples.yml
+
+    - examples/gui/guiExamples.yml
+
+    - examples/gui/keywordExamples.yml

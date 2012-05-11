@@ -1,0 +1,17 @@
+source "http://rubygems.org"
+
+# OATS Framework
+gem 'oats' unless defined?(OATS_GEM_IS_ALREADY_INCLUDED)
+
+## List GEMs needed by the AUT goes here
+##
+## To run XL based tests
+gem 'spreadsheet'
+require 'sample_xl_lists' # Include XL based classes to be used.
+#
+gem 'selenium-webdriver' # To run WebDriver tests
+gem 'json' # To run WebDriver tests w/o ok_json to improve performance
+#
+#gem 'nokogiri' # http://nokogiri.org/tutorials
+#gem 'rest-client'
+#gem 'watir-webdriver'

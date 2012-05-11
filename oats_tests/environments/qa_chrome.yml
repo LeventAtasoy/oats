@@ -1,0 +1,4 @@
+include_yaml: environments/qa.yml
+
+selenium:
+  browser_type: chrome

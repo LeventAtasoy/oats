@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Ragent</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Ragent</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/ragent_rb.html">
+                lib/ragent.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                EventMachine::Connection
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000071">force_close_connection</a>&nbsp;&nbsp;
+      <a href="#M000075">get_oats_info</a>&nbsp;&nbsp;
+      <a href="#M000070">introduce_self_to_occ</a>&nbsp;&nbsp;
+      <a href="#M000067">is_busy</a>&nbsp;&nbsp;
+      <a href="#M000068">is_busy=</a>&nbsp;&nbsp;
+      <a href="#M000066">is_occ_no_response</a>&nbsp;&nbsp;
+      <a href="#M000065">is_occ_no_response=</a>&nbsp;&nbsp;
+      <a href="#M000078">logger</a>&nbsp;&nbsp;
+      <a href="#M000073">new</a>&nbsp;&nbsp;
+      <a href="#M000076">receive_object</a>&nbsp;&nbsp;
+      <a href="#M000074">regen_results_summary!</a>&nbsp;&nbsp;
+      <a href="#M000079">run_next_job</a>&nbsp;&nbsp;
+      <a href="#M000077">server_logger</a>&nbsp;&nbsp;
+      <a href="#M000072">snapshot_oats_info</a>&nbsp;&nbsp;
+      <a href="#M000069">start</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">EM::P::ObjectProtocol</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">job_count</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">request</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000071.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000071.html');return false;">
+          <span class="method-name">force_close_connection</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000070.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000070.html');return false;">
+          <span class="method-name">introduce_self_to_occ</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000067.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000067.html');return false;">
+          <span class="method-name">is_busy</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000068.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000068.html');return false;">
+          <span class="method-name">is_busy=</span><span class="method-args">(is_busy)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000066.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000066.html');return false;">
+          <span class="method-name">is_occ_no_response</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000065.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000065.html');return false;">
+          <span class="method-name">is_occ_no_response=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+def send_object(obj)
+</p>
+<pre>
+  ser = Marshal.dump(obj)
+  send_data(ser)
+</pre>
+<p>
+end def receive_data(ser)
+</p>
+<pre>
+  obj = Marshal.load(ser)
+  receive_object(obj)
+</pre>
+<p>
+end
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000078" class="method-detail">
+        <a name="M000078"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000078.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000078.html');return false;">
+          <span class="method-name">logger</span><span class="method-args">(arg, rid = nil, trail =nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000073.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000073.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(occ_default)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000072.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000072.html');return false;">
+          <span class="method-name">snapshot_oats_info</span><span class="method-args">(oats_info)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000069.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000069.html');return false;">
+          <span class="method-name">start</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000075.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000075.html');return false;">
+          <span class="method-name">get_oats_info</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Results_status: Early, Partial, Current, Archived, Missing, Error
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000076.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000076.html');return false;">
+          <span class="method-name">receive_object</span><span class="method-args">(request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000074.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000074.html');return false;">
+          <span class="method-name">regen_results_summary!</span><span class="method-args">(oats_info)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates summary data into the input oats_info
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000079" class="method-detail">
+        <a name="M000079"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000079.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000079.html');return false;">
+          <span class="method-name">run_next_job</span><span class="method-args">(prev_jobid = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000077" class="method-detail">
+        <a name="M000077"></a>
+
+        <div class="method-heading">
+          <a href="Ragent.src/M000077.html" target="Code" class="method-signature"
+            onclick="popupCode('Ragent.src/M000077.html');return false;">
+          <span class="method-name">server_logger</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

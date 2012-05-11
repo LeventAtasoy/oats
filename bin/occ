@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#  This script is used to start OCC
+
+# rake assets:precompile  # Issue in occ folder to precompile assets
+
+# # If spawned from OCC, running 1.9.2, we need to switch to 1.8 since
+# # can't run oauth in 1.9.2. Assume RVM is installed and the system ruby is 1.8.X
+# if [ -z "$(echo "$rvm_ruby_global_gems_path" | grep ruby-1.9.2)" ] && [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+#     source "$HOME/.rvm/scripts/rvm" # Load RVM function
+#     rvm 1.9.2
+# fi
+
+[ -f $HOME_DIR/.occ_config ] && source $HOME_DIR/.occ_config
+
+#[ "$RAILS_ENV"  ] || export RAILS_ENV="production"
+
+if [ -z "$OCC_HOME" ]; then
+    [ -d $HOME/occ ] &&  OCC_HOME="$HOME/occ"
+    [ -d $HOME/NetBeansProjects/occ ] &&  OCC_HOME="$HOME/NetBeansProjects/occ"
+fi
+[ "$OS" ] || export OS=$(uname)
+
+export PATH=$JRUBY_HOME/bin:$PATH
+
+if [ "$OS" != "Windows_NT" ]; then
+    if [ -z "$SSH_AGENT_PID" ] || ! ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null ; then
+	echo "Should start_agent for SSH first"
+	# exit 1
+    fi
+     ssh-add -l ||  echo "*** WARNING *** Please add your ssh keys ssh-add"
+fi
+
+cd $OCC_HOME
+ruby script/rails server mongrel # -p 4000
+#mongrel_rails start -e production -p 3000 --log log\production.log
