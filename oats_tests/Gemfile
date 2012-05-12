@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+#source "http://rubygems.org"
 
 # OATS Framework
 gem 'oats' unless defined?(OATS_GEM_IS_ALREADY_INCLUDED)

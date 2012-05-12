@@ -81,8 +81,8 @@ execution:
   # Execution of a test is skipped if this evaluates to true.
   no_run:  # C-L,R-U:opt
 
-  # Primary component host in the env from which to pick build version to display in OCC
-  build_version: # web
+  # List of component hosts in the env from which to pick build version and display in OCC
+  build_versions: (Oats.global and Oats.global['agent']) ? Array.new(1,'web'):Array.new  # Avoid wasting time for dev
 
   # Controls the amount of logs output to the log files.
   log_level: DEBUG # INFO, WARN, ERROR, FATAL # R-U:opt

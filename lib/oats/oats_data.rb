@@ -132,7 +132,8 @@ module Oats
         oats_default['_'] = {}
         oats_default['_']['load_history']  = [ OatsDataLoadHistoryItem.new(@@oats_def_file) ]
         $oats = oats_default # $oats now has data resolved and has load_history
-        aut_dir_test = oats_data['execution']['dir_tests'] || oats_default['execution']['dir_tests']
+        # For some reason OCC/Ubuntu needed the environment but not Mac
+        aut_dir_test = ENV['OATS_TESTS'] || oats_data['execution']['dir_tests'] || oats_default['execution']['dir_tests']
         if aut_dir_test
           aut_ini = aut_dir_test + '/aut_ini.yml'
           oats_default['include_yaml'] ||= aut_ini if File.exists?(aut_ini)
