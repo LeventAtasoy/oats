@@ -29,9 +29,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r'
   s.add_dependency 'net-http-persistent' unless RUBY_VERSION !~ /^1.9/ # Speed up 1.8 connections
 
-  if ENV['OS'] == 'Windows_NT'
+  if ENV['OS'] == 'Windows_NT' or ENV['OATS_AGENT'] # Triggers possible intent to use agent
     s.add_dependency 'win32-process'
-  elsif $oats_execution and $oats_execution['options']
+  else
     s.add_dependency 'json'
     s.add_dependency 'em-http-request'
     if ENV['OS'] == 'Linux' # Seems to be needed by Ubuntu

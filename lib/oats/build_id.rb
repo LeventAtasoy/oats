@@ -1,10 +1,9 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
+# Should be overridden by the user if desired
 module Oats
 
   module BuildId
     def BuildId.generate
+      return
       dir_results = $oats['execution']['dir_results']
       env_name = $oats['env']['name']
       return unless env_name and $oats['execution']['build_version']
