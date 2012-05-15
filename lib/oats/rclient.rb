@@ -24,7 +24,6 @@ module Oats
     end
 
     def client_logger(arg)
-      return unless $oats['execution']['occ']['log_client']
       $log.info arg + " #{@request[:id]}@#{@host} at " + Time.now.strftime("%y-%m-%d %H:%M:%S")
     end
 

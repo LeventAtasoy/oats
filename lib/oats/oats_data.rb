@@ -1,7 +1,4 @@
 #require 'yaml'            # http://www.ruby-doc.org/core/classes/YAML.html
-require 'oats/util'
-require 'oats/oats_exceptions'
-
 module Oats
 
   # Keeps history of YAML files loaded into the global $oats.

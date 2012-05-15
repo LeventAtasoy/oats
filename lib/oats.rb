@@ -13,7 +13,9 @@ $oats_execution['options'] = options
 if options['execution:occ:agent_nickname'] || options['execution:occ:agent_port'] || options['_:command']
   $oats_execution['agent'] = options  # Existence of this from now on implies running in agent mode
 end
-ENV['OATS_TESTS'] ||= options['_:dir_tests'] || File.expand_path('../oats_tests', File.dirname(__FILE__) )
+
+ENV['OATS_HOME'] ||= File.expand_path( '..', File.dirname(__FILE__) )
+ENV['OATS_TESTS'] ||= options['_:dir_tests'] || (ENV['OATS_HOME'] + '/oats_tests')
 
 $:.unshift(ENV['OATS_TESTS'] + '/lib')
 
@@ -23,13 +25,12 @@ require 'oats/keywords'
 require 'rubygems'
 require "bundler/setup"
 #Bundler.require
-
-
+#gem 'log4r'
 #require 'deep_merge' # Need modified version of https://github.com/danielsdeleo/deep_merge for 1.9 compatibility
 require 'log4r'  # http://log4r.sourceforge.net/rdoc/index.html
 
 require 'oats/driver'
 require 'oats/oats_lock'
 
-ENV['OATS_HOME'] ||= Oats::Util.expand_path( '..', File.dirname(__FILE__) )
+#ENV['OATS_HOME'] ||= Oats::Util.expand_path( '..', File.dirname(__FILE__) )
 require 'oats/oats' #  Interface methods to user methods implemented in other modules

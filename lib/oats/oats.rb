@@ -1,3 +1,8 @@
+require 'oats/util'
+require 'oats/oats_exceptions'
+# Need these set for OCC when this is required from OCC
+ENV['OATS_HOME'] ||= File.expand_path( '..', File.dirname(__FILE__) )
+ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
 
 module Oats
 
@@ -600,10 +605,7 @@ module Oats
   #  Oats.unique(Oats.unique('this'))  => "this-835805082"
   def Oats.unique(prefix = nil)
     agent = $oats_execution['agent'] ? $oats_execution['agent']['execution:occ:agent_nickname'] : nil
-    unless prefix or agent
-      ENV['HOSTNAME'] = ENV['COMPUTERNAME'] unless ENV['HOSTNAME']
-      prefix = ENV['HOSTNAME'].sub(/\..*/,'').downcase
-    end
+    prefix = ENV['HOSTNAME'].sub(/\..*/,'').downcase unless prefix or agent
     postfix =  (agent ? agent + '_' : '') + Time.now.to_i.to_s[-8..-1]
     if Oats.global['unique']
       extra = Oats.global['unique'].sub(/#{postfix}/,'')

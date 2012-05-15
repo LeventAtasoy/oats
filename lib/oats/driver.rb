@@ -11,6 +11,35 @@ module Oats
 
   module Driver
 
+    def Driver.agent
+      ENV['KILL_AGENT' ] = 'KILL_AGENT' if $oats_execution['options']["_:kill_agent"]
+      ENV['OATS_USER' ] = $oats_execution['options']["_:oats_user"] if $oats_execution['options']["_:oats_user"]
+      ENV['OATS_REPOSITORY_VERSION' ] = $oats_execution['options']["_:repository_version"] if $oats_execution['options']["_:repository_version"]
+      nick = $oats_execution['options']["execution:occ:agent_nickname"]
+      ENV['OATS_AGENT_NICKNAME' ] = nick if nick
+      port = $oats_execution['options']["execution:occ:agent_port"].to_s
+      ENV['OATS_AGENT_PORT'] = port if port
+      dir = ENV['HOME'] + "/results_archive/#{nick}/agent_logs"
+      FileUtils.mkdir_p(dir) unless File.exists?(dir)
+      ENV['CONFIG_FILE'] = "#{dir}/config-agent.txt"
+      dat = `date +'%m%d%H%M%S'`.chomp
+      log_file = "#{dir}/agent_#{dat}.log"
+      ENV['LOGFILE'] = log_file
+      agent_log_file = "#{dir}/agent.log"
+      cmd = ENV['OATS_HOME'] + '/bin/agent'
+      pid = `#{cmd}`.chomp
+      puts "Running PID: " + pid + ', Log: ' + log_file
+      #      echo "$NICKNAME $PORT $PID $DISPLAY_NUM"  >| $config_agent_file
+      10.times do
+        if File.exist? log_file
+          FileUtils.rm_f agent_log_file
+          FileUtils.ln log_file, agent_log_file
+          break
+        end
+        sleep 1
+      end
+    end
+
     # Main method that starts oats execution in either agent or standalone mode.
     # Parameters are command-line arguments
     # Returns oats_info object containing execution results
@@ -444,7 +473,7 @@ module Oats
       msg = " in worksheet '#{ws}' of: #{xl}"
       sheet.collect do |row|
         if test_index
-#          Oats.assert row[test_index], "Missing value in column '#{test_header}'" + msg
+          #          Oats.assert row[test_index], "Missing value in column '#{test_header}'" + msg
           row[test_index] if row[execute_index] and (row[execute_index] == true or row[execute_index].downcase == 'true')
         else
           row.each_with_index do |col,idx|

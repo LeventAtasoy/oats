@@ -52,6 +52,12 @@ module Oats
     # If dir is false, do not return a directory #
     def TestData.locate(test_file, is_dir = false)
       option ||= {}
+      # Don't rely on $oats when called from OCC
+      dir_tests = if $oats and $oats['execution'] and $oats['execution']['dir_tests']
+        $oats['execution']['dir_tests']
+      else
+        ENV['OATS_TESTS']
+      end
       Oats.assert test_file, "Test File must be non-nil"
       extn = File.extname(test_file)
       extn = nil if extn == ''
@@ -69,20 +75,17 @@ module Oats
 
         # Relative path
 
-        if is_dir.instance_of?(String) and is_dir != $oats['execution']['dir_tests']
-          dir = "{#{is_dir},#{$oats['execution']['dir_tests']}}"
-        else
-          dir = $oats['execution']['dir_tests']
-        end
+        dir_tests = "{#{is_dir},#{dir_tests}}" if is_dir.instance_of?(String) and is_dir != dir_tests
+
         # 19.2 glob skips over the exact test paths, so try that first
-        file = File.join(dir, test_file)
+        file = File.join(dir_tests, test_file)
         file += '{,.rb}' unless extn
         found_file = Dir.glob(file).first
         throw(:found_file, found_file) if found_file and (is_dir or not FileTest.directory?(found_file))
 
 
         # Try finding it anywhere inside the dir_test tree
-        file = File.join($oats['execution']['dir_tests'], '**', test_file)
+        file = File.join(dir_tests, '**', test_file)
         file += '{,.rb}' unless extn
         found_file = Dir.glob(file).first
         throw(:found_file, found_file) if found_file and (is_dir or not FileTest.directory?(found_file))

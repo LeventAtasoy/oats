@@ -130,31 +130,21 @@ execution:
   # Default time for Oats.wait_until
   wait_until_timeout: 90
 
-  # Parameters specifically used by Oats Control Center
+
+  # Parameters used in agent mode to communicate with OCC
   occ:
     # For agent to contact occ. Also what occ host sees itself as, via ENV['HOSTNAME'].downcase
-    server_host: occ-qa
+    server_host: ENV['OATS_OCC_HOST'] || ENV['HOSTNAME'].downcase
     # OCC server port for OCC to request agent to contact
-    server_port: 3000
+    server_port: ENV['OATS_OCC_PORT'] || 3000
     # Agent-server host name to relay to OCC, defaults to downcased hostname if nil
     agent_host: ENV['HOSTNAME'].downcase
-    # Oats agent/server name to display in OCC. Defaults to agent_host[:port] if non-unique
+    # Oats agent/server name to display in OCC. Defaults to agent_host
     agent_nickname:  # mymach1
     # Oats agent/server to listen and OCC to contact
     agent_port: 3010
     # Timeout for OCC to respond, may take a while if OCC is listing all jobs
     timeout_waiting_for_occ: 15
-    # Timeout for agent to respond, should respond quickly, unless dead
-    timeout_waiting_for_agent: 10
-  # OCC to redirect for serving static files. Default is each agent machine serves.
-    results_webserver: # ENV['HOSTNAME'].downcase
-    # Controls OCC/client logging
-    log_client: YES
-    # Also copy all Oats output into agent_log. Good for debugging
-    agent_log_all: YES
-    bash_path: C:\apps\cygwin\bin\bash
-    # User service id to bypass login for development w/o network access
-    login_user_service_id: # 2
 
 
 ##############################

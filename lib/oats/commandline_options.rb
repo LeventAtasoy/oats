@@ -11,6 +11,7 @@ module Oats
       $oats_execution['input_args'] = $oats_unit_test ? $oats_unit_test['input_args'] : ARGV.dup
 
       argv ||= $oats_execution['input_args'].dup
+      argv_save = argv.dup
 
       begin
 
@@ -60,6 +61,21 @@ module Oats
             options['_:quiet'] = true
           end
 
+          opts.on( '-a', '--agent',
+            'Invokes background agent handling.' ) do |t|
+            options['_:agent'] = true
+          end
+          opts.on( '-u', '--oats_user OATS_USER',
+            'Sets OATS_USER for agent, in conjunction with -a.' ) do |t|
+            options['_:oats_user'] = t
+          end
+          opts.on( '-k', '--kill_agent',
+            'Kill the agent.' ) do |t|
+            options['_:kill_agent, in conjunction with -a'] = true
+          end
+
+
+          # Development options
           opts.on( '-g', '--gemfile GEMFILE',
             'Gemfile path to be included.' ) do |t|
             options['_:gemfile'] = t
@@ -104,7 +120,7 @@ module Oats
         $stderr.puts "Please type 'oats -h' for valid options."
         exit 1
       end
-      options['_:args'] = argv
+      options['_:args'] = argv_save
       @@OPTIONS = options
     end
 

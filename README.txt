@@ -16,7 +16,7 @@ details.
 == OATS Installation
 
   - Install
-    - Ruby 1.8.7
+    - Ruby Ruby
     - Ruby Bundler
     - gem install oats
 
@@ -25,7 +25,7 @@ details.
     http://technet.microsoft.com/en-us/sysinternals
 
   - Recommended to also install Netbeans (or another IDE of your choice)
- 
+
 
 == Configuring OATS
 
@@ -92,6 +92,11 @@ details.
 
 ==  LibCurl Installation (Needed only if your tests would use LibCurl)
 
+ - Darwin (Mac)
+   - Install Xcode to get the headers
+
+ - Windows
+
   http://beginrescue.blogspot.com/2010/07/installing-curb-with-ruby-191-in.html
   http://www.gknw.de/mirror/curl/win32/old_releases/
 
@@ -149,7 +154,7 @@ require access to systems via ssh. For Linux systems the default methods used by
 OATS to interrogate logs or execute scripts on remote is via Plink, using ssh.
 Pageant is also useful to install if you are using tortoise to access SVN setup
 with SSH.
-  
+
   1. Download and install PuTTY, Pageant, Puttygen, and Plink from
      http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html. These are
      standalone executables, so you can install them wherever you'd like.
