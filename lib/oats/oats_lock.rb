@@ -1,5 +1,5 @@
 # Manages a lock file indicating a OATS session is in process
-require 'win32ole' if ENV['OS'] == 'Windows_NT'
+require 'win32ole' if RUBY_PLATFORM =~ /mswin32/
 module Oats
 
   module OatsLock
@@ -14,7 +14,7 @@ module Oats
         @@file_handle = File.open(in_progress_file, 'w')
         my_pid = Process.pid.to_s
         @@file_handle.puts my_pid
-        if ENV['OS'] != 'Windows_NT' or ENV['TEMP'] =~ /^\/cygdrive/
+        if RUBY_PLATFORM !~ /mswin32/ or ENV['TEMP'] =~ /^\/cygdrive/
           # Leave file handle open for windows to detect and kill associated java, etc.
           # processes using file handles.
           @@file_handle.close
@@ -30,7 +30,7 @@ module Oats
     def OatsLock.locked?(verify = nil)
       return @@is_locked unless verify
       @@is_locked = false
-      if ENV['OS'] != 'Windows_NT' or ENV['TEMP'] =~ /^\/cygdrive/
+      if RUBY_PLATFORM !~ /mswin32/ or ENV['TEMP'] =~ /^\/cygdrive/
         if File.exist?(in_progress_file)
           pids = IO.readlines(in_progress_file)
           ruby_pid = pids.shift
@@ -140,7 +140,7 @@ module Oats
 
     def OatsLock.find_matching_processes(proc_names)
       matched = []
-      if ENV['OS'] == 'Windows_NT'
+      if RUBY_PLATFORM =~ /mswin32/
         processes = WIN32OLE.connect("winmgmts://").ExecQuery("select * from win32_process")
         #      for process in processes do
         #        for property in process.Properties_ do
@@ -154,22 +154,22 @@ module Oats
           end
         end
       else
-        pscom = ENV['OS'] == 'Linux' ? 'ps lxww' : 'ps -ef'
+        pscom = RUBY_PLATFORM =~ /linux/ ? 'ps lxww' : 'ps -ef'
         `#{pscom}`.split("\n").each do |lvar|
           line = lvar.chomp
-          case ENV['OS']
-          when 'Darwin' #  ps -ef output
+          case RUBY_PLATFORM
+          when /darwin/ #  ps -ef output
             pid = line[5..11]
             next if pid.to_i == 0
             ppid = line[12..16]
             proc_name = line[50..-1]
-          when 'Linux' #  ps ww output
+          when /linux/ #  ps ww output
             pid = line[7..12]
             next if pid.to_i == 0
             ppid = line[13..18]
             proc_name = line[69..-1]
           else
-            raise OatError, "Do not know how to parse ps output from #{ENV['OS']}"
+            raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
           end
           next unless pid
           matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip] if proc_name =~ proc_names
@@ -189,7 +189,7 @@ module Oats
 
       # Kill all selenium automation chrome jobs on MacOS. Assumes MacOS is for development only, not OCC.
       # Will cause problems if multiple agents are run on MacOS
-      if ENV['OS'] == 'Darwin'
+      if RUBY_PLATFORM =~ /darwin/
         chrome_automation_procs = OatsLock.find_matching_processes(/ Chrome .* --dom-automation/)
         chrome_automation_procs.each do |pid,proc_name,ppid|
           OatsLock.kill_pid pid
@@ -222,7 +222,7 @@ module Oats
         @@file_handle = nil
         @@is_locked = true
       else # Doesn't return status properly for non-windows, just resets the lock
-        if $oats_execution['agent'].nil? and ENV['OS'] != 'Windows_NT' and File.exist?(in_progress_file)
+        if $oats_execution['agent'].nil? and RUBY_PLATFORM !~ /mswin32/ and File.exist?(in_progress_file)
           pids = IO.readlines(in_progress_file)
           current_pid = pids.shift
           pids.each { |pid| OatsLock.kill_pid(pid.chomp) } # Legacy firefox

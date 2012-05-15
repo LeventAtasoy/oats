@@ -109,7 +109,7 @@ module Oats
   # Returns captured file name if successful, or nil.
   def Oats.system_capture
     return if $selenium.nil? or # Snapshots are not supported on Ubuntu/Chrome
-    ($oats['selenium']['browser_type'] == 'chrome' and ENV['OS'] == 'Linux')
+    ($oats['selenium']['browser_type'] == 'chrome' and RUBY_PLATFORM =~ /linux/)
     ct = TestData.current_test
     file = Util.file_unique(fn="page_screenshot.png", ct.result)
     Oats.info "Will attempt to capture #{fn}."

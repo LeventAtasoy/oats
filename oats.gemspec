@@ -16,25 +16,25 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   #  s.test_files = ["test/test_cgi_wrapper.rb" ]
-  s.executables   = %w{oats}
+  s.executables   = %w{oats occ}
   s.require_paths = ["lib"]
 
-  #   s.extra_rdoc_files = ["CHANGELOG", "COPYING", "lib/mongrel/camping.rb", "LICENSE", "README"]
+  #   s.extra_rdoc_files = ["CHANGELOG", "COPYING", "lib/oats/oats.rb", "LICENSE", "README"]
   #  s.has_rdoc = true
-  #  s.homepage = %q{http://mongrel.rubyforge.org}
-  #  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Mongrel", "--main", "README"
+  #  s.homepage = %q{http://oats .org}
+  #  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Oats", "--main", "README"
   s.date = %q{2012-05-22}
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
 
   s.add_dependency 'log4r'
-  s.add_dependency 'net-http-persistent' unless RUBY_VERSION !~ /^1.9/ # Speed up 1.8 connections
+  s.add_dependency 'net-http-persistent' unless RUBY_VERSION =~ /^1.9/ # Speed up 1.8 connections
 
-  if ENV['OS'] == 'Windows_NT' or ENV['OATS_AGENT'] # Triggers possible intent to use agent
+  if RUBY_PLATFORM =~ /mswin32/ # Assume won't use the agent
     s.add_dependency 'win32-process'
   else
     s.add_dependency 'json'
     s.add_dependency 'em-http-request'
-    if ENV['OS'] == 'Linux' # Seems to be needed by Ubuntu
+    if RUBY_PLATFORM =~ /linux/ # Seems to be needed by Ubuntu
       s.add_dependency 'execjs'
       s.add_dependency 'therubyracer'
     end
