@@ -62,7 +62,7 @@ module Oats
       extn = File.extname(test_file)
       extn = nil if extn == ''
       found_file = catch :found_file do
-        if  RUBY_PLATFORM =~ /mswin32/ ? test_file[1] == ?: : test_file[0] == ?/ # absolute path
+        if  RUBY_PLATFORM =~ /(mswin|mingw)/ ? test_file[1] == ?: : test_file[0] == ?/ # absolute path
           # Try exact match
           throw(:found_file, test_file) if File.exist?(test_file) and (is_dir or not FileTest.directory?(test_file))
 

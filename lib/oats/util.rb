@@ -1,4 +1,4 @@
-autoload :Process, 'win32/process'
+require 'win32/process' if RUBY_PLATFORM =~ /(mswin|mingw)/ and not defined?(Process)
 
 module Oats
   module Util
