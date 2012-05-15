@@ -242,7 +242,6 @@ sql:
 #    <oats_data>
 #<class>:
 keywords:
-  class_file: # File name of the class so it can be 'require'd if using a non-standard name
   class: # Class file containing methods for each keyword
   list: # Optional list name under which to find the keywords and data in Oats.data
 

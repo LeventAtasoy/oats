@@ -45,12 +45,13 @@ module Oats
     # Returns oats_info object containing execution results
     def Driver.run(args)
       unless ENV['HOSTNAME']
-        if RUBY_PLATFORM =~ /mswin32/
+        if ENV['OS'] == 'Windows_NT'
           ENV['HOSTNAME'] = ENV['COMPUTERNAME']
         else
           ENV['HOSTNAME'] = `hostname`.chomp
         end
       end
+      ENV['OS'] ||= `uname`.chomp
 
       Log4r::Logger.root.level = Log4r::DEBUG
       Log4r::StdoutOutputter.new('console', :level=>1,

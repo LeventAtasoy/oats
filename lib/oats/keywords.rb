@@ -49,30 +49,10 @@ module Oats
       def process
         # Class name comes from Oats.data oats_keywords_cleass, or in the case of XL files from TestCase ID
         class_name = Oats.data('keywords.class') || File.basename(File.dirname(File.dirname(Oats.test.id)))
-        class_file = nil
         begin
           keywords_class = Kernel.const_get class_name
         rescue NameError
-          class_file = Oats.data('keywords.class_file')
-          unless class_file # Try standard ruby conventions
-            class_file = class_name.dup
-            class_file.gsub!(/::/, '/')
-            class_file.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-            class_file.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-            class_file.tr!("-", "_")
-            class_file.downcase!
-          end
-          begin
-            Oats.info "Loading: '#{class_file}' for #{class_name}"
-            require class_file
-            begin
-              keywords_class = Kernel.const_get class_name
-            rescue NameError
-              raise OatsTestError, "Can not find class '#{class_name}' in class file: '#{class_file}'"
-            end
-          rescue LoadError
-            Oats.assert class_file.nil?, "Could not load Oats.data keywords.class_file '#{class_file}' for class '#{class_name}'."
-          end
+          raise OatsTestError, "Can not find class: " + class_name
         end
         oats_data('keywords',keywords_class).each do |action|
           Oats.assert keywords_class.respond_to?(action),

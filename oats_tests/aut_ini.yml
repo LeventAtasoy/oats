@@ -1,7 +1,7 @@
 # For full documentation on OATS, please refer to https://github.com/latasoy/oats
 
 keywords:
-  class: # Class name containing methods for each keyword
+  class: # Class file containing methods for each keyword
   list: # List name under which to find the keywords and data in Oats.data
 
 SampleXlLists:
