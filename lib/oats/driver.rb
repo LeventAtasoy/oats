@@ -5,8 +5,6 @@ require 'oats/oats_data'
 require 'oats/roptions'
 require 'oats/build_id'
 
-autoload :Spreadsheet,  'spreadsheet'
-
 module Oats
 
   module Driver
@@ -45,7 +43,7 @@ module Oats
     # Returns oats_info object containing execution results
     def Driver.run(args)
       unless ENV['HOSTNAME']
-        if ENV['OS'] == 'Windows_NT'
+        if RUBY_PLATFORM =~ /(mswin|mingw)/
           ENV['HOSTNAME'] = ENV['COMPUTERNAME']
         else
           ENV['HOSTNAME'] = `hostname`.chomp
@@ -447,6 +445,7 @@ module Oats
     # Return all the included worksheet lists in XL and place all
     # their test arrays in $oats_global['xl']
     def Driver.parse_xl(path,id)
+      require 'spreadsheet' unless defined?(Spreadsheet)
       book = Spreadsheet.open path
       sheet = book.worksheet 'Main'
       Oats.assert sheet, "Could not locate worksheet 'Main' in: " + path

@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'log4r'
   s.add_dependency 'net-http-persistent' unless RUBY_VERSION !~ /^1.9/ # Speed up 1.8 connections
 
-  if ENV['OS'] == 'Windows_NT' or ENV['OATS_AGENT'] # Triggers possible intent to use agent
+  if RUBY_PLATFORM =~ /(mswin|mingw)/ # Assume won't use the agent
     s.add_dependency 'win32-process'
   else
     s.add_dependency 'json'
