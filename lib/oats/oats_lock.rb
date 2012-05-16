@@ -154,22 +154,22 @@ module Oats
           end
         end
       else
-        pscom = ENV['OS'] == 'Linux' ? 'ps lxww' : 'ps -ef'
+        pscom = RUBY_PLATFORM =~ /linux/ ? 'ps lxww' : 'ps -ef'
         `#{pscom}`.split("\n").each do |lvar|
           line = lvar.chomp
-          case ENV['OS']
-          when 'Darwin' #  ps -ef output
+          case RUBY_PLATFORM
+          when /darwin/ #  ps -ef output
             pid = line[5..11]
             next if pid.to_i == 0
             ppid = line[12..16]
             proc_name = line[50..-1]
-          when 'Linux' #  ps ww output
+          when /linux/ #  ps ww output
             pid = line[7..12]
             next if pid.to_i == 0
             ppid = line[13..18]
             proc_name = line[69..-1]
           else
-            raise OatError, "Do not know how to parse ps output from #{ENV['OS']}"
+            raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
           end
           next unless pid
           matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip] if proc_name =~ proc_names
@@ -189,7 +189,7 @@ module Oats
 
       # Kill all selenium automation chrome jobs on MacOS. Assumes MacOS is for development only, not OCC.
       # Will cause problems if multiple agents are run on MacOS
-      if ENV['OS'] == 'Darwin'
+      if RUBY_PLATFORM =~ /darwin/
         chrome_automation_procs = OatsLock.find_matching_processes(/ Chrome .* --dom-automation/)
         chrome_automation_procs.each do |pid,proc_name,ppid|
           OatsLock.kill_pid pid

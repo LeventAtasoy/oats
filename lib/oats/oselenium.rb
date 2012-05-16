@@ -127,7 +127,7 @@ module Oats
         file.sub!(ENV['OATS_HOME'], $oats['selenium']['remote_webdriver']['oats_dir'])
         file_os = $oats['selenium']['remote_webdriver']['os']
       else
-        file_os = ENV['OS']
+        file_os = RUBY_PLATFORM
       end
       file_os =~ /(mswin|mingw)/ ? file.gsub('/','\\') : file
     end

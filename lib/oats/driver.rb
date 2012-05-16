@@ -49,7 +49,6 @@ module Oats
           ENV['HOSTNAME'] = `hostname`.chomp
         end
       end
-      ENV['OS'] ||= `uname`.chomp
 
       Log4r::Logger.root.level = Log4r::DEBUG
       Log4r::StdoutOutputter.new('console', :level=>1,
