@@ -6,19 +6,20 @@ require 'net/imap'
 #require 'openssl'
 #require 'nokogiri'
 
-class SampleXlLists < Oats::Keywords
+module SampleXlLists 
 
-  # Maps entries to be accessed by 'locator' function for Proactiv
+  # Maps entries to be accessed by 'locator' method below
   self::LOCATOR_MAP = {
     'url' =>	"url_locator"
   }
 
   class << self
+    include Oats::Keywords
 
     def action1
       data = oats_data
       data.delete('keywords')
-      Oats.info "Data:" + data.inspect
+      Oats.info "URL: #{locator('url')} Data:" + data.inspect
     end
 
     def action2
