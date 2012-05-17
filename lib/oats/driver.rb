@@ -191,6 +191,7 @@ module Oats
           #      oats_data['_']['load_history'].last.omit = true
         when /\.xls$/
           suite = id
+          require 'spreadsheet' unless defined?(Spreadsheet)
           book = Spreadsheet.open test_yaml
           tests = $oats_global['xl']
           unless tests and tests[id]

@@ -65,10 +65,7 @@ function fkill {
     # Need these off when called by OCC, otherwise they OCC values are inherited
     unset RUBYOPT BUNDLE_BIN_PATH BUNDLE_GEMFILE  # GEM_HOME GEM_PATH # RAILS_ENV
     [ "$OATS_TESTS_GIT_REPOSITORY" ] && export OATS_TESTS="$HOME/results_archive/$OATS_AGENT_NICKNAME"/oats_tests
-    oats_bin="$OATS_HOME/bin"
-#    [ "$OS" == "Windows_NT" ] && oats_bin=$(cygpath -w $oats_bin)
-#    ruby_com="$oats_bin/oats$(dirname $(type -p $0)) -n $OATS_AGENT_NICKNAME -p $OATS_AGENT_PORT"
-    ruby_com="$(dirname $(type -p $0))/internal_oats_start_agent -n $OATS_AGENT_NICKNAME -p $OATS_AGENT_PORT"
+    ruby_com="$(dirname $(type -p $0))/oats -n $OATS_AGENT_NICKNAME -p $OATS_AGENT_PORT"
     if [ -e "$config_agent_file" ]; then
 	line=$(grep "^$OATS_AGENT_NICKNAME" "$config_agent_file")
 	read nickname PREV_OATS_AGENT_PORT pid display<<< $line
