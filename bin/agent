@@ -60,7 +60,7 @@ function fkill {
 }
 
 {
-    agent_echo  "$0 $input_pars"
+    agent_echo  "Invoking $0 $input_pars"
 
     # Need these off when called by OCC, otherwise they OCC values are inherited
     unset RUBYOPT BUNDLE_BIN_PATH BUNDLE_GEMFILE  # GEM_HOME GEM_PATH # RAILS_ENV
@@ -69,8 +69,7 @@ function fkill {
 	agent_echo "Setting OATS_HOME to: $PWD"
 	OATS_HOME=$PWD
     fi
-    [ "$OATS_TESTS_GIT_REPOSITORY" ] && OATS_TESTS="$HOME/results_archive/$OATS_AGENT_NICKNAME"/oats_tests
-    export OATS_TESTS
+    [ "$OATS_TESTS_GIT_REPOSITORY" ] && export OATS_TESTS="$HOME/results_archive/$OATS_AGENT_NICKNAME"/oats_tests
     oats_bin="$OATS_HOME/bin"
 #    [ "$OS" == "Windows_NT" ] && oats_bin=$(cygpath -w $oats_bin)
 #    ruby_com="$oats_bin/oats -n $OATS_AGENT_NICKNAME -p $OATS_AGENT_PORT"
@@ -128,9 +127,28 @@ function fkill {
     done
     [ "$OATS_KILL_AGENT" ] && return
 
-    if [ "$OATS_TESTS_GIT_REPOSITORY" ]; then
+    if [ -d $OATS_TESTS/.svn ]; then
+	COUNTER=0
+	[ "$OATS_TESTS_REPOSITORY_VERSION" ] && agent_echo "Requested OATS Version: $OATS_TESTS_REPOSITORY_VERSION"
+	while [ $COUNTER -lt 5 ]; do
+            let COUNTER=COUNTER+1
+	    OATS_TESTS_CODE_VERSION=$(svn info $OATS_TESTS | sed -n 's/Last Changed Rev: *//p')
+	    [ "$OATS_TESTS_REPOSITORY_VERSION" ] || break
+	    [ "$OATS_TESTS_CODE_VERSION" -ge "$OATS_TESTS_REPOSITORY_VERSION" ] && break
+	    [ $COUNTER -eq 1 ] || sleep 3
+	    svn update $OATS_TESTS 2>&1
+	done
+	if [ $COUNTER -eq 5 ]; then
+	    agent_echo "Could not update the code version $OATS_TESTS_CODE_VERSION to $OATS_TESTS_REPOSITORY_VERSION" >&2
+	    return 2
+	fi
+	agent_echo "Current OATS code version: $OATS_TESTS_CODE_VERSION"
+    else
+	OATS_TESTS_CODE_VERSION=$OATS_TESTS_REPOSITORY_VERSION
+	[ "$OATS_TESTS_CODE_VERSION" ] && agent_echo "Setting OATS code version to the requested version: $OATS_TESTS_CODE_VERSION]" # This is not set for development/debug
+    elif [ "$OATS_TESTS_GIT_REPOSITORY" ]; then
 	[ -d $OATS_TESTS ] || git clone $OATS_TESTS_GIT_REPOSITORY $OATS_TESTS
-	cd $OATS_HOME
+	cd $OATS_TESTS
         origin="$OATS_TESTS_GIT_REPOSITORY"
         [ "$origin" ] || origin=origin
 	if [ "$OATS_TESTS_REPOSITORY_VERSION" ]; then
@@ -152,25 +170,8 @@ function fkill {
 	    return 2
 	fi
 	[ "$OATS_TESTS_REPOSITORY_VERSION" ] || agent_echo "Using OATS code version: $OATS_TESTS_CODE_VERSION"
-    elif [ -d .svn ]; then
-	COUNTER=0
-	[ "$OATS_TESTS_REPOSITORY_VERSION" ] && agent_echo "Requested OATS Version: $OATS_TESTS_REPOSITORY_VERSION"
-	while [ $COUNTER -lt 5 ]; do
-            let COUNTER=COUNTER+1
-	    OATS_TESTS_CODE_VERSION=$(svn info $OATS_TESTS | sed -n 's/Last Changed Rev: *//p')
-	    [ "$OATS_TESTS_REPOSITORY_VERSION" ] || break
-	    [ "$OATS_TESTS_CODE_VERSION" -ge "$OATS_TESTS_REPOSITORY_VERSION" ] && break
-	    [ $COUNTER -eq 1 ] || sleep 3
-	    svn update $OATS_TESTS 2>&1
-	done
-	if [ $COUNTER -eq 5 ]; then
-	    agent_echo "Could not update the code version $OATS_TESTS_CODE_VERSION to $OATS_TESTS_REPOSITORY_VERSION" >&2
-	    return 2
-	fi
-	agent_echo "Current OATS code version: $OATS_TESTS_CODE_VERSION"
     else
-	OATS_TESTS_CODE_VERSION=$OATS_TESTS_REPOSITORY_VERSION
-	[ "$OATS_TESTS_CODE_VERSION" ] && agent_echo "Setting OATS code version to the requested version: $OATS_TESTS_CODE_VERSION]" # This is not set for development/debug
+	echo "$0: There is only support for GIT and SVN repositories"
     fi
     export OATS_TESTS_CODE_VERSION
 #    echo "$OATS_AGENT_NICKNAME $OATS_AGENT_PORT" >| $config_agent_file
