@@ -12,9 +12,8 @@ Gem::Specification.new do |s|
   s.description = %q{A flexible automated system integration regression test framework.}
 
   s.rubyforge_project = "oats"
-
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files         = File.directory?('.git') ? `git ls-files`.split("\n") : []
+  s.test_files    = File.directory?('.git') ? `git ls-files -- {test,spec,features}/*`.split("\n") : []
   #  s.test_files = ["test/test_cgi_wrapper.rb" ]
   s.executables   = %w{oats occ}
   s.require_paths = ["lib"]
