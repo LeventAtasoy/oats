@@ -222,7 +222,7 @@ module Oats
         'machine' => occ['agent_host'],
         'port' => occ['agent_port'] }
       query['jobid'] = prev_jobid if prev_jobid
-      query['repo'] = ENV['OATS_CODE_VERSION'].to_s if ENV['OATS_CODE_VERSION'] and ENV['OATS_CODE_VERSION'] != ''
+      query['repo'] = ENV['OATS_TESTS_CODE_VERSION'].to_s if ENV['OATS_TESTS_CODE_VERSION'] and ENV['OATS_TESTS_CODE_VERSION'] != ''
       query['logfile'] = File.basename(ENV['OATS_AGENT_LOGFILE']||'agent.log')
       Ragent.server_logger ra, "Getting next OCC job: " + query.inspect
       query['password='] = ra.request[:password] if ra and ra.request[:password]

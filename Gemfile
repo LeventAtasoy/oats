@@ -11,7 +11,6 @@ unless defined?(OATS_GEM_IS_ALREADY_INCLUDED)
   end
   test_gemfile = $oats_execution['options'][ "_:gemfile"] if $oats_execution and $oats_execution['options']
   test_gemfile ||= ENV['OATS_TESTS'] + '/Gemfile'
-  puts "AUT Gemfile :" + test_gemfile
   if File.exist?(test_gemfile)
     puts "Including AUT Gemfile: " + test_gemfile
     eval(IO.read(test_gemfile), binding)

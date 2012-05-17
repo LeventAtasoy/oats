@@ -12,17 +12,17 @@ module Oats
     def Driver.agent
       ENV['KILL_AGENT' ] = 'KILL_AGENT' if $oats_execution['options']["_:kill_agent"]
       ENV['OATS_USER' ] = $oats_execution['options']["_:oats_user"] if $oats_execution['options']["_:oats_user"]
-      ENV['OATS_REPOSITORY_VERSION' ] = $oats_execution['options']["_:repository_version"] if $oats_execution['options']["_:repository_version"]
+      ENV['OATS_TESTS_REPOSITORY_VERSION' ] = $oats_execution['options']["_:repository_version"] if $oats_execution['options']["_:repository_version"]
       nick = $oats_execution['options']["execution:occ:agent_nickname"]
       ENV['OATS_AGENT_NICKNAME' ] = nick if nick
       port = $oats_execution['options']["execution:occ:agent_port"].to_s
       ENV['OATS_AGENT_PORT'] = port if port
       dir = ENV['HOME'] + "/results_archive/#{nick}/agent_logs"
       FileUtils.mkdir_p(dir) unless File.exists?(dir)
-      ENV['CONFIG_FILE'] = "#{dir}/config-agent.txt"
+      ENV['OATS_AGENT_CONFIG_FILE'] = "#{dir}/config-agent.txt"
       dat = `date +'%m%d%H%M%S'`.chomp
       log_file = "#{dir}/agent_#{dat}.log"
-      ENV['LOGFILE'] = log_file
+      ENV['OATS_AGENT_LOGFILE'] = log_file
       agent_log_file = "#{dir}/agent.log"
       cmd = ENV['OATS_HOME'] + '/bin/agent'
       pid = `#{cmd}`.chomp

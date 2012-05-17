@@ -1,7 +1,8 @@
 require 'oats/util'
 require 'oats/oats_exceptions'
+
 # Need these set for OCC when this is required from OCC
-ENV['OATS_HOME'] ||= File.expand_path( '..', File.dirname(__FILE__) )
+ENV['OATS_HOME'] ||= File.expand_path( '../..', File.dirname(__FILE__) )
 ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
 
 module Oats

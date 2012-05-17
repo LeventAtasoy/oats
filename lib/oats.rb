@@ -32,5 +32,4 @@ require 'log4r'  # http://log4r.sourceforge.net/rdoc/index.html
 require 'oats/driver'
 require 'oats/oats_lock'
 
-#ENV['OATS_HOME'] ||= Oats::Util.expand_path( '..', File.dirname(__FILE__) )
-require 'oats/oats' #  Interface methods to user methods implemented in other modules
+require 'oats/user_api' #  Interface methods to user methods implemented in other modules
