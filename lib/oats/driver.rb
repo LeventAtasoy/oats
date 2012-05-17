@@ -149,7 +149,7 @@ module Oats
           $log.info "Started OATS execution [#{Oats.context['jobid']}] at #{Time.now}"
         end
         begin
-          Oats.info "Tests Root Directory: " + ENV['OATS_TESTS']
+          Oats.info "OATS_TESTS Directory: " + ENV['OATS_TESTS']
           oats_data['_']['environments'] = [] # Keep track of variations stack
           Driver.process_test_yaml(oats_data)
           Report.results($oats_info['test_files'])

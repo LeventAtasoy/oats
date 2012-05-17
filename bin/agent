@@ -62,17 +62,8 @@ function fkill {
 {
     agent_echo  "$0 $input_pars"
 
-    if [ -n "$(echo "$GEM_HOME" | grep ruby-1.9.2)" ]; then
-    # If spawned from OCC, running 1.9.2, we need to switch to 1.8 since
-    # can't run oauth in 1.9.2. Assume RVM is installed and the system ruby is 1.8.X
-	if [ -n "$(echo "$rvm_ruby_global_gems_path" | grep ruby-1.9.2)" ] && [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-	    source "$HOME/.rvm/scripts/rvm" # Load RVM function
-	    rvm system
-	fi
-    fi
-    # Need these off when called by OCC
-    unset BUNDLE_BIN_PATH BUNDLE_GEMFILE GEM_HOME GEM_PATH MY_RUBY_HOME # RAILS_ENV
-    unset RUBYOPT
+    # Need these off when called by OCC, otherwise they OCC values are inherited
+    unset RUBYOPT BUNDLE_BIN_PATH BUNDLE_GEMFILE  # GEM_HOME GEM_PATH # RAILS_ENV
     if [ -z "$OATS_HOME" ]; then
 	cd $(dirname $(type -p $0))/..
 	OATS_HOME=$PWD
