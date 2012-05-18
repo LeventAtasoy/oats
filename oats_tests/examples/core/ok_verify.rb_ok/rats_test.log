@@ -1,2 +1,0 @@
-INFO  10-01-20 15:57:32 Processing rb file: C:/qa/oats/tests/examples/ok_verify2.rb
-ERROR 10-01-20 15:57:32 Missing ok/out directory, but test.out directory exists: c:/qa/results/examples/ok_verify2/out

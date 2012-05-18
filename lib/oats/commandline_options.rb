@@ -61,17 +61,22 @@ module Oats
             options['_:quiet'] = true
           end
 
+          # AGENT OPTIONS ONLY
           opts.on( '-a', '--agent',
             'Invokes background agent handling.' ) do |t|
             options['_:agent'] = true
           end
           opts.on( '-u', '--oats_user OATS_USER',
-            'Sets OATS_USER for agent, in conjunction with -a.' ) do |t|
+            'Sets OATS_USER for agent, used in conjunction with -a.' ) do |t|
             options['_:oats_user'] = t
           end
           opts.on( '-k', '--kill_agent',
-            'Kill the agent.' ) do |t|
-            options['_:kill_agent, in conjunction with -a'] = true
+            'Kills the agent, used in conjunction with -a.' ) do |t|
+            options['_:kill_agent'] = true
+          end
+          opts.on( '-r', '--repository',
+            'Sets REPOSITORY for agent, used in conjunction with -a.' ) do |t|
+            options['_:repository'] = true
           end
 
 

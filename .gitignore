@@ -3,3 +3,4 @@
 pkg/*
 /nbproject/private/
 .DS_Store
+Gemfile.lock

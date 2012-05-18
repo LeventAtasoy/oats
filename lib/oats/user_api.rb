@@ -196,9 +196,9 @@ module Oats
     return oats_data['result_archive_dir']
   end
 
-  # Returns input or ''. Used to force ruby eval of Oat.data YML values
+  # Returns input. Used to force ruby eval of Oat.data YML values
   def Oats.eval(input=nil)
-    return input || ''
+    return input
   end
   # Returns hash object containing info about persistent oats internal variables
   # for the complete oats execution. Contents of Oats.context are also persisted  into

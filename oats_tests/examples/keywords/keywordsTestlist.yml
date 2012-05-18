@@ -1,9 +1,9 @@
 ---
 execution:
-  yml_handler: xl/keywordsDriver.rb
+  yml_handler: examples/gui/keywords/keywordsDriver.rb
 
   test_files:
-    - xl/keywordsTC1.yml
+    - examples/gui/keywords/keywordsTC1.yml
 
 keywords:
   class: SampleXlLists # Class file containing methods for each keyword
