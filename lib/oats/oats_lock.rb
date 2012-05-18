@@ -149,6 +149,7 @@ module Oats
         #        break
         #      end
         processes.each do |process|
+          #          puts [process.Commandline, process.ProcessId, process.name].inspect
           if process.Commandline =~ proc_names
             matched.push [process.ProcessId,process.Name,nil, process.CommandLine]
           end
@@ -179,7 +180,9 @@ module Oats
     end
 
     def OatsLock.kill_webdriver_browsers
-      match = "ruby.*oats/lib/oats_main.rb"
+
+      #      match = "ruby.*oats/lib/oats_main.rb"
+      match = 'ruby.*oats(\\\\|\/)bin(\\\\|\/)oats'
       # Not tested on agents on Windows_NT
       if $oats_execution['agent']
         nickname = $oats_execution['agent']['execution:occ:agent_nickname']
@@ -211,7 +214,11 @@ module Oats
       end
       # If parent ruby dies, ppid reverts to "1"
       (chromedriver_procs + webdriver_procs).each do |pid,proc_name,ppid|
-        OatsLock.kill_pid pid if ppid == "1" and proc_name !~ /defunct/
+        if RUBY_PLATFORM =~  /(mswin|mingw)/
+          OatsLock.kill_pid pid 
+        else
+          OatsLock.kill_pid pid if ppid == "1" and proc_name !~ /defunct/
+        end
       end
     end
 

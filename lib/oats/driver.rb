@@ -192,7 +192,7 @@ module Oats
         when /\.xls$/
           suite = id
           require 'spreadsheet' unless defined?(Spreadsheet)
-          book = Spreadsheet.open test_yaml
+          book = Spreadsheet.open test_yaml, 'rb'
           tests = $oats_global['xl']
           unless tests and tests[id]
             xl_id = File.dirname(id)
@@ -254,6 +254,7 @@ module Oats
       cur_list.variations.last.end_time = Time.now.to_i if cur_list and cur_list.variations.last.end_time.nil?
       new_list = TestList.new(id,test_yaml)
       if variations.nil? or variations.empty?
+
         Driver.process_oats_data(oats_data)
         new_list.variations.last.end_time = Time.now.to_i
       else
@@ -446,7 +447,7 @@ module Oats
     # their test arrays in $oats_global['xl']
     def Driver.parse_xl(path,id)
       require 'spreadsheet' unless defined?(Spreadsheet)
-      book = Spreadsheet.open path
+      book = Spreadsheet.open path, 'rb'
       sheet = book.worksheet 'Main'
       Oats.assert sheet, "Could not locate worksheet 'Main' in: " + path
       list = Driver.xl_sheet_tests(sheet, id, 'Main', 'Test_Scenarios')

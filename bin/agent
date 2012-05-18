@@ -23,7 +23,6 @@ Parameters: (also can be passed in via environment variables
  -u OATS_USER who started the agent. Used for logging purposes only.
  -r OATS_TESTS_REPOSITORY_VERSION Required to update the agent.
  -k kill the agent, or set OATS_KILL_AGENT
- -d DISPLAY_NUM Number of the VNC Display, for Linux only
 
 Example:
 /home/occadmin/oats/bin/agent -p 3011 -n occ_1 -r 403cc620c265db84dbd3fb7d7cce4d57416bff09
@@ -164,16 +163,6 @@ function fkill {
 	[ "$OATS_TESTS_CODE_VERSION" ] && agent_echo "Setting OATS code version to the requested version: $OATS_TESTS_CODE_VERSION]" # This is not set for development/debug
     fi
     export OATS_TESTS_CODE_VERSION
-#    echo "$OATS_AGENT_NICKNAME $OATS_AGENT_PORT" >| $config_agent_file
-    if [ "$OS" == "Linux" ]; then # Do this with VNC displays
-	# Allocate 2x as display. VNC takes 592x, vino takes next available from 59++
-#	vnc_num="2$(echo $OATS_AGENT_PORT | cut -c 4)"
-	vnc_num="$DISPLAY_NUM"
-	[ "$vnc_num" ] || vnc_num="1"
-	pgrep -fl "Xvnc4 :$vnc_num" >/dev/null || vncserver :$vnc_num -SecurityTypes=None -geometry 1900x1060
-	export DISPLAY=":$vnc_num.0"
-	agent_echo "Setting DISPLAY to $DISPLAY"
-    fi
     cd $OATS_HOME  # Needed for bundler
     agent_echo "Starting agent $OATS_AGENT_NICKNAME on port $OATS_AGENT_PORT"
     $ruby_com
