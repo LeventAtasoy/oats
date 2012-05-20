@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     s.test_files    = File.directory?('.git') ? `git ls-files -- {test,spec,features}/*`.split("\n") : []
   end
   #  s.test_files = ["test/test_cgi_wrapper.rb" ]
-  s.executables   = %w{oats occ}
+  s.executables   = %w{oats}
   s.require_paths = ["lib"]
 
   #   s.extra_rdoc_files = ["CHANGELOG", "COPYING", "lib/oats/oats.rb", "LICENSE", "README"]
