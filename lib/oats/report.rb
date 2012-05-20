@@ -140,8 +140,8 @@ module Oats
         $log.error exc
         return oats_info
       end
+      OatsAgent::Ragent.snapshot_oats_info(rinfo) if $oats_execution['agent']
       begin
-        Ragent.snapshot_oats_info(rinfo) if $oats_execution['agent']
         FileUtils.mv(results_file_tmp, results_file)
       rescue
         $log.error "Error moving [#{results_file_tmp}]. Skipping saving the intermediate results."

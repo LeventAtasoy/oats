@@ -183,7 +183,7 @@ module Oats
     oats_data['execution']['dir_results'] = Util.expand_path(oats_data['execution']['dir_results'])
     oats_data['result_archive_dir'] = oats_data['execution']['dir_results'] + '_archive'
     if $oats_execution['agent']
-      agent_nickname = Ragent.occ['agent_nickname']
+      agent_nickname = OatsAgent::Ragent.occ['agent_nickname']
       if oats_data['execution']['dir_results'] !~ /#{agent_nickname}$/
         # Should move to a better place.This is unrelated to results, Just picking up the agent file.
         agent_ini_file = File.join(ENV['HOME'], agent_nickname + '_oats.yml')
