@@ -25,7 +25,6 @@ require 'oats/keywords'
 require 'rubygems'
 require "bundler/setup"
 #Bundler.require
-#gem 'log4r'
 #require 'deep_merge' # Need modified version of https://github.com/danielsdeleo/deep_merge for 1.9 compatibility
 require 'log4r'  # http://log4r.sourceforge.net/rdoc/index.html
 
