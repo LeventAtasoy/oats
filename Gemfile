@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-unless defined?(OATS_GEM_IS_ALREADY_INCLUDED)
-  OATS_GEM_IS_ALREADY_INCLUDED = true
+unless defined?(OATS_IS_ALREADY_INCLUDED)
+  OATS_IS_ALREADY_INCLUDED = true
 
   gemspec
   # Include Gemfile from dir_tests

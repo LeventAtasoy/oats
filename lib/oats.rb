@@ -23,7 +23,7 @@ require 'oats/keywords'
 
 # GEMS needed by OATS.
 require 'rubygems'
-require "bundler/setup"
+#require "bundler/setup"
 #Bundler.require
 #require 'deep_merge' # Need modified version of https://github.com/danielsdeleo/deep_merge for 1.9 compatibility
 require 'log4r'  # http://log4r.sourceforge.net/rdoc/index.html

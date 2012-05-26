@@ -32,12 +32,5 @@ Gem::Specification.new do |s|
 
   if RUBY_PLATFORM =~ /(mswin|mingw)/ # Assume won't use the agent
     s.add_dependency 'win32-process'
-  else
-    s.add_dependency 'json'
-    s.add_dependency 'em-http-request'
-    if RUBY_PLATFORM =~ /linux/ # Seems to be needed by Ubuntu
-      s.add_dependency 'execjs'
-      s.add_dependency 'therubyracer'
-    end
   end
 end
