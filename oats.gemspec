@@ -25,10 +25,7 @@ Gem::Specification.new do |s|
   #  s.homepage = %q{http://oats.org}
   #  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Oats", "--main", "README"
   s.date = %q{2012-05-22}
-  s.required_ruby_version = Gem::Requirement.new(">= 1.8.7")
-
   s.add_dependency 'log4r'
-  s.add_dependency 'net-http-persistent' unless RUBY_VERSION =~ /^1.9/ # Speed up 1.8 connections
 
   if RUBY_PLATFORM =~ /(mswin|mingw)/ # Assume won't use the agent
     s.add_dependency 'win32-process'

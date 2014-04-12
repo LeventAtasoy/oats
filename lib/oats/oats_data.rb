@@ -91,6 +91,7 @@ module Oats
     # If specified, oats_default data is used instead of the default YAML contents.
     # Returns loaded data in $oats
     @@define_always = nil
+    @@aut_ini = nil
     def OatsData.load(oats_file = ENV['OATS_INI'] , oats_default = nil)
       @@define_always = nil
       @@oats_def_file ||= ENV['OATS_HOME'] + '/oats_ini.yml'
@@ -105,7 +106,7 @@ module Oats
         begin
           oats_data = YAML.load_file(oats_file)
         rescue
-          raise(OatsError, "While loading [#{oats_file}] " + $!)
+          raise(OatsError, "While loading [#{oats_file}]: #{$!}")
         end
       end
 
@@ -133,7 +134,7 @@ module Oats
         aut_dir_test = ENV['OATS_TESTS'] || oats_data['execution']['dir_tests'] || oats_default['execution']['dir_tests']
         if aut_dir_test
           aut_ini = aut_dir_test + '/aut_ini.yml'
-          oats_default['include_yaml'] ||= aut_ini if File.exists?(aut_ini)
+          @@aut_ini = oats_default['include_yaml'] ||= aut_ini if File.exists?(aut_ini)
         end
         OatsData.include_yaml_file(oats_default['include_yaml'], @@oats_def_file) if oats_default['include_yaml']
         oats_default = $oats
@@ -219,9 +220,9 @@ module Oats
     # At each level keep only the items specified by the include_list array
     def OatsData.merge(config_ini, custom_ini)
       merged_config = config_ini
-      raise(OatsError, "Original YAML is not a hash: "  + config_ini.inspect) unless config_ini.class == Hash
+      raise(OatsError, ".. original YAML is not a hash: "  + config_ini.inspect) unless config_ini.class == Hash
       return config_ini unless custom_ini # If input YAML is empty
-      raise(OatsError, "Override YAML is not a hash: "  + custom_ini.inspect) unless custom_ini.class == Hash
+      raise(OatsError, ".. override YAML is not a hash: "  + custom_ini.inspect) unless custom_ini.class == Hash
       include_array = []
       include_list_exists = false
       @@define_always = custom_ini['define_always'] if custom_ini.include?('define_always')
@@ -238,7 +239,7 @@ module Oats
                 $log.error "  now being set to [#{val}] with type [" + val.class.to_s + "]"
                 $log.error "  entry [#{old_val}] of the original YAML entry is part of: " + config_ini.inspect
                 $log.error "  entry [#{val}] of over-ride YAML entry is part of: " + custom_ini.inspect
-                raise(OatsError, "Attempt to override OATS data with a different type.")
+                raise(OatsError, ".. attempt to override OATS data with a different type.")
               end
             end
           end
@@ -250,7 +251,8 @@ module Oats
           else
             add_key = key.sub(/\s*\(define\)\s*/,'')
             if add_key == key and ! @@define_always
-              raise(OatsError, "Override YAML key [#{key}] is not defined in the master YAML: " + @@oats_def_file)
+              master_file = @@aut_ini || @@oats_def_file
+              raise(OatsError, ".. override YAML key [#{key}] is not included into: " + master_file)
             else
               if merged_config.has_key?(add_key)
                 key = add_key
@@ -296,7 +298,7 @@ module Oats
         begin
           oats_overlay = YAML.load_file(oats_file)
         rescue
-          raise(OatsError, "While loading [#{oats_file}] " + $!)
+          raise(OatsError, "While loading [#{oats_file}] #{$!}")
         end
       end
       incl_yamls = oats_overlay['include_yaml']

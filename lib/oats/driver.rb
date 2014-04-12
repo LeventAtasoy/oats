@@ -59,6 +59,7 @@ module Oats
         $oats_execution['testlist_init'] and $oats_execution['testlist_init'].each_pair do |klas, args|
           klas.init
         end
+        Oats.global['test_data'] = {}
         TestList.current = nil  # Initialize
         $oats = nil  # Holds Oats.data, the resolved oats.yml contents
         oats_data = OatsData.load(options['_:ini_file'])

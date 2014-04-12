@@ -7,6 +7,12 @@ $oats_execution = {}  # Keeps variables that persists throughout a agents life, 
 # Classes of OATS can check existence of this to determine whether called by OATS or OCC
 
 require 'pp'
+
+# Add oats/lib into the path
+ENV['OATS_HOME'] ||= File.expand_path( '..', File.dirname(__FILE__) )
+oats_lib = File.join(ENV['OATS_HOME'] , 'lib')
+$:.unshift(oats_lib) unless $:.include?(oats_lib)
+
 require 'oats/commandline_options'
 options = Oats::CommandlineOptions.options
 $oats_execution['options'] = options
@@ -14,10 +20,10 @@ if options['execution:occ:agent_nickname'] || options['execution:occ:agent_port'
   $oats_execution['agent'] = options  # Existence of this from now on implies running in agent mode
 end
 
-ENV['OATS_HOME'] ||= File.expand_path( '..', File.dirname(__FILE__) )
-ENV['OATS_TESTS'] ||= options['_:dir_tests'] || (ENV['OATS_HOME'] + '/oats_tests')
-
-$:.unshift(ENV['OATS_TESTS'] + '/lib')
+# Add oats_tests/lib into the path
+ENV['OATS_TESTS'] ||= options['_:dir_tests'] || File.join(ENV['OATS_HOME'], '/oats_tests')
+oats_test_lib = File.join(ENV['OATS_TESTS'] , 'lib')
+$:.unshift(oats_test_lib) unless $:.include?(oats_test_lib)
 
 require 'oats/keywords'
 

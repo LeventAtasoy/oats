@@ -4,3 +4,9 @@ pkg/*
 /nbproject/private/
 .DS_Store
 Gemfile.lock
+
+# Intellij project files
+*.iws
+.idea/workspace.xml
+.idea/tasks.xml
+ 

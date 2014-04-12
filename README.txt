@@ -37,7 +37,7 @@ details.
   - See OATS_HOME/doc/oats_ini.yml for customizable properties.
   - Copy sample OATS_HOME/oats_tests folder to <yourTestFolder> and start adding your
     own tests.
-  - Copy sample OATS_HOME/doc/oats-user.yml to HOME, and set 'dir_tests' to
+  - Copy sample OATS_HOME/doc/oats_user.yml to HOME, and set 'dir_tests' to
     your <yourTestFolder>
 
 

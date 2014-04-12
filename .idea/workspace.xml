@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9d5fee60-032b-4170-aa83-633b196524ec" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/oats.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations/oats.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.rvmrc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/configs/agent-n.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/configs/agent.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/configs/gr.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/Gemfile" afterPath="$PROJECT_DIR$/oats_tests/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.txt" afterPath="$PROJECT_DIR$/README.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/needsWork/addTestDynamically.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/needsWork/addTestDynamically.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/aut_ini.yml" afterPath="$PROJECT_DIR$/oats_tests/aut_ini.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/coreExamples.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/core/coreExamples.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/oats/driver.rb" afterPath="$PROJECT_DIR$/lib/oats/driver.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/needsWork/emailVerify.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/needsWork/emailVerify.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/examples.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/examples.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/expectedException.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/core/expectedException.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/extn_driver.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/extn_driver.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/gui/guiExamples.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/gui/guiExamples.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsDriver.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsDriver.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsExamples.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsExamples.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsTC1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsTC1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsTestlist.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/keywords/keywordsTestlist.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb_ok/out/myfile.txt" afterPath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb_ok/out/myfile.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb_ok/out/myfile2.txt" afterPath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb_ok/out/myfile2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/no_yaml.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/no_yaml.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats.gemspec" afterPath="$PROJECT_DIR$/oats.gemspec" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/oats.rb" afterPath="$PROJECT_DIR$/lib/oats.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/bin/oats.rb" afterPath="$PROJECT_DIR$/oats_tests/bin/oats.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder/oats.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder/oats.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/oats.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/oats.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/oats.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/oats.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/bin/oats" afterPath="$PROJECT_DIR$/oats_tests/bin/oats" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/oats/oats_data.rb" afterPath="$PROJECT_DIR$/lib/oats/oats_data.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/oats_httpd.conf" afterPath="$PROJECT_DIR$/doc/oats_httpd.conf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_2.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_2.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_3.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_3.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_4.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_1_4.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_2.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_2.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_3.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_3.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_4.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_2_4.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_2.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_2.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_3.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_3.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_4.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_3_4.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_4.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTest_4.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_2.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_2.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_3.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist_3.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/core/ok_verify.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/post_yaml.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/post_yaml.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/environments/qa.yml" afterPath="$PROJECT_DIR$/oats_tests/environments/qa.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/environments/qa_chrome.yml" afterPath="$PROJECT_DIR$/oats_tests/environments/qa_chrome.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/needsWork/testSql/rtest.sql" afterPath="$PROJECT_DIR$/oats_tests/examples/needsWork/testSql/rtest.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/needsWork/testSql/rtest.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/needsWork/testSql/rtest.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/lib/sample_xl_lists.rb" afterPath="$PROJECT_DIR$/oats_tests/lib/sample_xl_lists.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/gui/seleniumGoogle.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/gui/seleniumGoogle.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder/t1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder/t1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/t1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/t1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/t1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/t1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir2/t1.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir2/t1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder1/t1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder1/t1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/t1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder2/t1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/t1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir/t1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir2/t1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/testDir2/t1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1_1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/t1_1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder1/t1_1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/folder1/t1_1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/core/unexpectedException.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/core/unexpectedException.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/unitTestList.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/unitTestList.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/oats/user_api.rb" afterPath="$PROJECT_DIR$/lib/oats/user_api.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/variation1.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/variation1.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/occTest/variation2.yml" afterPath="$PROJECT_DIR$/oats_tests/examples/occTest/variation2.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/oats/version.rb" afterPath="$PROJECT_DIR$/lib/oats/version.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/gui/webdriverGoogle.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/gui/webdriverGoogle.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/yml_driver.rb" afterPath="$PROJECT_DIR$/oats_tests/examples/testFileLocationUnitTests/yml_driver.rb" />
+    </list>
+    <ignored path="oats.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="false" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/oats@IRB_console__oats.coverage" NAME="IRB console: oats Coverage Results" MODIFIED="1396929250231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="oats" />
+    <SUITE FILE_PATH="coverage/oats@oats.coverage" NAME="oats Coverage Results" MODIFIED="1397242084030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bin" MODULE_NAME="oats" />
+    <SUITE FILE_PATH="coverage/oats@gui.coverage" NAME="gui Coverage Results" MODIFIED="1397075337349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../" MODULE_NAME="oats" />
+    <SUITE FILE_PATH="coverage/oats@btp.coverage" NAME="oats Coverage Results" MODIFIED="1396661684114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../" MODULE_NAME="oats" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="oats">
+      <favorite_root url="file://$USER_HOME$/oats_user.yml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      <favorite_root url="file://$PROJECT_DIR$/oats_tests/environments/qa.yml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+    </favorites_list>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="oats" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/oats">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="oats.gemspec" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/oats.gemspec">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="626">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_case.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+              <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Gemfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="oats_ini.yml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3975">
+              <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="true" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Levent Atasoy" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/oats_ini.yml" />
+        <option value="$PROJECT_DIR$/doc/oats_httpd.conf" />
+        <option value="$PROJECT_DIR$/oats.gemspec" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/oats_tests/examples/occTest/occTestlist.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/tj.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/user_presets.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/user_presets_code.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/module_list_check.yml" />
+        <option value="$PROJECT_DIR$/lib/oats/driver.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/sd.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/module_list.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/mytest.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/lib/gui_driver.rb" />
+        <option value="$PROJECT_DIR$/lib/oats/user_api.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/flash_ini.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/flash_tests.yml" />
+        <option value="$PROJECT_DIR$/lib/oats/oats_data.rb" />
+        <option value="$PROJECT_DIR$/.idea/oats.iml" />
+        <option value="$PROJECT_DIR$/oats_tests/mobile/readText.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/flash.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/flash/module_show_weather.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/environments/qa.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/mobile/swipe.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/mobile/mobile.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/mobile/beats_music.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/Gemfile" />
+        <option value="$PROJECT_DIR$/oats_tests/lib/gui.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/aut_ini.yml" />
+        <option value="$PROJECT_DIR$/oats_tests/lib/btp.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/btp/btp_test.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/examples/occTest/occTest.rb" />
+        <option value="$PROJECT_DIR$/oats_tests/lib/rest_api.rb" />
+        <option value="$USER_HOME$/oats_user.yml" />
+        <option value="$PROJECT_DIR$/lib/oats.rb" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1445" />
+    <option name="y" value="-278" />
+    <option name="width" value="1887" />
+    <option name="height" value="1169" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers ProjectPane="false" />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource ProjectPane="false" />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType ProjectPane="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope">
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oats" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="appearance" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+    <property name="LayoutCode.rearrangeEntriesRuby" value="false" />
+    <property name="LayoutCode.rearrangeEntriesYaml" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/oats_tests/lib" />
+      <recent name="$PROJECT_DIR$/oats_tests/mobile" />
+      <recent name="$PROJECT_DIR$/oats_tests/flash" />
+      <recent name="$PROJECT_DIR$/oats_tests" />
+      <recent name="$PROJECT_DIR$/oats_tests/environments" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Ruby.oats">
+    <configuration default="false" name="IRB console: oats" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
+      <module name="oats" />
+      <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$MODULE_DIR$" />
+      <IRB_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <IRB_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <IRB_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$USER_HOME$/.rvm/rubies/ruby-2.1.1/bin/irb" />
+      <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="--prompt simple" />
+      <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="false" />
+      <RunnerSettings RunnerId="RubyRunner" />
+      <ConfigurationWrapper RunnerId="RubyRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="RSpecRunConfigurationType" factoryName="RSpec">
+      <predefined_log_file id="RUBY_RSPEC" enabled="true" />
+      <module name="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby">
+      <module name="oats" />
+      <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="$MODULE_DIR$/../" />
+      <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$MODULE_DIR$/bin/oats" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest">
+      <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
+      <module name="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="IrbRunConfigurationType" factoryName="IRB console">
+      <module name="" />
+      <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="" />
+      <IRB_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <IRB_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <IRB_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.motion.run.MotionSimulatorRunExtension" />
+      <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="" />
+      <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
+      <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="false" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Ruby.oats" />
+      <item index="1" class="java.lang.String" itemvalue="IRB console.IRB console: oats" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="IRB console.IRB console: oats" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <recycled_changelist date="1397091582068">
+      <option name="PATH" value="$USER_HOME$/Library/Preferences/RubyMine60/shelf/Keep.patch" />
+      <option name="DESCRIPTION" value="Keep" />
+    </recycled_changelist>
+    <recycled_changelist date="1397091692197">
+      <option name="PATH" value="$USER_HOME$/Library/Preferences/RubyMine60/shelf/Fix_the__check__handling_by_introducing_deep_merge1.patch" />
+      <option name="DESCRIPTION" value="Fix the 'check' handling by introducing deep_merge" />
+    </recycled_changelist>
+    <recycled_changelist date="1397091604581">
+      <option name="PATH" value="$USER_HOME$/Library/Preferences/RubyMine60/shelf/Fix_the__check__handling_by_introducing_deep_merge.patch" />
+      <option name="DESCRIPTION" value="Fix the 'check' handling by introducing deep_merge" />
+    </recycled_changelist>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d5fee60-032b-4170-aa83-633b196524ec" name="Default" comment="" />
+      <created>1396660218709</created>
+      <updated>1396660218709</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Fix environment and bundler issues.">
+      <created>1396662902532</created>
+      <updated>1396662902532</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix environment and bundler issues.">
+      <created>1396917605415</created>
+      <updated>1396917605415</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix environment and bundler issues.">
+      <created>1396919920511</created>
+      <updated>1396919920511</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add Oats.test_data support. Add RubyMine project.">
+      <created>1396998302293</created>
+      <updated>1396998302293</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Initial support for flash &amp; eggdrive, prototype for btp.">
+      <created>1396998467802</created>
+      <updated>1396998467802</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fix the 'check' handling by introducing deep_merge">
+      <created>1397089165675</created>
+      <updated>1397089165675</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Keep">
+      <created>1397091582306</created>
+      <updated>1397091582306</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix the 'check' handling by introducing deep_merge">
+      <created>1397091604876</created>
+      <updated>1397091604876</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix the 'check' handling by introducing deep_merge">
+      <created>1397091692414</created>
+      <updated>1397091692414</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Improve YAML merge messages&#10;Separate flash_ini.yml as an include&#10;First cut for mobile Eggdriver classes.&#10;">
+      <created>1397106497204</created>
+      <updated>1397106497204</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Cleanup run configurations.">
+      <created>1397106531741</created>
+      <updated>1397106531741</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Implement Gui return for readText.rb">
+      <created>1397108528770</created>
+      <updated>1397108528770</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Replace check and ignore, with expectedOnly and filter options.">
+      <created>1397166109958</created>
+      <updated>1397166109958</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1445" y="-278" width="1887" height="1169" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40707162" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29727188" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.115447156" sideWeight="0.30915684" order="2" side_tool="true" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.115447156" sideWeight="0.69084316" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3742479" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20304017" sideWeight="0.5042333" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37522125" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47412756" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="24" y="35" width="1920" height="874" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32389382" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="1547" y="-178" width="1702" height="952" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="Fix environment and bundler issues." />
+    <MESSAGE value="Add Oats.test_data support. Add RubyMine project." />
+    <MESSAGE value="Initial support for flash &amp; eggdrive, prototype for btp." />
+    <MESSAGE value="Keep" />
+    <MESSAGE value="Fix the 'check' handling by introducing deep_merge" />
+    <MESSAGE value="Improve YAML merge messages&#10;Separate flash_ini.yml as an include&#10;First cut for mobile Eggdriver classes.&#10;" />
+    <MESSAGE value="Cleanup run configurations." />
+    <MESSAGE value="Implement Gui return for readText.rb" />
+    <MESSAGE value="Replace check and ignore, with expectedOnly and filter options." />
+    <option name="LAST_COMMIT_MESSAGE" value="Replace check and ignore, with expectedOnly and filter options." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/lib/oats/user_api.rb</url>
+          <line>551</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/oats_tests/mobile/readText.rb</url>
+          <line>2</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/oats_tests/mobile/beats_music.rb</url>
+          <line>5</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/oats_tests/btp/btp_test.rb</url>
+          <line>3</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/bin/oats</url>
+          <line>2</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="98" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/bin/oats">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="135">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+          <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3975">
+          <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/oats">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="135">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+          <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3975">
+          <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/oats">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="135">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+          <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3975">
+          <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+          <caret line="299" column="0" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3975">
+          <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="315">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7725">
+          <caret line="319" column="67" selection-start-line="319" selection-start-column="67" selection-end-line="319" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="225">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="225">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="225">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/results/oats.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="577">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/driver.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6236413" vertical-offset="681" max-vertical-offset="6705">
+          <caret line="76" column="49" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/oselenium.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13686131" vertical-offset="0" max-vertical-offset="2925">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.1.1/gems/ruby-debug-ide-0.4.23.beta1/lib/ruby-debug-ide.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33281735" vertical-offset="1060" max-vertical-offset="2625">
+          <caret line="85" column="11" selection-start-line="85" selection-start-column="11" selection-end-line="85" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_data.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.20414202" vertical-offset="138" max-vertical-offset="1560">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/oats_exceptions.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27480915" vertical-offset="0" max-vertical-offset="655">
+          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/oats.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2" vertical-offset="0" max-vertical-offset="1350">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/runConfigurations/oats.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="676">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/user_api.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6731" max-vertical-offset="9885">
+          <caret line="463" column="0" selection-start-line="463" selection-start-column="0" selection-end-line="463" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/oats_data.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.8846154" vertical-offset="5225" max-vertical-offset="6120">
+          <caret line="362" column="42" selection-start-line="362" selection-start-column="38" selection-end-line="362" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.rvm/rubies/ruby-2.1.1/lib/ruby/2.1.0/xmlrpc/client.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3145743" vertical-offset="3832" max-vertical-offset="9330">
+          <caret line="270" column="0" selection-start-line="270" selection-start-column="0" selection-end-line="270" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="718">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats/test_case.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="7725">
+          <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/oats.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5914634" vertical-offset="39" max-vertical-offset="690">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/oats_user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36585367" vertical-offset="0" max-vertical-offset="492">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats_ini.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3975">
+          <caret line="145" column="74" selection-start-line="145" selection-start-column="73" selection-end-line="145" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/oats">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oats.gemspec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="626">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

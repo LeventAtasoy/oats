@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 # OATS Framework
-gem 'oats' unless defined?(OATS_GEM_IS_ALREADY_INCLUDED)
+gem 'oats'
 gem 'spreadsheet' # If you want to run XL based tests
 
 #

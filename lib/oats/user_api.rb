@@ -157,11 +157,15 @@ module Oats
   # Examples:
   #  Oats.data 'selenium.browser' == 'firefox
   #  Oats.data['selenium']['browser'] == 'firefox'
-  def Oats.data(map_str = nil, do_raise_if_missing = nil)
+  def Oats.data(map_str = nil, hash_or_raise = nil, do_raise_if_missing = nil)
     return $oats unless map_str
+    if hash_or_raise.instance_of?(Hash)
+      value = hash_or_raise
+    else
+      value = $oats
+      do_raise_if_missing = hash_or_raise
+    end
     data_keys = map_str.split('.')
-    value = $oats
-    #    until ! value.kind_of?(Hash) or data_keys.size == 0 do
     loop do
       return value if data_keys.empty?
       if value.instance_of? Hash
@@ -250,7 +254,8 @@ module Oats
     file = Dir.glob(File.join(Oats.test.path, name)).first unless file
     file = Dir.glob(File.join( $oats['execution']['dir_tests'], 'data', '**',name)).first unless file
     Oats.assert file, "Can not locate file with name [#{name}]"
-    Oselenium.remote_webdriver_map_file_path(file)
+#    Oselenium.remote_webdriver_map_file_path(file)
+    file
   end
 
 
@@ -535,6 +540,16 @@ module Oats
   # of TestCase to access to test path components or other test information.
   def Oats.test
     TestData.current_test
+  end
+
+  # Stores an object for the test_name to be retrived by subsequent tests via Oats.test_data
+  def Oats.test_data=(value)
+   Oats.global['test_data'][TestData.current_test.name] = value
+  end
+
+  # Returns the data save in a previous test_name via Oats.test_data=
+  def Oats.test_data(test_name)
+    Oats.global['test_data'][test_name]
   end
 
   # Samples the given block each second until it returns true or times out.
