@@ -56,7 +56,7 @@ module Oats
         end
         ! options['execution:tail_logs_ip'] and ! OatsLock.set and  return false
         $log.remove('console') if options['_:quiet']
-        $oats_execution['testlist_init'] and $oats_execution['testlist_init'].each_pair do |klas, args|
+        $oats_execution['oats_init'] and $oats_execution['oats_init'].each_pair do |klas, args|
           klas.init
         end
         Oats.global['test_data'] = {}
@@ -289,10 +289,7 @@ module Oats
         $oats = Marshal.load(oats_data_dump)
         begin
           if test_file.instance_of? Array
-            path = test_file[0]
-            id = path.sub( Regexp.new( '^' + $oats['execution']['dir_tests'] + '/', Regexp::IGNORECASE ) , '')
-            id = id.sub(/\.rb/,'.'+test_file[1])
-            tst = TestCase.new(id,test_file)
+            tst = TestCase.new(test_file)
             tst.run
           else
             id, extension, path, handler = TestCase.parse_test_files(test_file)
@@ -311,8 +308,8 @@ module Oats
               begin
                 Driver.process_test_yaml( $oats, id, path)
               ensure
-                $oats = Marshal.load(oats_data_dump)
                 post = $oats['execution']['handler_post_test_list']
+                $oats = Marshal.load(oats_data_dump)
                 if post
                   post_tst = TestCase.new(post)
                   post_tst.type = 0

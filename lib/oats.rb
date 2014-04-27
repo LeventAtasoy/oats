@@ -25,6 +25,7 @@ ENV['OATS_TESTS'] ||= options['_:dir_tests'] || File.join(ENV['OATS_HOME'], '/oa
 oats_test_lib = File.join(ENV['OATS_TESTS'] , 'lib')
 $:.unshift(oats_test_lib) unless $:.include?(oats_test_lib)
 
+
 require 'oats/keywords'
 
 # GEMS needed by OATS.
@@ -38,3 +39,9 @@ require 'oats/driver'
 require 'oats/oats_lock'
 
 require 'oats/user_api' #  Interface methods to user methods implemented in other modules
+
+Dir.foreach(oats_test_lib) do |file|
+  if File.extname(file) == '.rb'
+    require file
+  end
+end

@@ -138,6 +138,7 @@ module Oats
       end
     end
 
+    # Returns pid array of matching processes
     def OatsLock.find_matching_processes(proc_names)
       matched = []
       if RUBY_PLATFORM =~ /(mswin|mingw)/
@@ -159,11 +160,12 @@ module Oats
         `#{pscom}`.split("\n").each do |lvar|
           line = lvar.chomp
           case RUBY_PLATFORM
-          when /darwin/ #  ps -ef output
-            pid = line[5..11]
-            next if pid.to_i == 0
-            ppid = line[12..16]
-            proc_name = line[50..-1]
+            when /darwin/ #  ps -ef output
+              if line =~ /\s*\d*\s*(\d*)\s*(\d*)\s*\d\s*\S*\s\S*\s*\S*\s(.*)/
+                pid = $1
+                ppid = $2
+                proc_name = $3
+              end
           when /linux/ #  ps ww output
             pid = line[7..12]
             next if pid.to_i == 0
@@ -173,7 +175,9 @@ module Oats
             raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
           end
           next unless pid
-          matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip] if proc_name =~ proc_names
+          if proc_name =~ proc_names
+            matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip]
+          end
         end
       end
       return matched

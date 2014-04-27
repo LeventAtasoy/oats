@@ -14,11 +14,12 @@ module Oats
     Driver.run(args)
   end
 
-  # Registers classes to initialize class methods by calling call <Class>.init before
-  # each TestList execution.  To use, put inside the class: Oats.testlist_init(self)
-  def Oats.testlist_init(klas, *args)
-    $oats_execution['testlist_init'] ||= {}
-    $oats_execution['testlist_init'][klas] = args
+  # Registers a class to (re)initialize class variables by calling call <Class>.init before
+  # each Oats execution.  To use, put inside the class: Oats.init(self)
+  # Last test can also set a handler_post_test_list to [Class.init], but a test cannot set handler_pre_test_list.
+  def Oats.init(klas, *args)
+    $oats_execution['oats_init'] ||= {}
+    $oats_execution['oats_init'][klas] = args
   end
 
   # Merges indicated YAML into the test's Oats.data
@@ -26,20 +27,11 @@ module Oats
     OatsData.include_yaml_file yaml_file
   end
 
-  # Adds new test to the current test_files
-  # OatsTest.names method(s) should be defined under the OatsTest module in the lib
+  # Adds new test to the current test_files. Test can be
+  # MyTest.method(s) should be defined under in a module in the lib
   # Example:
-  # Oats.add_test Oats.add_test "method_test", "testid_#{i}", "parameter_#{i}"
-  # module OatsTest # Place this definition in the 'lib' to be auto-required
-  #    def self.method_test(params)
-  #      Oats.info "Running new test: #{Oats.test.id} with params: #{params.inspect}"
-  #    end
-  # end
+  # Oats.add_test ['MyTest.method_test'] # Creates a test_id with this method
   def Oats.add_test(*args)
-    #    Oats.assert self.respond_to?(name), "Method OatsTest.#{names} is not defined."
-    #    args[0] = TestData.current_test.dir.sub(/\.rb/,".#{args[0]}.methodTest")
-
-    #    args.unshift TestData.current_test.dir
     $oats_global['test_files'] ||= []
     $oats_global['test_files'].push(args[0])
   end
@@ -178,6 +170,18 @@ module Oats
         return nil
       end
     end
+  end
+
+  # Shallow merge Oats.data(map_str) to options, merging symbols keys in options into string keys in Oats.data
+  def Oats.data_merge(options, map_str)
+    opt = options.dup
+    opt.deep_merge(Oats.data(map_str))
+    opt.each_key do |k|
+      if k.instance_of? Symbol
+        opt[k.to_s] = opt.delete(k)
+      end
+    end
+    opt
   end
 
   # Adjust result dir YAML entries if running on agent mode
@@ -452,7 +456,7 @@ module Oats
     $ide.run(input_suite_path, hash )
   end
 
-  # Obsolete. Create classes and use class variables to carry over global info.
+  # for inter-test data, within a TestList. Using class variables carries data across TestLists.
   def Oats.global
     $oats_global
   end

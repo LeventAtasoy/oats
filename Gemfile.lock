@@ -1,0 +1,25 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    deep_merge (1.0.1)
+    hashdiff (0.2.0)
+    log4r (1.1.10)
+    mime-types (2.2)
+    net-ssh (2.8.0)
+    net-ssh-telnet (0.0.2)
+      net-ssh (>= 2.0.1)
+    rake (10.2.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  deep_merge
+  hashdiff
+  log4r
+  net-ssh
+  net-ssh-telnet
+  rake
+  rest-client
