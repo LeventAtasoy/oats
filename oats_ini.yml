@@ -45,7 +45,7 @@
 # Any value specified in this file can be later reset to nil by setting it to NO.
 # The oats_ini.yml will be supplemented by contents of <dir_tests>/aut_ini.yml, if present
 include_yaml:
-# Use if the included YAML entries should override the current YAML entries
+# Use if the included YAML entries should override the current YAML entries. Use only in test yamls
 include_yaml_later:
 
 execution:
@@ -62,6 +62,9 @@ execution:
   # Before each test is processed, testName.yml or oats.yml will be read if found
   # at the same level as the test executable path.
   # Any other file.extension will be handled by <extension>_handler if set as below
+  # A test entry that is an array, eg: [test_id, MyTest.method_test, parameter1, parameter2]
+  # is executed. MyTest.methods should be in the oats_tests 'lib' to be auto-required
+  # An array with single entry implies test_id is same as MyTest.method_test
   yml_handler: # yml_processor.rb
   test_files: [ examples/occTest/occTestlist.yml ] # C-L,R-U:rec
 
