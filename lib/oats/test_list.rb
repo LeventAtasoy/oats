@@ -81,6 +81,7 @@ module Oats
     def initialize(var,list)
       @parent = list
       @name = var
+      @env_name = $oats_info['environment_name'] if $oats_info['environment_name']
       @tests = []
       @start_time = Time.now.to_i
     end
@@ -112,6 +113,8 @@ module Oats
         'total' => testlist.total,
         'start_time' => testlist.start_time,
         'end_time' => testlist.end_time,
+        'env_name' => testlist.env_name,
+        'list_name' => testlist.list_name,
         'tests' => []
       }
       if pre_test and ! pre_test.errors.empty?

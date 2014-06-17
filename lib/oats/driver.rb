@@ -216,6 +216,7 @@ module Oats
             new_list.add_variation(variation)
             break if $oats_info['stop_oats']
             variation = variation.sub(/\.yml$/,'') # Get rid of extension, if provided.
+            $oats_info['environment_name'] = variation if variation
             # Look for variation in environments
             environment_variation = Util.expand_path( variation+'.yml',
               File.join(oats_data['execution']['dir_tests'], 'environments') )
