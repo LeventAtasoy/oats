@@ -68,7 +68,7 @@ module Oats
         Roptions.override(options)
         Oats.result_archive_dir # Adjust results_ dir variables if running on agent mode
         oats_data = $oats
-        Oselenium.reset if defined?(Oats::Oselenium) # Initialize class variables and kill running browsers, in case running in server host mode
+        Selenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset)# Initialize class variables and kill running browsers, in case running in server host mode
         #      oats_data['execution']['test_files'] = test_files if test_files and ! test_files.empty?
         dir_res = oats_data['execution']['dir_results']
         stop_file = dir_res + '/stop_oats'
@@ -110,7 +110,7 @@ module Oats
             (oats_log ? ": " + oats_log : '')
           Report.archive_results(true)
         ensure
-          Oselenium.reset if defined?(Oats::Oselenium)
+          Selenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset)
           unless oats_data['execution']['tail_logs_ip'] or oats_log.nil?
             Log4r::Outputter['logfile'].close
             $log.remove('logfile')

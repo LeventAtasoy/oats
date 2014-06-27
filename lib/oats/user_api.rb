@@ -63,57 +63,6 @@ module Oats
     raise(OatsAssertError, message) unless test
   end
 
-  # Returns a browser (selenium driver), logging into RL site or opening URL.
-  # The browser is retrieved and reused in the subsequent rtest.*rb executions,
-  # but it is automatically closed at the end of each Oats test. If exists, the
-  # browser is also accessible via the global $selenium.
-  # The arguments url_or_site and credentials will be passed to Oselenium.login
-  #
-  # Parameters:
-  # url_or_site:: String, A URL, or site:
-  #                     [root@oats ]
-  #               Required parameter for the first invocation, can be
-  #               omitted in subsequent invocations to get the current browser.
-  #               Re-issueing it w/o logging out of the same site will reopen
-  #               the landing page. A different site will cause logout of the
-  #               old site and login to the new site. User will be created if
-  #               it does not already exists.
-  # new_browser:: If true, will create a new browser while keeping the old one.
-  # credentials::  Hash to contain credentials['email'] and, credentials['password']
-  #
-  # Methods in addition to the selenium driver methods are:
-  # login(site):: Same as Oats.browser(url_or_site), for a site. Returns nil if
-  #               site is not recognized.
-  # logout:: Logs out of the last logged in sites if any and returns browser.
-  #          Logout may not succeed if logout button is unavailable.
-  #
-  # Examples:
-  #  browser = Oats.browser('oats')
-  #  browser.click("link=Orders")
-  #  browser.login('root@')
-  #  browser.logout
-  #
-  def Oats.browser(*args)
-    require 'oats/oselenium' unless defined?(Oats::Oselenium)
-    Oselenium.browser(*args)
-  end
-
-  # Capture system screenshot and logs
-  # Returns captured file name if successful, or nil.
-  def Oats.system_capture
-    return if $selenium.nil? or # Snapshots are not supported on Ubuntu/Chrome
-    ($oats['selenium']['browser_type'] == 'chrome' and RUBY_PLATFORM =~ /linux/)
-    ct = TestData.current_test
-    file = Util.file_unique(fn="page_screenshot.png", ct.result)
-    Oats.info "Will attempt to capture #{fn}."
-    begin
-      timeout($oats['selenium']['capture_timeout']) { selenium.save_screenshot(file) }
-      ct.error_capture_file = fn
-    rescue Exception => e
-      $log.warn "Could not capture page screenshot: #{e}"
-    end
-    return ct.error_capture_file
-  end
 
   # Loads the indicated ruby file file after locating it in the tests directory.
   #
@@ -262,34 +211,6 @@ module Oats
     file
   end
 
-
-  # Moves files downloaded by selenium into the test.result directory.
-  # Input is shell glob names, defaulting to '*'.
-  # Returns array of basenames of copied files.
-  # Assumes downloaded file is not empty
-  def Oats.collect_downloaded(file_glob_name = '*')
-    downloaded_files = []
-    result_dir = TestData.current_test.result
-    #    cur_test.collect_downloaded_output if cur_test && cur_test.instance_of?(TestCase)
-    Oats.wait_until("There were no files in: #{$oats_global['download_dir']}", 15) do
-      Dir.glob(File.join($oats_global['download_dir'],file_glob_name)) do |e|
-        # Ensure file is fully downloaded
-        old_size = 0
-        Oats.wait_until do
-          new_size = File.size?(e) # Returns nil if size is zero. Assumes downloaded file is not empty
-          if new_size and new_size == old_size # File size stabilized
-            FileUtils.mv(e, result_dir )
-            downloaded_files.push(File.basename(e))
-          else
-            old_size = new_size
-            false
-          end
-        end
-      end
-      downloaded_files != []
-    end
-    return downloaded_files
-  end
 
 
   # Removes the random words from files in 'Oats.test.result' by applying

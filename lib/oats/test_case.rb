@@ -312,9 +312,13 @@ module Oats
                         $log.error $! # Full stackstrace
                     end
                     TestData.error($!)
-                    Oats.system_capture unless Oats.data['selenium']['skip_capture']
+                    if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
+                        Oats.data['selenium']['skip_capture']
+                      Selenium.system_capture
+                    end
+
                   ensure
-                    Oselenium.pause_browser if defined?(Oats::Oselenium)
+                    Selenium.pause_browser if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:pause_browser)
                   end
               end # case else
             rescue OatsMysqlNoConnect # at 6 deep
@@ -333,7 +337,8 @@ module Oats
             $mysql.processlist if timed_out? # Ensure selenium closes if this throws an exception
           rescue
           end
-          Oselenium.reset if defined?(Oats::Oselenium) and ($oats['selenium']['keep_alive'].nil? or !errors.empty?)
+          Oselenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset) and
+              ($oats['selenium']['keep_alive'].nil? or !errors.empty?)
           FileUtils.rm_rf(out) if File.directory?(out) and
               Dir.glob(File.join(out, '*')).empty?
           if $oats['execution']['no_run']
