@@ -3,10 +3,9 @@ module Oats
 
   module BuildId
     def BuildId.generate
-      return
-      dir_results = $oats['execution']['dir_results']
       env_name = $oats['env']['name']
       return unless env_name and $oats['execution']['build_version']
+      dir_results = $oats['execution']['dir_results']
       TestList.current.variations.last.env_name = env_name
       run_info_file = File.join(dir_results,'run_info_' + env_name + '.txt')
       unless File.exist?(run_info_file)
@@ -25,7 +24,7 @@ module Oats
       build_id_file = File.join(dir_results,'buildID_' + env_name + '.txt')
 
       for host in $oats['execution']['build_versions'] do
-        web_host = $oats['env'][host] && $oats['env'][host]['host']
+        web_host = Oats.data('env.host') && Oats.data('env' + host + 'host')
         next unless web_host
         urls = $oats['env'][host]['buildID_url']
         next unless urls

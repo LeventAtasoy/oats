@@ -68,7 +68,7 @@ module Oats
         Roptions.override(options)
         Oats.result_archive_dir # Adjust results_ dir variables if running on agent mode
         oats_data = $oats
-        Selenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset)# Initialize class variables and kill running browsers, in case running in server host mode
+        Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)# Initialize class variables and kill running browsers, in case running in server host mode
         #      oats_data['execution']['test_files'] = test_files if test_files and ! test_files.empty?
         dir_res = oats_data['execution']['dir_results']
         stop_file = dir_res + '/stop_oats'
@@ -77,7 +77,7 @@ module Oats
           $oats_info['stop_oats'] = Time.new.to_i
           FileUtils.mv(stop_file, dir_res + '/stop_file_' + Oats.context['jobid'] )
         end
-        Report.archive_results if not oats_data['execution']['tail_logs_ip']
+        # Report.archive_results if not oats_data['execution']['tail_logs_ip']
         FileUtils.mkdir_p(dir_res)
         oats_data['execution']['log'] = oats_data['execution']['dir_results'] + '/oats.log'
         oats_log = oats_data['execution']['log']
@@ -110,7 +110,7 @@ module Oats
             (oats_log ? ": " + oats_log : '')
           Report.archive_results(true)
         ensure
-          Selenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset)
+          Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)
           unless oats_data['execution']['tail_logs_ip'] or oats_log.nil?
             Log4r::Outputter['logfile'].close
             $log.remove('logfile')
@@ -264,12 +264,12 @@ module Oats
     def Driver.process_oats_data(oats_data)
       stop_file = oats_data['execution']['stop_file']
       $oats = oats_data  # Oats Data becomes global only this point down to allow recursion.
-      begin
-        ApplicationLogs.tail_errors # If the user just wants to tail, this never returns
-      rescue OatsBadInput
-        $log.fatal $!.to_s
-        exit
-      end
+      # begin
+      #   ApplicationLogs.tail_errors # If the user just wants to tail, this never returns
+      # rescue OatsBadInput
+      #   $log.fatal $!.to_s
+      #   exit
+      # end
       # The environment file for tailing is included only in the user's very first variation.
       test_files = oats_data['execution']['test_files']
       if ! test_files or test_files.empty?

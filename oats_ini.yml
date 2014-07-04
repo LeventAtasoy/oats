@@ -85,7 +85,7 @@ execution:
   no_run:  # C-L,R-U:opt
 
   # List of component hosts in the env from which to pick build version and display in OCC
-  build_versions: (Oats.global and Oats.global['agent']) ? Array.new(1,'web'):Array.new  # Avoid wasting time for dev
+  # build_versions: (Oats.global and Oats.global['agent']) ? Array.new(1,'web'):Array.new  # Avoid wasting time for dev
 
   # Controls the amount of logs output to the log files.
   log_level: DEBUG # INFO, WARN, ERROR, FATAL # R-U:opt
@@ -93,9 +93,6 @@ execution:
   # Root directory for the output results
   dir_results: ENV['HOME'] + '/results' # C-L,R-U:opt
 
-  # Set this to yes or the IP of the browser host to tail the application error
-  # logs. Typcially used from commandline.
-  tail_logs_ip: # {10.10.20.51 | yes} # C-L:opt
 
   # Used to switch the root directory to search for test files. The system
   # searches dir_tests for test_files or environments if they are specified as
@@ -158,25 +155,14 @@ selenium:
   # be overridden from the commandline.
   browser_type: firefox  # C-L,R-U:opt
 
-  #Set this to download collection on chrome and IE and make sure to empty the default download directory.
-  default_downloads:
-  # Hosts for each browser type to use webdriver in remote mode.
-  remote_webdriver:
-    oats_dir: c:/users/qatest/oats
-    os: Windows_NT
-    ie: 10.0.11.32:4445 # qa-testing # Remove the value from this entry in order to run ie locally
-    chrome:  # Put in remote driver host to run remotely
-    firefox: #10.0.11.32:4445
-
   # Additional options to pass webdriver
   options:
     chrome:
       switches: [--start-maximized]
 
-  # For webdriver, this is a non-default profile name is defined via -profilemanager
-  # A non-default executable firefox_path is specified by defining an environment
-  # variable matching this profile name. Will use default if this profile is undefined.
-  firefox_profile: selenium
+  # Firefox profile names are created via 'bin/firefox -profilemanager'
+  # If no profile found matching this name, webdriver will create a clean profile to use
+  firefox_profile: default
 
   # Sets the firefox profile properties indicated.
   firefox_profile_set:
@@ -198,24 +184,24 @@ selenium:
   # Set to close the browser session only if an error is raised during execution (not verify)
   keep_alive: YES
 
-  ide:
-  # Use this port for IDE executions.
-    port: 4445
-    # Minutes to limi tthe full IDE suite execution.
-    # For individual action timeout, need to use "setTimeout millisecs" in test html
-    suite_timeout: 5 # 30 # Default
-  # Applicable only to IDE tests, setting this will skip the GUI execution and
-  # will only regenerate the test HTML files based on the environments so that
-  # they can be manually debugged or executed via the IDE.
-    generate: # C-L,R-U:opt
-
-    # Set NO to remove *.gen* files after a test passes.
-    keep_generated_files: YES
-
-    # Browser to use to show IDE test results. Default inherits from firefox_executable
-    result_browser: explorer # iexplore
-
-    show_result:
+#  ide:
+#  # Use this port for IDE executions.
+#    port: 4445
+#    # Minutes to limi tthe full IDE suite execution.
+#    # For individual action timeout, need to use "setTimeout millisecs" in test html
+#    suite_timeout: 5 # 30 # Default
+#  # Applicable only to IDE tests, setting this will skip the GUI execution and
+#  # will only regenerate the test HTML files based on the environments so that
+#  # they can be manually debugged or executed via the IDE.
+#    generate: # C-L,R-U:opt
+#
+#    # Set NO to remove *.gen* files after a test passes.
+#    keep_generated_files: YES
+#
+#    # Browser to use to show IDE test results. Default inherits from firefox_executable
+#    result_browser: explorer # iexplore
+#
+#    show_result:
 
 #####################################################################
 #####   PARAMETERS BELOW TYPICALLY VARIES ACROSS ENVIRONMENTS   #####
@@ -225,9 +211,7 @@ selenium:
 # Application environment information
 env:
   type: qa # production
-  web:
-    host: # Fully qualified host name for web host
-    logs: # ["/var/log/messages", "/var/log/httpd/error_log"] # E-V:opt Array of logs to search for errors
+
 sql:
   # Choose the DB to connect. When nil, Omysql will raise OatsMysqlNoConnect
   # causing such tests to be classified as SKIPPED unless the callser rescues it.

@@ -217,14 +217,11 @@ module Oats
         return
       end
       # Clean download directory
-      if $oats_global['download_dir']
-        files = Dir.glob(File.join($oats_global['download_dir'], '*'))
-        FileUtils.rm(files) unless files.empty?
-      end
+      Oats::Selenium.mark_downloaded if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:mark_downloaded)
       # Initialize classes this test may need
       #    $ide = Ide.new unless ENV['JRUBY_BASE']
       # Execute the test
-      ApplicationLogs.new_errors(true) # Reset pre-existing errors
+      # ApplicationLogs.new_errors(true) # Reset pre-existing errors
       if @is_file
         oats_tsts = [@handler || @path]
       elsif @method
@@ -337,7 +334,7 @@ module Oats
             $mysql.processlist if timed_out? # Ensure selenium closes if this throws an exception
           rescue
           end
-          Oselenium.reset if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:reset) and
+          Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset) and
               ($oats['selenium']['keep_alive'].nil? or !errors.empty?)
           FileUtils.rm_rf(out) if File.directory?(out) and
               Dir.glob(File.join(out, '*')).empty?
@@ -357,15 +354,15 @@ module Oats
       else
         $log.warn "Skipping verification, can not find result directory: #{result_dir_save}"
       end
-      log_errors = ApplicationLogs.new_errors
-      unless log_errors.empty?
-        log_errors.each { |e| $log.error e.chomp }
-        raise(OatsVerifyError, "Found errors in the application logs.")
-      end
+      # log_errors = ApplicationLogs.new_errors
+      # unless log_errors.empty?
+      #   log_errors.each { |e| $log.error e.chomp }
+      #   raise(OatsVerifyError, "Found errors in the application logs.")
+      # end
       if errors.empty?
         @status = 0 unless @status
         FileUtils.rm Dir[File.join(Oats.data['execution']['run_in_dir_results'] ? result_dir : dir, '*.gen.*')]  \
-          if result_dir and not Oats.data['selenium']['ide']['keep_generated_files']
+          if result_dir and (Oats.data('selenium.ide') and not Oats.data('selenium.ide.keep_generated_files') )
       end
     end
 

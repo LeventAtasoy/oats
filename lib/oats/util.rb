@@ -3,11 +3,93 @@ require 'win32/process' if RUBY_PLATFORM =~ /(mswin|mingw)/ and not defined?(Pro
 module Oats
   module Util
 
-    #  def Util.cygwin_fix_path(file,dir = nil)
-    #  end
-    def Util.expand_path(file,dir = nil)
+    # Kills processes matching the given Regexp
+    # @example kill(/firefox/) # will kill all processes containing word 'firefox'
+    # @param  One of [Regexp] proc_names, [String] pid, or array from find_matching_processes
+    # @param [String] info_line to output
+    # @return [Array] pids of killed processes
+    def self.kill(process_selector, info_line=nil)
+      case process_selector
+        when Array
+          procs = process_selector
+        when String
+          procs = [pid, process_selector, nil]
+        when Regexp
+          procs = self.find_matching_processes(process_selector)
+      end
+      signal = 'KILL'
+      killed_procs = []
+      procs.each do |pid, proc_name, ppid|
+        info_line ||= "#{pid} " + proc_name
+        process_exists = true
+        begin
+          killed = Process.kill(signal, pid.to_i)
+        rescue Errno::ESRCH # OK if the process is gone
+          process_exists = false
+        end
+        if process_exists
+          if killed == 0
+            Oats.warn "Failed to kill [#{info_line||pid}]"
+          else
+            Oats.warn "Successfully killed [#{info_line||pid}]"
+            killed_procs.push pid
+          end
+        end
+      end
+      killed_procs
+    end
+
+    # Returns pid array of matching processes
+    # @example find_matching_processes(/firefox/) # will return all processes containing word 'firefox'
+    # @param [Regexp] proc_names to match existing processes
+    def self.find_matching_processes(proc_names)
+      matched = []
+      if RUBY_PLATFORM =~ /(mswin|mingw)/
+        processes = WIN32OLE.connect("winmgmts://").ExecQuery("select * from win32_process")
+        #      for process in processes do
+        #        for property in process.Properties_ do
+        #          puts property.Name
+        #        end
+        #        break
+        #      end
+        processes.each do |process|
+          #          puts [process.Commandline, process.ProcessId, process.name].inspect
+          if process.Commandline =~ proc_names
+            matched.push [process.ProcessId, process.Name, nil, process.CommandLine]
+          end
+        end
+      else
+        pscom = RUBY_PLATFORM =~ /linux/ ? 'ps lxww' : 'ps -ef'
+        `#{pscom}`.split("\n").each do |lvar|
+          line = lvar.chomp
+          case RUBY_PLATFORM
+            when /darwin/ #  ps -ef output
+              if line =~ /\s*\d*\s*(\d*)\s*(\d*)\s*\d\s*\S*\s\S*\s*\S*\s(.*)/
+                pid = $1
+                ppid = $2
+                proc_name = $3
+              end
+            when /linux/ #  ps ww output
+              pid = line[7..12]
+              next if pid.to_i == 0
+              ppid = line[13..18]
+              proc_name = line[69..-1]
+            else
+              raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
+          end
+          next unless pid
+          if proc_name =~ proc_names
+            matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip]
+          end
+        end
+      end
+      return matched
+    end
+
+    # Same as File.expand_path, but handles /cygdrive/
+    def self.expand_path(file, dir = nil)
       file = File.expand_path(file, dir)
-      file.sub!('/',':/') if file.sub!('/cygdrive/','')
+      file.sub!('/', ':/') if file.sub!('/cygdrive/', '')
       file
     end
 
@@ -46,8 +128,8 @@ module Oats
           existing_path = path
           extn = File.extname(path)
           if extn
-            base = path.sub(/#{extn}\z/,'')
-            base.sub!(/(_\d*)?\z/,"_#{cnt}")
+            base = path.sub(/#{extn}\z/, '')
+            base.sub!(/(_\d*)?\z/, "_#{cnt}")
             path = base + extn
           else
             path = File.join dir, file_name + "_#{cnt}"
@@ -61,10 +143,10 @@ module Oats
     end
 
     # Kill process occupying a port
-    def Util.clear_port(port,log)
+    def Util.clear_port(port, log)
       matching_busy_port_line = IO.popen('netstat -a -o').readlines.grep(Regexp.new(port.to_s)).first
       return unless matching_busy_port_line and matching_busy_port_line =~ /LISTENING/
-      pid = matching_busy_port_line.chomp!.sub(/.*LISTENING *(\d+).*/,'\1')
+      pid = matching_busy_port_line.chomp!.sub(/.*LISTENING *(\d+).*/, '\1')
       log.warn "Likely busy port: [#{matching_busy_port_line}]"
       # Cygwin specific code
       #    pid_line = IO.popen("pslist #{pid}").readlines.grep(Regexp.new('java.*'+pid.to_s)).first
@@ -72,7 +154,7 @@ module Oats
       #    begin
       log.warn "Will attempt to kill the PID #{pid}"
       signal = 'KILL'
-      killed = Process.kill(signal,pid.to_i)
+      killed = Process.kill(signal, pid.to_i)
       if killed.empty?
         log.warn "Failed to kill the process"
         return false
@@ -84,7 +166,7 @@ module Oats
 
     # Kill process using a handle
     # Util.clear_handle('oats_in_progress.lock','java','ruby') willl kill
-    def Util.clear_handle(hstring,*proc_names)
+    def Util.clear_handle(hstring, *proc_names)
       pid = nil
       proc_name = nil
       handle_string = nil
@@ -111,7 +193,7 @@ module Oats
       #    begin
       puts "Will attempt to kill the PID #{pid}"
       signal = 'KILL'
-      killed = Process.kill(signal,pid.to_i)
+      killed = Process.kill(signal, pid.to_i)
       if killed.empty?
         puts "Failed to kill the process"
         return false

@@ -71,8 +71,8 @@ module Oats
       oats_data['_']['vendor'] = Util.expand_path('../vendor',oats_lib)
 
       # Verify existence of browser to show results
-      oats_data['selenium']['ide']['result_browser'] = oats_data['selenium']['ide']['result_browser']
-      oats_data['selenium']['ide']['show_result'] = 0 unless oats_data['selenium']['ide']['show_result']
+      # oats_data['selenium']['ide']['result_browser'] = oats_data['selenium']['ide']['result_browser']
+      # oats_data['selenium']['ide']['show_result'] = 0 unless oats_data['selenium']['ide']['show_result']
 
       unless oats_data['selenium']['pause_on_exit']
         if oats_data['execution']['test_files'] and oats_data['execution']['test_files'].first =~ /\.yml/

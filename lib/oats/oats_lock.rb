@@ -42,7 +42,7 @@ module Oats
             $log.error ">> #{ps_line}"
             $log.error "Please kill locking processes or remove #{in_progress_file}."
           else
-            pids.each { |pid| OatsLock.kill_pid(pid.chomp) }
+            pids.each { |pid| Util.kill(pid.chomp) }
             FileUtils.rm(in_progress_file)
           end
         end
@@ -114,118 +114,6 @@ module Oats
       return @@is_locked
     end
 
-    def OatsLock.kill_pid(pid,info_line=nil)
-      signal = 'KILL'
-      no_such_process = false
-      begin
-        killed = Process.kill(signal,pid.to_i)
-      rescue Errno::ESRCH # OK if the process is gone
-        no_such_process = true
-      end
-      if RUBY_VERSION =~ /^1.9/
-        if killed.empty?
-          killed = 0
-        else
-          killed = 1
-        end
-      end
-      if no_such_process
-        #      $log.debug "No such process #{info_line||pid}"
-      elsif killed == 0
-        $log.warn "Failed to kill [#{info_line||pid}]"
-      else
-        $log.warn "Successfully killed [#{info_line||pid}]"
-      end
-    end
-
-    # Returns pid array of matching processes
-    def OatsLock.find_matching_processes(proc_names)
-      matched = []
-      if RUBY_PLATFORM =~ /(mswin|mingw)/
-        processes = WIN32OLE.connect("winmgmts://").ExecQuery("select * from win32_process")
-        #      for process in processes do
-        #        for property in process.Properties_ do
-        #          puts property.Name
-        #        end
-        #        break
-        #      end
-        processes.each do |process|
-          #          puts [process.Commandline, process.ProcessId, process.name].inspect
-          if process.Commandline =~ proc_names
-            matched.push [process.ProcessId,process.Name,nil, process.CommandLine]
-          end
-        end
-      else
-        pscom = RUBY_PLATFORM =~ /linux/ ? 'ps lxww' : 'ps -ef'
-        `#{pscom}`.split("\n").each do |lvar|
-          line = lvar.chomp
-          case RUBY_PLATFORM
-            when /darwin/ #  ps -ef output
-              if line =~ /\s*\d*\s*(\d*)\s*(\d*)\s*\d\s*\S*\s\S*\s*\S*\s(.*)/
-                pid = $1
-                ppid = $2
-                proc_name = $3
-              end
-          when /linux/ #  ps ww output
-            pid = line[7..12]
-            next if pid.to_i == 0
-            ppid = line[13..18]
-            proc_name = line[69..-1]
-          else
-            raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
-          end
-          next unless pid
-          if proc_name =~ proc_names
-            matched.push [pid.strip, proc_name.strip, ppid.strip, line.strip]
-          end
-        end
-      end
-      return matched
-    end
-
-    def OatsLock.kill_webdriver_browsers
-
-      #      match = "ruby.*oats/lib/oats_main.rb"
-      match = 'ruby.*oats(\\\\|\/)bin(\\\\|\/)oats'
-      # Not tested on agents on Windows_NT
-      if $oats_execution['agent']
-        nickname = $oats_execution['agent']['execution:occ:agent_nickname']
-        port = $oats_execution['agent']['execution:occ:agent_port']
-        match += " -p #{port} -n #{nickname}"
-      end
-
-      # Kill all selenium automation chrome jobs on MacOS. Assumes MacOS is for development only, not OCC.
-      # Will cause problems if multiple agents are run on MacOS
-      if RUBY_PLATFORM =~ /darwin/
-        chrome_automation_procs = OatsLock.find_matching_processes(/ Chrome .* --dom-automation/)
-        chrome_automation_procs.each do |pid,proc_name,ppid|
-          OatsLock.kill_pid pid
-        end
-      end
-
-      oats_procs = OatsLock.find_matching_processes(/#{match}\z/)
-      chromedriver_procs = OatsLock.find_matching_processes(/IEXPLORE.EXE\" -noframemerging|(chromedriver|firefox(-bin|\.exe\") -no-remote)/)
-      webdriver_procs = OatsLock.find_matching_processes(/webdriver/)
-      oats_procs.each do |opid,oproc_name,oppid|
-        chromedriver_procs.each do |cpid,cproc_name,cppid|
-          if cppid == opid
-            webdriver_procs.each do |wpid,wproc_name,wppid|
-              OatsLock.kill_pid wpid if wppid == cpid
-            end
-            OatsLock.kill_pid cpid
-          end
-        end
-      end
-      # If parent ruby dies, ppid reverts to "1"
-      (chromedriver_procs + webdriver_procs).each do |pid,proc_name,ppid|
-        if RUBY_PLATFORM =~  /(mswin|mingw)/
-          OatsLock.kill_pid pid 
-        else
-          OatsLock.kill_pid pid if ppid == "1" and proc_name !~ /defunct/
-        end
-      end
-    end
-
     # Removes lock
     def OatsLock.reset
       if @@file_handle  # Only for Windows
@@ -236,7 +124,7 @@ module Oats
         if $oats_execution['agent'].nil? and RUBY_PLATFORM !~ /(mswin|mingw)/ and File.exist?(in_progress_file)
           pids = IO.readlines(in_progress_file)
           current_pid = pids.shift
-          pids.each { |pid| OatsLock.kill_pid(pid.chomp) } # Legacy firefox
+          pids.each { |pid| Util.kill(pid.chomp) } # Legacy firefox
         end
         @@is_locked = false
       end

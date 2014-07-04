@@ -14,7 +14,7 @@ class ApplicationLogs
     logs = $oats['env']['web']['logs']
     logs = nil if logs.nil? or logs.empty?
     return [] unless logs
-    host = $oats['env']['web']['host']
+    host = Oats.data 'env.web.host'
     if @@app_logs_error_getter[host]
       return [] if initial
     else

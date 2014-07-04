@@ -76,8 +76,8 @@ module Oats
         base_url = nil
       end
       port = Oats.data['selenium']['ide']['port']
-      if Oats.data['env']['web']['host']
-        base_url = 'http://' + Oats.data['env']['web']['host']
+      if Oats.data['env.web.host']
+        base_url = 'http://' + Oats.data['env.web.host']
       else
         base_url = base_url[0]
       end

@@ -335,12 +335,12 @@ module Oats
   # Returns the comparison with any previous ok file if exists.
   #
   # Parameters:
-  #   file_name: Appends '_<count>' to the this name if the file already exists.
-  #   content: String to output, must supply only if a block is not given.
-  #   no_raise: If set to true, just return comparison, don't raise exception
-  #  Examples:
-  # Oats.out_file('my_file.txt', "Check this string" }
-  # Oats.out_file('my_file.txt') { |f| f.puts "Check this string" }
+  #   file_name:: Appends '_<count>' to the this name if the file already exists.
+  #   content:: String to output, must supply only if a block is not given.
+  #   no_raise:: If set to true, just return comparison, don't raise exception
+  # Examples:
+  #  Oats.out_file('my_file.txt', "Check this string" }
+  #  Oats.out_file('my_file.txt') { |f| f.puts "Check this string" }
   def Oats.out_file(file_name, content = nil, no_raise = nil)
     out_path = Util.file_unique(file_name, Oats.test.result)
     File.open(out_path, 'w+') do |f|
@@ -378,8 +378,9 @@ module Oats
   end
 
   # for inter-test data, within a TestList. Using class variables carries data across TestLists.
-  def Oats.global
-    $oats_global
+  def Oats.global(par=nil)
+    return $oats_global unless par
+    Oats.data(par, $oats_global)
   end
 
   # Output info level log entries.
@@ -468,11 +469,14 @@ module Oats
   end
 
   # Stores an object for the test_name to be retrived by subsequent tests via Oats.test_data
+  # @param [object] value to be stored as part of current test
   def Oats.test_data=(value)
    Oats.global['test_data'][TestData.current_test.name] = value
   end
 
-  # Returns the data save in a previous test_name via Oats.test_data=
+  # Retrieves the data save in a previous test_name via Oats.test_data=
+  # @param [String] test_name in the same the test list that was executed earlier
+  # @return [object] value stored previously during the execution of test_name
   def Oats.test_data(test_name)
     Oats.global['test_data'][test_name]
   end
@@ -481,31 +485,25 @@ module Oats
   # Raises OatsTestError if times out or returns last value of block.
   #
   # Parameters (also allowed as Hash):
-  #  :message  Exception message to issue upon timeout.
-  #            Appended with 'in N seconds' unless seconds is negative.
-  #  :seconds  For timeout, defaults from Oats.data selenium.command_timeout
-  #  :is_return Returns false if times out instead of raising OatsTestError.
+  #  :message::  Exception message to issue upon timeout.
+  #              Appended with 'in N seconds' unless seconds is negative.
+  #  :seconds::  For timeout, defaults from Oats.data selenium.command_timeout
+  #  :is_return:: Returns false if times out instead of raising OatsTestError.
   #        If :message is nil, :is_return defaults to true
-  #  :interval  Seconds to wait in betweeen calls to block
+  #  :interval::  Seconds to wait in between calls to block
   #
-  # Example:
+  # Examples:
   #  wait_str = 'loadingIcon'
   #  Oats.wait_until("Page did not have [#{wait_str}]") {
   #    $selenium.get_html_source.include?(wait_str)
   #  }
-  def Oats.wait_until(*args)
+  def Oats.wait_until(*args,**options)
     raise(OatsTestError, 'Oats.wait_until requires an input block.') unless block_given?
-    if args[0].kind_of?(Hash)
-      options = args[0]
-      message = options[:message]
-      seconds = options[:seconds]
-      is_return = options[:is_return]
-      interval = options[:interval]
-    else
-      message, seconds, is_return, interval = *args
-    end
-    interval ||= 1
-    seconds ||= Oats.data['execution']['wait_until_timeout']
+    message, seconds, is_return, interval = *args
+    message ||= options[:message]
+    seconds ||= options[:seconds] || Oats.data('execution.wait_until_timeout')
+    is_return = options[:is_return]
+    interval ||= options[:interval] || 1
     is_return = true if message.nil?
     if seconds < 0
       seconds = seconds.abs
