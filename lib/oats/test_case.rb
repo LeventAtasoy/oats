@@ -89,25 +89,18 @@ module Oats
       return id, extension, path, handler
     end
 
-    def backtrace(obj=nil)
-      TestCase.backtrace(obj)
+    def backtrace(exception=nil)
+      TestCase.backtrace(exception)
     end
 
-    def TestCase.backtrace(obj=nil)
-      obj ||= $!
-      return unless obj.kind_of? Exception
-      filtered = obj.backtrace
-      filtered = obj.backtrace.delete_if { |line| line !~ /[\/|\\]oats\/tests[\/|\\]/ } unless $oats['execution']['full_stacktrace']
-      # Doing below only filters the message in the log, not the full backtrace in the results.dump
-      #    unless $oats['execution']['full_stacktrace']
-      #      filtered = obj.backtrace.delete_if { |line| line !~ /[\/|\\]oats\/tests[\/|\\]/}
-      #      if TestCase.respond_to?('backtrace_filter')
-      #        new_filtered = []
-      #        filtered.each { |line| new_filtered << TestCase.backtrace_filter(line) }
-      #        filtered = new_filtered
-      #      end
-      #    end
-      return "Caught #{obj.class}: #{obj.message}" + (filtered.empty? ? '' : "\n\t") + filtered.join("\n\t")
+    def TestCase.backtrace(exception=nil)
+      exception ||= $!
+      return unless exception.kind_of? Exception
+      filtered = exception.backtrace
+      if filter = Oats.data('execution.filter_stacktrace')
+        filtered.select! { |line| line =~ /[\/|\\]#{filter}[\/|\\]/ }
+      end
+      return "Caught #{exception.class}: #{exception.message}" + (filtered.empty? ? '' : "\n\t") + filtered.join("\n\t")
     end
 
     def run

@@ -104,8 +104,8 @@ execution:
   # Set to copy the test contents to the dir_results before executing the test
   run_in_dir_results: YES
 
-  # Set to see full stacktrace on ruby tests.
-  full_stacktrace:
+  # Ruby stacktraces not containing this string will be filtered.
+  filter_stacktrace: oats_tests
 
   # Ruby Class methods, file names, or paths in test_dir to be executed before and after a oats test.
   oload_pre:  # String or array of rb file names or paths to be executed
