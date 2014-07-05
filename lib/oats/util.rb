@@ -20,7 +20,7 @@ module Oats
       signal = 'KILL'
       killed_procs = []
       procs.each do |pid, proc_name, ppid|
-        info_line ||= "#{pid} " + proc_name
+        info_line = "#{pid} " + proc_name
         process_exists = true
         begin
           killed = Process.kill(signal, pid.to_i)
@@ -53,7 +53,7 @@ module Oats
         #        break
         #      end
         processes.each do |process|
-          #          puts [process.Commandline, process.ProcessId, process.name].inspect
+             # puts [process.Commandline, process.ProcessId, process.name].inspect
           if process.Commandline =~ proc_names
             matched.push [process.ProcessId, process.Name, nil, process.CommandLine]
           end

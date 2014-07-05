@@ -162,7 +162,7 @@ selenium:
 
   # Firefox profile names are created via 'bin/firefox -profilemanager'
   # If no profile found matching this name, webdriver will create a clean profile to use
-  firefox_profile: default
+  firefox_profile: selenium
 
   # Sets the firefox profile properties indicated.
   firefox_profile_set:
