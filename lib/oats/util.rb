@@ -53,8 +53,8 @@ module Oats
         #        break
         #      end
         processes.each do |process|
-             # puts [process.Commandline, process.ProcessId, process.name].inspect
-          if process.Commandline =~ proc_names
+           # puts [process.Commandline, process.ProcessId, process.name].inspect
+          if process.Commandline ? (process.Commandline =~ proc_names) : (process.Name =~ proc_names)
             matched.push [process.ProcessId, process.Name, nil, process.CommandLine]
           end
         end
