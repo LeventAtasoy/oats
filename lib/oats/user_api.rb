@@ -90,25 +90,58 @@ module Oats
 
   # Hash object providing access to the oats.yml state entries at the time of
   # test execution. Note that Oats.data contents are isolated from modification
-  # across tests. If path is not found, returns nil unless do_raise_if_missing
-  # is set.
-  #  map_string:: Period seperated YAML path into the current Oats.data
+  # across tests. If path is not found, returns nil, unless do_raise_if_missing
+  # is set, then raises OatsTestError
+  # Parameters:
+  #  :map_string:: [String[ Period seperated YAML path into the current Oats.data
   #    If not specified, returns the full hash.
-  #  do_raise_if_missing:: set true to raise OatsTestError if key is missing
+  #  :param2: if
+  #     * [Hash] use this hash instead of standard Oats.data]
+  #     * [True] use it as do_raise_if_missing
+  #     * [Symbol] to use with opt
+  #  :param3-4:
+  #     Meaning depends on param3.  See Examples below
+  #
   # Examples:
-  #  Oats.data 'selenium.browser' == 'firefox
-  #  Oats.data['selenium']['browser'] == 'firefox'
-  def Oats.data(map_str = nil, hash_or_raise = nil, do_raise_if_missing = nil)
+  #  # No Param2
+  #  Oats.data('My')['data'] = 'value' # Setting a value
+  #  Oats.data 'My.data' == 'value'    # Accessing the value
+  #  Oats.data 'My.non_existing_data' # returns nil
+  #
+  #  # Param2 is True
+  #  Oats.data 'My.non_existing_data', true # raises OatsTestError
+  #
+  #  # Param2 is a Hash
+  #  Oats.data 'My.data', {My => {data => value}}  # returns value
+  #
+  #  # Param2 is Symbol
+  #  Oats.data 'My', :data, option  # returns (option[:data] || Oats.data(My.data)) or raises if result is nil
+  #  Oats.data 'My', :data, option, true  # Allows returning nil, but still raises if missing key
+  def Oats.data(map_str = nil, param2 = nil, param3 = nil, param4 = nil)
     return $oats unless map_str
-    if hash_or_raise.instance_of?(Hash)
-      value = hash_or_raise
+    sym = nil
+    if param2.instance_of?(Hash)
+      value = param2
+      do_raise_if_missing = param3
+    elsif param2.instance_of?(Symbol)
+      value = $oats
+      sym = param2
+      opt = param3
+      do_raise_if_missing = param4
     else
       value = $oats
-      do_raise_if_missing = hash_or_raise
+      do_raise_if_missing = param2
+    end
+    if sym
+      return opt[sym] if opt[sym]
+      map_str = "#{map_str}.#{sym}"
     end
     data_keys = map_str.split('.')
     loop do
-      return value if data_keys.empty?
+      if data_keys.empty?
+        return value if sym.nil?
+        Oats.assert(value, 'Need to specify Oats.data: ' + map_str) unless do_raise_if_missing
+      end
       if value.instance_of? Hash
         key = data_keys.shift
         if do_raise_if_missing
