@@ -155,6 +155,9 @@ selenium:
   # be overridden from the commandline.
   browser_type: firefox  # C-L,R-U:opt
 
+  # Set to YES for switching to webdriver instead of Watir
+  webdriver: NO  # Default is watir # env
+
   # Additional options to pass webdriver
   options:
     chrome:
