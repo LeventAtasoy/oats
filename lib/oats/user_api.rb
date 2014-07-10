@@ -2,7 +2,7 @@ require 'oats/util'
 require 'oats/oats_exceptions'
 
 # Need these set for OCC when this is required from OCC
-ENV['OATS_HOME'] ||= File.expand_path( '../..', File.dirname(__FILE__) )
+ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
 ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
 
 module Oats
@@ -42,21 +42,24 @@ module Oats
   # Oats.assert_include('is','this, "Should never fail")
   def Oats.assert_include?(includee, includer, pre_message = nil)
     pre_message += ' ' if pre_message
-    Oats.assert(includer.include?(includee),"#{pre_message} Failed since #{includer.inspect} does not include #{includee.inspect}")
+    Oats.assert(includer.include?(includee), "#{pre_message} Failed since #{includer.inspect} does not include #{includee.inspect}")
   end
+
   # Raises OatsAssertError unless two parameters are '=='
   # If given pre_message preceeds the standard message showing expected and actuals.
   # Example:
   # Oats.assert_equal(old_count, new_count, "After deletion, creative counts did not decrease.")
   def Oats.assert_equal(expected, actual, pre_message = nil)
     pre_message += ' ' if pre_message
-    Oats.assert(expected == actual,"#{pre_message}Expected value #{expected.inspect} does not match actual #{actual.inspect}")
+    Oats.assert(expected == actual, "#{pre_message}Expected value #{expected.inspect} does not match actual #{actual.inspect}")
   end
+
   # Raises OatsAssertError if two parameters are '=='
   def Oats.assert_not_equal(expected, actual, pre_message = nil)
     pre_message += ' ' if pre_message
-    Oats.assert(expected != actual,"#{pre_message}Expected different but received the same value: #{actual.inspect}")
+    Oats.assert(expected != actual, "#{pre_message}Expected different but received the same value: #{actual.inspect}")
   end
+
   # Raises OatsTestError unless test is true
   def Oats.assert(test, message = nil)
     message = 'Assertion failed.' unless message
@@ -139,13 +142,17 @@ module Oats
     data_keys = map_str.split('.')
     loop do
       if data_keys.empty?
-        return value if sym.nil?
-        Oats.assert(value, 'Need to specify Oats.data: ' + map_str) unless do_raise_if_missing
+        if sym.nil?
+          return value
+        else
+          Oats.assert(value, 'Need to specify Oats.data: ' + map_str) unless do_raise_if_missing
+          return value
+        end
       end
       if value.instance_of? Hash
         key = data_keys.shift
         if do_raise_if_missing
-          Oats.assert(value.has_key?(key),  "Can not locate #{key} for #{map_str} at ")
+          Oats.assert(value.has_key?(key), "Can not locate #{key} for #{map_str} at ")
         end
         value = value[key]
       else
@@ -177,7 +184,7 @@ module Oats
       if oats_data['execution']['dir_results'] !~ /#{agent_nickname}$/
         # Should move to a better place.This is unrelated to results, Just picking up the agent file.
         agent_ini_file = File.join(ENV['HOME'], agent_nickname + '_oats.yml')
-        oats_data = OatsData.load(agent_ini_file,oats_data) if File.exist?(agent_ini_file)
+        oats_data = OatsData.load(agent_ini_file, oats_data) if File.exist?(agent_ini_file)
         oats_data['result_archive_dir'] += '/' + agent_nickname
         oats_data['execution']['dir_results'] += '/' + agent_nickname
       end
@@ -190,6 +197,7 @@ module Oats
   def Oats.eval(input=nil)
     return input
   end
+
   # Returns hash object containing info about persistent oats internal variables
   # for the complete oats execution. Contents of Oats.context are also persisted  into
   # the results.dump in the results directory.
@@ -229,7 +237,8 @@ module Oats
   end
 
   # Exception raised by Oats.filter
-  class OatsFilterError  < OatsError ; end
+  class OatsFilterError < OatsError;
+  end
 
   # Returns Windows file path of a file name to be used with file uploads.
   # name:: globbed file name inside the test directory or under test/data folder.
@@ -238,12 +247,11 @@ module Oats
   def Oats.file(name)
     file = name if File.exist?(name)
     file = Dir.glob(File.join(Oats.test.path, name)).first unless file
-    file = Dir.glob(File.join( $oats['execution']['dir_tests'], 'data', '**',name)).first unless file
+    file = Dir.glob(File.join($oats['execution']['dir_tests'], 'data', '**', name)).first unless file
     Oats.assert file, "Can not locate file with name [#{name}]"
 #    Oselenium.remote_webdriver_map_file_path(file)
     file
   end
-
 
 
   # Removes the random words from files in 'Oats.test.result' by applying
@@ -275,44 +283,44 @@ module Oats
   #  Oats.filter('input.txt',/this.*that/,'thisAndThat') # Replaces indicated content
   #  Oats.filter('input.txt') { |line| line unless line == 'this\n' } # Omits 'this\n' line
   def Oats.filter(in_file, *param)
-    raise(OatsFilterError,"At least one inputis required.") unless in_file
+    raise(OatsFilterError, "At least one inputis required.") unless in_file
     test = TestData.current_test
     case in_file
-    when String
-      raise(OatsFilterError,"Input string can not be empty.") if in_file == ''
-      if /\s/ =~ in_file # If there is space in name, assume it is not a file
-        input_is_file = false
-        lines = in_file.split($/)
-      else
-        input_is_file = true
-        if File.exist?(in_file)
-          filter_file = Util.expand_path(in_file)
+      when String
+        raise(OatsFilterError, "Input string can not be empty.") if in_file == ''
+        if /\s/ =~ in_file # If there is space in name, assume it is not a file
+          input_is_file = false
+          lines = in_file.split($/)
         else
-          in_files = Dir[in_file]
-          filter_file = in_files[0] unless in_files.empty?
-        end
-        unless filter_file
-          result_dir = test.result
-          filter_file = Util.expand_path(in_file, result_dir)
-          filter_file = nil unless File.exist?(filter_file)
-        end
-        unless filter_file
-          filter_file = Util.expand_path(in_file, result_dir)
-          in_files = Dir[filter_file]
-          if in_files.empty?
-            filter_file = nil
+          input_is_file = true
+          if File.exist?(in_file)
+            filter_file = Util.expand_path(in_file)
           else
-            filter_file = in_files[0]
+            in_files = Dir[in_file]
+            filter_file = in_files[0] unless in_files.empty?
           end
+          unless filter_file
+            result_dir = test.result
+            filter_file = Util.expand_path(in_file, result_dir)
+            filter_file = nil unless File.exist?(filter_file)
+          end
+          unless filter_file
+            filter_file = Util.expand_path(in_file, result_dir)
+            in_files = Dir[filter_file]
+            if in_files.empty?
+              filter_file = nil
+            else
+              filter_file = in_files[0]
+            end
+          end
+          raise(OatsFilterError, "Can not locate file to filter: [#{in_file}] in: " + result_dir) unless filter_file
+          raise(OatsFilterError, "Can not read file to filter: #{filter_file}") unless File.readable?(filter_file)
         end
-        raise(OatsFilterError,"Can not locate file to filter: [#{in_file}] in: " + result_dir) unless filter_file
-        raise(OatsFilterError,"Can not read file to filter: #{filter_file}") unless File.readable?(filter_file)
-      end
-    when Array
-      input_is_file = false
-      lines = in_file
-    else
-      raise(OatsFilterError,'Unrecognized input type.')
+      when Array
+        input_is_file = false
+        lines = in_file
+      else
+        raise(OatsFilterError, 'Unrecognized input type.')
     end
 
     if not param.empty? and param[0].instance_of?(String)
@@ -339,24 +347,24 @@ module Oats
     lines = IO.readlines(filter_file) if input_is_file
     #      FileUtils.rm(filter_file)
     out_lines = if block_given?
-      lines.collect { |line| yield(line) }
-    elsif replacement
-      lines.collect { |line| line.sub!(pattern,replacement) }
-    elsif pattern
-      lines.grep(pattern)
-    else
-      if out_file and filter_file
-        FileUtils.cp(filter_file, out_file) # Do not mv here.
-        # Otherwise out_file can not produce unique files
-        return lines ? lines : []
-      end
-      lines ? lines : []
-    end
+                  lines.collect { |line| yield(line) }
+                elsif replacement
+                  lines.collect { |line| line.sub!(pattern, replacement) }
+                elsif pattern
+                  lines.grep(pattern)
+                else
+                  if out_file and filter_file
+                    FileUtils.cp(filter_file, out_file) # Do not mv here.
+                    # Otherwise out_file can not produce unique files
+                    return lines ? lines : []
+                  end
+                  lines ? lines : []
+                end
 
     if out_lines
-      out_lines.delete_if{ |line| line.chomp == '' } unless out_lines.empty?
+      out_lines.delete_if { |line| line.chomp == '' } unless out_lines.empty?
       if out_file and not out_lines.empty?
-        File.open(out_file,'a+') { |ios| ios.write(out_lines.join) }
+        File.open(out_file, 'a+') { |ios| ios.write(out_lines.join) }
       end
     else
       out_lines = []
@@ -383,7 +391,7 @@ module Oats
         f.puts content
       end
     end
-    Oats.assert(File.exist?(out_path), "Can not find file #{out_path}")  # Verify did create the file
+    Oats.assert(File.exist?(out_path), "Can not find file #{out_path}") # Verify did create the file
     File.basename(out_path)
     #    file_ok = File.join Oats.test.ok_out, basename
     #    is_ok = true
@@ -406,8 +414,8 @@ module Oats
   #
   # Examples:
   #  Oats.ide.run('../campaign/rtest.html', 'this_token" => 'that_value')
-  def Oats.ide(input_suite_path, hash = nil )
-    $ide.run(input_suite_path, hash )
+  def Oats.ide(input_suite_path, hash = nil)
+    $ide.run(input_suite_path, hash)
   end
 
   # for inter-test data, within a TestList. Using class variables carries data across TestLists.
@@ -422,7 +430,6 @@ module Oats
     arg = arg.inspect unless arg.instance_of?(String)
     $log.info(arg)
   end
-
 
 
   # Execute MySQL files or statements, return result set in an array of rows.
@@ -472,8 +479,8 @@ module Oats
   #  Oats.rssh('./transfer.pl', /home')
   #  Oats.rssh('cat that.log','/var/www/app')
   #  Oats.rssh('ls httpd', '/var/log', nil, 'root')
-  def Oats.rssh(cmd_file, dir = nil , host = nil, username = nil)
-    Ossh.run(cmd_file, dir, host, username )
+  def Oats.rssh(cmd_file, dir = nil, host = nil, username = nil)
+    Ossh.run(cmd_file, dir, host, username)
   end
 
   #  Copies a file to the server via ssh using PuTTy/plink
@@ -504,7 +511,7 @@ module Oats
   # Stores an object for the test_name to be retrived by subsequent tests via Oats.test_data
   # @param [object] value to be stored as part of current test
   def Oats.test_data=(value)
-   Oats.global['test_data'][TestData.current_test.name] = value
+    Oats.global['test_data'][TestData.current_test.name] = value
   end
 
   # Retrieves the data save in a previous test_name via Oats.test_data=
@@ -530,7 +537,7 @@ module Oats
   #  Oats.wait_until("Page did not have [#{wait_str}]") {
   #    $selenium.get_html_source.include?(wait_str)
   #  }
-  def Oats.wait_until(*args,**options)
+  def Oats.wait_until(*args, ** options)
     raise(OatsTestError, 'Oats.wait_until requires an input block.') unless block_given?
     message, seconds, is_return, interval = *args
     message ||= options[:message]
@@ -577,10 +584,10 @@ module Oats
   #  Oats.unique(Oats.unique('this'))  => "this-835805082"
   def Oats.unique(prefix = nil)
     agent = $oats_execution['agent'] ? $oats_execution['agent']['execution:occ:agent_nickname'] : nil
-    prefix = ENV['HOSTNAME'].sub(/\..*/,'').downcase unless prefix or agent
-    postfix =  (agent ? agent + '_' : '') + Time.now.to_i.to_s[-8..-1]
+    prefix = ENV['HOSTNAME'].sub(/\..*/, '').downcase unless prefix or agent
+    postfix = (agent ? agent + '_' : '') + Time.now.to_i.to_s[-8..-1]
     if Oats.global['unique']
-      extra = Oats.global['unique'].sub(/#{postfix}/,'')
+      extra = Oats.global['unique'].sub(/#{postfix}/, '')
       unless extra == Oats.global['unique']
         if extra == ''
           postfix = "#{postfix}1"
@@ -591,10 +598,10 @@ module Oats
     end
     Oats.global['unique'] = postfix
     if prefix
-      separator =  '-'
+      separator = '-'
     else
-      prefix =  ''
-      separator =  ''
+      prefix = ''
+      separator = ''
     end
     postfix_pattern = separator + (agent ? agent + '_' : '') + '\d\d\d\d\d\d\d\d\d*'
     return prefix.sub(/#{postfix_pattern}$/, '') + separator + "#{postfix}"
