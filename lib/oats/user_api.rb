@@ -1,5 +1,7 @@
-require 'oats/util'
-require 'oats/oats_exceptions'
+require_relative 'util'
+require_relative 'oats_exceptions'
+require 'fileutils'
+require 'timeout'
 
 # Need these set for OCC when this is required from OCC
 ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
@@ -118,6 +120,7 @@ module Oats
   #  Oats.data 'My.data', {My => {data => value}}  # returns value
   #
   #  # Param2 is Symbol
+  #  Oats.data 'My', :data  # returns  Oats.data(My.data)
   #  Oats.data 'My', :data, option  # returns (option[:data] || Oats.data(My.data)) or raises if result is nil
   #  Oats.data 'My', :data, option, true  # Allows returning nil, but still raises if missing key
   def Oats.data(map_str = nil, param2 = nil, param3 = nil, param4 = nil)
@@ -136,7 +139,7 @@ module Oats
       do_raise_if_missing = param2
     end
     if sym
-      return opt[sym] if opt[sym]
+      return opt[sym] if opt and opt[sym]
       map_str = "#{map_str}.#{sym}"
     end
     data_keys = map_str.split('.')
@@ -179,7 +182,7 @@ module Oats
     oats_data = $oats
     oats_data['execution']['dir_results'] = Util.expand_path(oats_data['execution']['dir_results'])
     oats_data['result_archive_dir'] = oats_data['execution']['dir_results'] + '_archive'
-    if $oats_execution['agent']
+    if $oats_execution and $oats_execution['agent']
       agent_nickname = OatsAgent::Ragent.occ['agent_nickname']
       if oats_data['execution']['dir_results'] !~ /#{agent_nickname}$/
         # Should move to a better place.This is unrelated to results, Just picking up the agent file.
@@ -206,18 +209,6 @@ module Oats
   #  Oats.context['stop_oats'] == true #  Request stopping oats after current test
   def Oats.context
     $oats_info
-  end
-
-  # Output debug level log entries.
-  def Oats.debug(arg)
-    $log.debug(arg)
-  end
-
-  # Output error level log entries.
-  def Oats.error(arg)
-    ex = OatsTestError.exception(arg.to_s)
-    TestData.error(ex)
-    $log.error(arg)
   end
 
   # Exit a OATS Test from the middle without throwing an error.
@@ -424,13 +415,6 @@ module Oats
     Oats.data(par, $oats_global)
   end
 
-  # Output info level log entries.
-  def Oats.info(arg)
-    #    return if arg.nil?
-    arg = arg.inspect unless arg.instance_of?(String)
-    $log.info(arg)
-  end
-
 
   # Execute MySQL files or statements, return result set in an array of rows.
   # Empty result set results in an empty array. First row [0] of the result
@@ -607,9 +591,29 @@ module Oats
     return prefix.sub(/#{postfix_pattern}$/, '') + separator + "#{postfix}"
   end
 
+  # Output info level log entries.
+  def Oats.info(arg, level='info')
+    arg = arg.inspect unless arg.instance_of?(String)
+    $log ? $log.send(level, arg) : puts(arg)
+  end
+
   # Output warning level log entries.
   def Oats.warn(arg)
-    $log.warn(arg)
+    Oats.info(arg, 'warn')
+  end
+
+  # Output debug level log entries.
+  def Oats.debug(arg)
+    Oats.info(arg, 'debug')
+  end
+
+  # Output error level log entries.
+  def Oats.error(arg)
+    if defined?(TestData)
+      ex = OatsTestError.exception(arg.to_s)
+      TestData.error(ex)
+    end
+    Oats.info(arg, 'error')
   end
 
 end
