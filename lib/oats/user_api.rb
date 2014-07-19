@@ -4,8 +4,8 @@ require 'fileutils'
 require 'timeout'
 
 # Need these set for OCC when this is required from OCC
-ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
-ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
+ENV['OATS_DIR'] ||= File.expand_path('../..', File.dirname(__FILE__))
+ENV['OATS_TESTS'] ||= (ENV['OATS_DIR'] + '/oats_tests')
 
 module Oats
 
@@ -148,7 +148,9 @@ module Oats
         if sym.nil?
           return value
         else
-          Oats.assert(value, 'Need to specify Oats.data: ' + map_str) unless do_raise_if_missing
+          unless do_raise_if_missing
+            Oats.assert(value, 'Need to specify Oats.data: ' + map_str) if opt
+          end
           return value
         end
       end

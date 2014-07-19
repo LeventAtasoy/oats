@@ -107,7 +107,7 @@ module Oats
 
     def OatsData.load(oats_file = ENV['OATS_INI'], oats_default = nil)
       @@define_always = nil
-      @@oats_def_file ||= ENV['OATS_HOME'] + '/oats_ini.yml'
+      @@oats_def_file ||= ENV['OATS_DIR'] + '/oats_ini.yml'
 
       if oats_file
         raise(OatsError, "Can not locate: #{oats_file}") unless File.exist?(oats_file)

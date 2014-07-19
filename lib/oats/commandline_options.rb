@@ -97,11 +97,6 @@ module Oats
           #          'Select logging level ("DEBUG", "INFO", "WARN", "ERROR", "FATAL")' ) do |t|
           #          options['execution:log_level_console'] = t
           #        end
-          #        opts.on( '-t', '--tail_logs_ip [HOSTIP]',
-          #          'Tail the application logs for errors. Just input YES for the host IP executing OATS.' ) do |t|
-          #          t = true unless t
-          #          options['execution:tail_logs_ip'] = t
-          #        end
           #        opts.on( '-r', '--restrict t1,t2,t3,...', Array,
           #          'Restrict test list execution to the listed tests. NOT FULLY IMPLEMENTED YET.' ) do |t|
           #          options['execution:restrict_tests'] = t

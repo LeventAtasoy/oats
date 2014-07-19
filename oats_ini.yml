@@ -99,7 +99,7 @@ execution:
   # relative paths. If a file pattern is given, the first match is used, with
   # names matching directories are given priority over matches for YAML
   # files.
-  dir_tests: ENV['OATS_TESTS'] || ENV['OATS_HOME'] + '/oats_tests'
+  dir_tests: ENV['OATS_TESTS'] || ENV['OATS_DIR'] + '/oats_tests'
 
   # Set to copy the test contents to the dir_results before executing the test
   run_in_dir_results: YES

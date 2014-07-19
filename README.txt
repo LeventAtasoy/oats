@@ -29,15 +29,15 @@ details.
 
 == Configuring OATS
 
-   OATS_HOME below refers to the oats gem installation folder
+   OATS_DIR below refers to the oats gem installation folder
   - Set the HOME variable C:\myDirectory
   - Set USER PATH for ..\ruby\bin; C:\myDirectory\oats\bin
     At this point you should be able to type 'oats' in commandline and see the
     execution of a sample test.
-  - See OATS_HOME/doc/oats_ini.yml for customizable properties.
-  - Copy sample OATS_HOME/oats_tests folder to <yourTestFolder> and start adding your
+  - See OATS_DIR/doc/oats_ini.yml for customizable properties.
+  - Copy sample OATS_DIR/oats_tests folder to <yourTestFolder> and start adding your
     own tests.
-  - Copy sample OATS_HOME/doc/oats_user.yml to HOME, and set 'dir_tests' to
+  - Copy sample OATS_DIR/doc/oats_user.yml to HOME, and set 'dir_tests' to
     your <yourTestFolder>
 
 

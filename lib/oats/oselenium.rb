@@ -124,7 +124,7 @@ module Oats
     # Fixes the path to Windows if running on windows remote webdriver
     def Oselenium.remote_webdriver_map_file_path(file)
       if $selenium and $selenium.osel.remote_webdriver?
-        file.sub!(ENV['OATS_HOME'], $oats['selenium']['remote_webdriver']['oats_dir'])
+        file.sub!(ENV['OATS_DIR'], $oats['selenium']['remote_webdriver']['oats_dir'])
         file_os = $oats['selenium']['remote_webdriver']['os']
       else
         file_os = RUBY_PLATFORM

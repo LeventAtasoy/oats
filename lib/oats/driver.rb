@@ -54,7 +54,7 @@ module Oats
         else
           Oats.context['jobid'] = Oats.context['start_time'].to_s[2..-1]
         end
-        ! options['execution:tail_logs_ip'] and ! OatsLock.set and  return false
+        return false unless OatsLock.set
         $log.remove('console') if options['_:quiet']
         $oats_execution['oats_init'] and $oats_execution['oats_init'].each_pair do |klas, args|
           klas.init
@@ -77,7 +77,7 @@ module Oats
           $oats_info['stop_oats'] = Time.new.to_i
           FileUtils.mv(stop_file, dir_res + '/stop_file_' + Oats.context['jobid'] )
         end
-        # Report.archive_results if not oats_data['execution']['tail_logs_ip']
+        Report.archive_results
         FileUtils.mkdir_p(dir_res)
         oats_data['execution']['log'] = oats_data['execution']['dir_results'] + '/oats.log'
         oats_log = oats_data['execution']['log']
@@ -111,10 +111,6 @@ module Oats
           Report.archive_results(true)
         ensure
           Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)
-          unless oats_data['execution']['tail_logs_ip'] or oats_log.nil?
-            Log4r::Outputter['logfile'].close
-            $log.remove('logfile')
-          end
           OatsLock.reset
           $log.add('console') if options['_:quiet'] and ! @@quiet
         end
