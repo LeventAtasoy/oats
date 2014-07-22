@@ -596,20 +596,25 @@ module Oats
   # Output info level log entries.
   def Oats.info(arg, level='info')
     arg = arg.inspect unless arg.instance_of?(String)
-    $log ? $log.send(level, arg) : puts(arg)
+    if $log
+      $log.send(level, arg)
+    else
+      out = (level == 'error' ? $stderr : $stdout)
+      out.puts Time.now.strftime('%F %T') + " [#{level.upcase}] #{arg}"
+    end
   end
 
-  # Output warning level log entries.
+# Output warning level log entries.
   def Oats.warn(arg)
     Oats.info(arg, 'warn')
   end
 
-  # Output debug level log entries.
+# Output debug level log entries.
   def Oats.debug(arg)
     Oats.info(arg, 'debug')
   end
 
-  # Output error level log entries.
+# Output error level log entries.
   def Oats.error(arg)
     if defined?(TestData)
       ex = OatsTestError.exception(arg.to_s)
