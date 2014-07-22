@@ -28,7 +28,8 @@ module Oats
       $oats_global = {}
       @@quiet = options['_:quiet'] # save quiet option from initial commandline options
       $log.remove('console') if @@quiet
-      ENV['HOME'] = Util.expand_path(ENV['HOME']) if ENV['HOME'] # Normalize for cygwin
+      ENV['OATS_USER_HOME'] ||= ENV['HOME']
+      ENV['OATS_USER_HOME'] = Util.expand_path(ENV['OATS_USER_HOME']) if ENV['OATS_USER_HOME'] # Normalize for cygwin
       options
     end
     

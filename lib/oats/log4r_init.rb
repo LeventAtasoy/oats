@@ -7,7 +7,7 @@ require 'log4r/outputter/emailoutputter'
 include Log4r
 
 cfg = YamlConfigurator # shorthand
-cfg['HOME'] = ENV['HOME']     # the only parameter in the YAML, our HOME directory
+cfg['HOME'] = ENV['OATS_USER_HOME']     # the only parameter in the YAML, our HOME directory
 
 # load the YAML file with this
 cfg.load_yaml_file('log4r.yaml')

@@ -4,7 +4,7 @@
 execution:
 
 # #  Separate the folder to put 
-# dir_tests: ENV['HOME'] + '/oats_tests'
+# dir_tests: ENV['OATS_USER_HOME'] + '/oats_tests'
 
   # A YAML array containing test names to be executed by OATS. Each name must
   # either be a test directory, or another YAML file which contains

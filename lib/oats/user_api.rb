@@ -4,8 +4,8 @@ require 'fileutils'
 require 'timeout'
 
 # Need these set for OCC when this is required from OCC
-ENV['OATS_DIR'] ||= File.expand_path('../..', File.dirname(__FILE__))
-ENV['OATS_TESTS'] ||= (ENV['OATS_DIR'] + '/oats_tests')
+ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
+ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
 
 module Oats
 
@@ -188,7 +188,7 @@ module Oats
       agent_nickname = OatsAgent::Ragent.occ['agent_nickname']
       if oats_data['execution']['dir_results'] !~ /#{agent_nickname}$/
         # Should move to a better place.This is unrelated to results, Just picking up the agent file.
-        agent_ini_file = File.join(ENV['HOME'], agent_nickname + '_oats.yml')
+        agent_ini_file = File.join(ENV['OATS_USER_HOME'], agent_nickname + '_oats.yml')
         oats_data = OatsData.load(agent_ini_file, oats_data) if File.exist?(agent_ini_file)
         oats_data['result_archive_dir'] += '/' + agent_nickname
         oats_data['execution']['dir_results'] += '/' + agent_nickname

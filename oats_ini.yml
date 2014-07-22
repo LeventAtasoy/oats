@@ -79,7 +79,7 @@ execution:
   environments: [ qa.yml ] # C-L,R-U:rec
 
   # User's directory containing overrides for system supplied environments.
-  dir_environments:  ENV['HOME'] + '/environments' # R-U:opt
+  dir_environments:  ENV['OATS_USER_HOME'] + '/environments' # R-U:opt
 
   # Execution of a test is skipped if this evaluates to true.
   no_run:  # C-L,R-U:opt
@@ -91,7 +91,7 @@ execution:
   log_level: DEBUG # INFO, WARN, ERROR, FATAL # R-U:opt
 
   # Root directory for the output results
-  dir_results: ENV['HOME'] + '/results' # C-L,R-U:opt
+  dir_results: ENV['OATS_USER_HOME'] + '/results' # C-L,R-U:opt
 
 
   # Used to switch the root directory to search for test files. The system
@@ -99,7 +99,7 @@ execution:
   # relative paths. If a file pattern is given, the first match is used, with
   # names matching directories are given priority over matches for YAML
   # files.
-  dir_tests: ENV['OATS_TESTS'] || ENV['OATS_DIR'] + '/oats_tests'
+  dir_tests: ENV['OATS_TESTS'] || ENV['OATS_HOME'] + '/oats_tests'
 
   # Set to copy the test contents to the dir_results before executing the test
   run_in_dir_results: YES

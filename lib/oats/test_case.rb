@@ -166,7 +166,7 @@ module Oats
         end
       end
 
-      conf_hist = OatsData.history[1..-1].collect { |i| i.sub(/#{Oats.data['execution']['dir_tests']}.|#{ENV['HOME']}./, '') }
+      conf_hist = OatsData.history[1..-1].collect { |i| i.sub(/#{Oats.data['execution']['dir_tests']}.|#{ENV['OATS_USER_HOME']}./, '') }
       $log.debug 'Effective config file history: ' + conf_hist.inspect
 
       if $oats['execution']['dir_results']

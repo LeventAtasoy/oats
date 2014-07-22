@@ -107,12 +107,12 @@ module Oats
 
     def OatsData.load(oats_file = ENV['OATS_INI'], oats_default = nil)
       @@define_always = nil
-      @@oats_def_file ||= ENV['OATS_DIR'] + '/oats_ini.yml'
+      @@oats_def_file ||= ENV['OATS_HOME'] + '/oats_ini.yml'
 
       if oats_file
         raise(OatsError, "Can not locate: #{oats_file}") unless File.exist?(oats_file)
       else
-        oats_file = ENV['HOME'] ? File.join(ENV['HOME'], 'oats_user.yml') : nil
+        oats_file = ENV['OATS_USER_HOME'] ? File.join(ENV['OATS_USER_HOME'], 'oats_user.yml') : nil
         oats_file = nil unless oats_file and File.exist?(oats_file)
       end
       if oats_file
@@ -197,9 +197,9 @@ module Oats
         incl_yamls = [incl_yamls] if incl_yamls.instance_of?(String)
         incl_yamls.each do |incl_yaml|
           begin
-            incl_yaml_file =  File.exists?(incl_yaml) ? incl_yaml : File.expand_path(incl_yaml,File.dirname(oats_file))
+            incl_yaml_file = File.exists?(incl_yaml) ? incl_yaml : File.expand_path(incl_yaml, File.dirname(oats_file))
             # puts 'yf1: ' + incl_yaml_file.inspect
-            incl_yaml_file =  File.exists?(incl_yaml_file) ? incl_yaml_file : TestData.locate(incl_yaml, File.dirname(oats_file))
+            incl_yaml_file = File.exists?(incl_yaml_file) ? incl_yaml_file : TestData.locate(incl_yaml, File.dirname(oats_file))
             Oats.assert incl_yaml_file, "Can not locate file: #{incl_yaml}"
             hist = Oats.data['_']['load_history'].collect { |i| i.file } + @@include_hist
             Oats.assert !hist.include?(incl_yaml_file), "Attempt to re-include #{incl_yaml_file} into #{hist.inspect}"

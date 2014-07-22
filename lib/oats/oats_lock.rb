@@ -143,7 +143,7 @@ module Oats
       end
 
       def in_progress_file
-        return ENV['HOME'] + '/' + lock_file
+        return ENV['OATS_USER_HOME'] + '/' + lock_file
       end
 
       def parse_windows_handle_process_line(line)

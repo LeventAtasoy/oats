@@ -1,5 +1,5 @@
 Oats.info "Running #{Oats.test.name}"
-file = "#{ENV['HOME']}/#{Oats.test.name}"
+file = "#{ENV['OATS_USER_HOME']}/#{Oats.test.name}"
 total = Oats.data['count'] || 1
 interval = Oats.data['interval'] || 1
 total.times do |i|
