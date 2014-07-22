@@ -7,13 +7,13 @@ module Oats
 
     class << self
 
-      attr_accessor :lock_file
+      attr_accessor :lock_file # used to set the lock file in between
 
       # Returns returns existing lock file contents or nil if it succeeds in setting a new one.
-      def check_set(process_arg=nil)
-        is_locked = locked?
+      def check_set(busy_file = nil, process_arg=nil)
+        is_locked = locked?(busy_file)
         return is_locked if is_locked
-        @file_handle = File.open(lock_file, 'w')
+        @file_handle = File.open(busy_file, 'w')
         my_pid = Process.pid.to_s
         my_pid += ',' + process_arg if process_arg
         @file_handle.puts(my_pid)
@@ -26,12 +26,17 @@ module Oats
         return nil
       end
 
-      # Returns nil or contents of the lock file
-      def locked?(verbose = nil)
+      # Returns nil if not locked, or contents of the lock file if locked.
+      def locked?(busy_file = nil, verbose = nil)
+        if busy_file
+          self.lock_file = busy_file
+        else
+          busy_file = lock_file
+        end
         is_locked = nil
         if RUBY_PLATFORM !~ /(mswin|mingw)/ or ENV['TEMP'] =~ /^\/cygdrive/
-          if File.exist?(lock_file)
-            pid_lines = IO.readlines(lock_file)
+          if File.exist?(busy_file)
+            pid_lines = IO.readlines(busy_file)
             pid_line = pid_lines.shift.chomp.split(',')
             pid = pid_line[0]
             ps_args = pid_line[1]
@@ -42,29 +47,30 @@ module Oats
               if verbose
                 Oats.error "Another session is possibly in progress:"
                 Oats.error ">> #{ps_line}"
-                Oats.error "Please kill locking processes or remove #{lock_file}."
+                Oats.error "Please kill locking processes or remove #{busy_file}."
               end
             else
               # Should not be a PID to kill. An active PID should have been caught above already
               # killed = Util.kill(pid)
+
               # raise "Process should have been defunct but Unexpectedly killed #{pid} for pid_line." unless killed.empty?
               # The line below should not execute unless multiple PIDs registered in the flag file
               # pid_lines.each { |pid_line| Util.kill(pid._line.chomp.split(',')[0]) }
               Oats.warn "Resetting the defunct flag file for: #{pid_line}"
-              FileUtils.rm(lock_file)
+              FileUtils.rm(busy_file)
             end
           end
         else
           raise 'Not implemented'
           begin
-            FileUtils.rm(lock_file)
+            FileUtils.rm(busy_file)
           rescue Errno::ENOENT # No such File or Directory
           rescue Errno::EACCES # unlink Permission denied
             is_locked = true
             return is_locked if verify == :handles_are_cleared
             # Attempt to kill all dangling processes that prevent removal of the lock
             proc_array = nil
-            hstring = lock_file
+            hstring = busy_file
             ok_to_kill = /(java)|(mysql)||(chromedriver)|(firefox)||(chrome)|(iexplore)\.exe/
             pid, proc_name, handle_string, line = nil
             matches = IO.popen("handle #{hstring}").readlines
@@ -124,20 +130,21 @@ module Oats
       end
 
       # Removes lock, return current locked state
-      def reset
+      def reset(busy_file = nil)
+        busy_file ||= lock_file
         if @file_handle # Only for Windows
           @file_handle.close
           @file_handle = nil
           is_locked = true
         else # Doesn't return status properly for non-windows, just resets the lock
-          if ($oats_execution.nil? or $oats_execution['agent'].nil?) and RUBY_PLATFORM !~ /(mswin|mingw)/ and File.exist?(lock_file)
-            pids = IO.readlines(lock_file)
+          if ($oats_execution.nil? or $oats_execution['agent'].nil?) and RUBY_PLATFORM !~ /(mswin|mingw)/ and File.exist?(busy_file)
+            pids = IO.readlines(busy_file)
             current_pid = pids.shift
             pids.each { |pid| Util.kill(pid.chomp) } # Legacy firefox
           end
           is_locked = false
         end
-        FileUtils.rm_f lock_file
+        FileUtils.rm_f busy_file
         return is_locked
       end
 
@@ -151,15 +158,6 @@ module Oats
       #   return file
       # end
 
-      def parse_windows_handle_process_line(line)
-        line =~ /(.*) pid:(.*) .*: (.*)/
-        return nil unless $1
-        proc_name = $1
-        pid = $2
-        handle_string = $3
-        return pid.strip, proc_name.strip, handle_string.strip
-      end
     end
-
   end
 end
