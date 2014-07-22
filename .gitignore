@@ -6,5 +6,5 @@ pkg/*
 .DS_Store
 
 # Intellij project files
-**/.idea
+.idea
 .rvm
