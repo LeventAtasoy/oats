@@ -10,7 +10,8 @@ unless defined?(OATS_IS_ALREADY_INCLUDED)
 
 # Include Gemfile from dir_tests
   unless ENV['OATS_TESTS']
-    ENV['OATS_TESTS'] =  File.expand_path('oats_tests', File.dirname(__FILE__) )
+    ENV['OATS_TESTS'] =  File.expand_path('../oats_tests', File.dirname(__FILE__) )
+    ENV['OATS_TESTS'] =  File.expand_path('oats_tests', File.dirname(__FILE__) ) unless File.exist?(ENV['OATS_TESTS'])
     puts 'Undefined OATS_TESTS Environment variable, assuming: ' + ENV['OATS_TESTS']
   end
   test_gemfile = $oats_execution['options'][ "_:gemfile"] if $oats_execution and $oats_execution['options']

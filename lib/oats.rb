@@ -21,7 +21,7 @@ if options['execution:occ:agent_nickname'] || options['execution:occ:agent_port'
 end
 
 # Add oats_tests/lib into the path
-ENV['OATS_TESTS'] ||= options['_:dir_tests'] || File.join(ENV['OATS_HOME'], '/oats_tests')
+ENV['OATS_TESTS'] ||= options['_:dir_tests'] ||  File.expand_path('../oats_tests', ENV['OATS_HOME'])
 oats_test_lib = File.join(ENV['OATS_TESTS'] , 'lib')
 $:.unshift(oats_test_lib) unless $:.include?(oats_test_lib)
 
