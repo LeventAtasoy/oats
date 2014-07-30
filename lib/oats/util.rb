@@ -1,4 +1,5 @@
-require 'win32/process' if RUBY_PLATFORM =~ /(mswin|mingw)/ and not defined?(Process)
+require 'rbconfig'
+require 'win32/process' if RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/ and not defined?(Process)
 # require 'FileUtils' unless defined? FileUtils
 
 module Oats
@@ -50,7 +51,8 @@ module Oats
       # @param [Regexp] proc_names to match existing processes
       def find_matching_processes(proc_names)
         matched = []
-        if RUBY_PLATFORM =~ /(mswin|mingw)/
+        platform = Oats.os
+        if platform == :windows
           processes = WIN32OLE.connect("winmgmts://").ExecQuery("select * from win32_process")
           #      for process in processes do
           #        for property in process.Properties_ do
@@ -65,23 +67,23 @@ module Oats
             end
           end
         else
-          pscom = RUBY_PLATFORM =~ /linux/ ? 'ps lxww' : 'ps -ef'
+          pscom = (platform == :linux) ? 'ps lxww' : 'ps -ef'
           `#{pscom}`.split("\n").each do |lvar|
             line = lvar.chomp
-            case RUBY_PLATFORM
-              when /darwin/ #  ps -ef output
+            case platform
+              when :macosx #  ps -ef output
                 if line =~ /\s*\d*\s*(\d*)\s*(\d*)\s*\d\s*\S*\s\S*\s*\S*\s(.*)/
                   pid = $1
                   ppid = $2
                   proc_name = $3
                 end
-              when /linux/ #  ps ww output
+              when :linux #  ps ww output
                 pid = line[7..12]
                 next if pid.to_i == 0
                 ppid = line[13..18]
                 proc_name = line[69..-1]
               else
-                raise OatError, "Do not know how to parse ps output from #{RUBY_PLATFORM}"
+                raise OatsError, "Do not know how to parse ps output from #{platform}"
             end
             next unless pid
             if proc_name =~ proc_names

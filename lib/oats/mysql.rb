@@ -35,7 +35,7 @@ module Oats
       sql_out_name = name + '.txt' unless sql_out_name
       sql_out = File.join(test.result, sql_out_name) if sql_out_name
       err_file = sql_out + '.err'
-      command = (RUBY_PLATFORM =~ /darwin'/ ? '/usr/local/mysql/bin/mysql' : 'mysql') +
+      command = (Oats.os == :macosx ? '/usr/local/mysql/bin/mysql' : 'mysql') +
         " #{parameters(connect)} < #{mysql_input_file} > #{sql_out} 2> #{err_file}"
       #    $log.debug "Executing: #{command}"
       $log.info "SQL: #{sql_input}" if sql_input

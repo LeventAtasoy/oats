@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{A flexible automated system integration regression test framework.}
 
   s.rubyforge_project = "oats"
-  if RUBY_PLATFORM !~  /(mswin|mingw)/ # Does not like git ls-files
+  if Oats.os == :windows # Does not like git ls-files
     s.files         = File.directory?('.git') ? `git ls-files`.split("\n") : []
     s.test_files    = File.directory?('.git') ? `git ls-files -- {test,spec,features}/*`.split("\n") : []
   end
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.date = %q{2012-05-22}
   s.add_dependency 'log4r'
 
-  if RUBY_PLATFORM =~ /(mswin|mingw)/ # Assume won't use the agent
+  if Oats.os == :windows # Assume won't use the agent
     s.add_dependency 'win32-process'
   end
 end

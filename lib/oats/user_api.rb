@@ -2,6 +2,7 @@ require_relative 'util'
 require_relative 'oats_exceptions'
 require 'fileutils'
 require 'timeout'
+require 'rbconfig'
 
 # Need these set for OCC when this is required from OCC
 ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
@@ -523,8 +524,9 @@ module Oats
   #  Oats.wait_until("Page did not have [#{wait_str}]") {
   #    $selenium.get_html_source.include?(wait_str)
   #  }
-  def Oats.wait_until(*args, ** options)
+  def Oats.wait_until(*args)
     raise(OatsTestError, 'Oats.wait_until requires an input block.') unless block_given?
+    options = args.last.instance_of?(Hash) ? args.pop : {}
     message, seconds, is_return, interval = *args
     message ||= options[:message]
     seconds ||= options[:seconds] || Oats.data('execution.wait_until_timeout')
@@ -621,6 +623,24 @@ module Oats
       TestData.error(ex)
     end
     Oats.info(arg, 'error')
+  end
+
+  def self.os
+    @os ||= (
+    host_os = RbConfig::CONFIG['host_os']
+    case host_os
+      when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+        :windows
+      when /darwin|mac os/
+        :macosx
+      when /linux/
+        :linux
+      when /solaris|bsd/
+        :unix
+      else
+        raise Error::WebDriverError, "unknown os: #{host_os.inspect}"
+    end
+    )
   end
 
 end

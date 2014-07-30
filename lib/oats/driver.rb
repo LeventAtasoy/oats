@@ -11,7 +11,7 @@ module Oats
 
     def Driver.init(args=nil)
       unless ENV['HOSTNAME']
-        if RUBY_PLATFORM =~ /(mswin|mingw)/
+        if Oats.os == :windows
           ENV['HOSTNAME'] = ENV['COMPUTERNAME']
         else
           ENV['HOSTNAME'] = `hostname`.chomp

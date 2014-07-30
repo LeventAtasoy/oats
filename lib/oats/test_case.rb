@@ -445,7 +445,7 @@ module Oats
           out_contents = IO.read(file_out).gsub(/\s/, '')
           unless ok_contents == out_contents
             err = "File in out folder did not match out folder in: #{file_ok}"
-            diff_lines = `diff -b '#{file_ok}' '#{file_out}'` unless RUBY_PLATFORM =~ /(mswin|mingw)/
+            diff_lines = `diff -b '#{file_ok}' '#{file_out}'` unless Oats.os == :windows
           end
         else
           err = "Extra output [#{file}] missing from: #{test_ok_out}"

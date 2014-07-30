@@ -45,13 +45,13 @@ module Oats
         if browser_type == 'firefox'
           $oats_global['download_dir'] = $oats['execution']['dir_results'] + '/downloads'
         elsif Oats.data("selenium.default_downloads")
-          $oats_global['download_dir'] = File.join(ENV[ RUBY_PLATFORM =~ /(mswin|mingw)/ ? 'USERPROFILE' : 'HOME'], 'Downloads')
-          $oats_global['download_dir'].gsub!('\\','/') if RUBY_PLATFORM =~ /(mswin|mingw)/
+          $oats_global['download_dir'] = File.join(ENV[ Oats.os == :windows ? 'USERPROFILE' : 'HOME'], 'Downloads')
+          $oats_global['download_dir'].gsub!('\\','/') if Oats.os == :windows
         end
       end
 
       download_dir = $oats_global['download_dir'].gsub('/','\\\\') if $oats_global['download_dir'] and
-        RUBY_PLATFORM =~ /(mswin|mingw)/
+          Oats.os == :windows
       download_dir ||= $oats_global['download_dir']
       case browser_type
       when 'firefox'
@@ -70,7 +70,7 @@ module Oats
         profile['download.prompt_for_download'] = false
         profile['download.default_directory'] = download_dir
 #        unless $oats_global['browser_path']
-#          vpath = File.join($oats['_']['vendor'], ENV['OS'], 'chromedriver' + (RUBY_PLATFORM =~ /(mswin|mingw)/ ? '.exe' : '') )
+#          vpath = File.join($oats['_']['vendor'], ENV['OS'], 'chromedriver' + (Oats.os == :windows ? '.exe' : '') )
 #          $oats_global['browser_path'] = vpath if File.exist?(vpath)
 #        end
       end
@@ -127,9 +127,9 @@ module Oats
         file.sub!(ENV['OATS_HOME'], $oats['selenium']['remote_webdriver']['oats_dir'])
         file_os = $oats['selenium']['remote_webdriver']['os']
       else
-        file_os = RUBY_PLATFORM
+        file_os = Oats.os
       end
-      file_os =~ /(mswin|mingw)/ ? file.gsub('/','\\') : file
+      file_os == :windows ? file.gsub('/','\\') : file
     end
 
     def Oselenium.reset

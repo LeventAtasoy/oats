@@ -2,13 +2,9 @@
 
 # HOSTNSAME is needed to properly resolve ENV[HOSTNAME] references that may exist inside YAMLS
 # when this module is called from outside Oats framework
-unless ENV['HOSTNAME']
-  if RUBY_PLATFORM =~ /(mswin|mingw)/
-    ENV['HOSTNAME'] = ENV['COMPUTERNAME']
-  else
-    ENV['HOSTNAME'] = `hostname`.chomp
-  end
-end
+require 'rbconfig'
+ENV['HOSTNAME'] ||= RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/ ?
+    ENV['COMPUTERNAME'] : `hostname`.chomp
 
 module Oats
 

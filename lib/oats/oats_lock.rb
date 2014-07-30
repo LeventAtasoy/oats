@@ -1,5 +1,6 @@
 # Manages a lock file indicating a OATS session is in process
-require 'win32ole' if RUBY_PLATFORM =~ /(mswin|mingw)/
+require 'rbconfig'
+require 'win32ole' if RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
 module Oats
 
   module OatsLock
@@ -14,7 +15,7 @@ module Oats
         @@file_handle = File.open(in_progress_file, 'w')
         my_pid = Process.pid.to_s
         @@file_handle.puts my_pid
-        if RUBY_PLATFORM !~ /(mswin|mingw)/ or ENV['TEMP'] =~ /^\/cygdrive/
+        if Oats.os != :windows or ENV['TEMP'] =~ /^\/cygdrive/
           # Leave file handle open for windows to detect and kill associated java, etc.
           # processes using file handles.
           @@file_handle.close
@@ -30,7 +31,7 @@ module Oats
     def OatsLock.locked?(verify = nil)
       return @@is_locked unless verify
       @@is_locked = false
-      if RUBY_PLATFORM !~ /(mswin|mingw)/ or ENV['TEMP'] =~ /^\/cygdrive/
+      if Oats.os != :windows or ENV['TEMP'] =~ /^\/cygdrive/
         if File.exist?(in_progress_file)
           pids = IO.readlines(in_progress_file)
           ruby_pid = pids.shift
@@ -121,7 +122,7 @@ module Oats
         @@file_handle = nil
         @@is_locked = true
       else # Doesn't return status properly for non-windows, just resets the lock
-        if $oats_execution['agent'].nil? and RUBY_PLATFORM !~ /(mswin|mingw)/ and File.exist?(in_progress_file)
+        if $oats_execution['agent'].nil? and Oats.os != :windows and File.exist?(in_progress_file)
           pids = IO.readlines(in_progress_file)
           current_pid = pids.shift
           pids.each { |pid| Util.kill(pid.chomp) } # Legacy firefox
