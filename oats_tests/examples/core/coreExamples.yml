@@ -1,8 +1,0 @@
-# Tests to demo and verify various OATS framework features.
----
-execution:
-  test_files:
-
-    - examples/core/expectedException  # Exception usage in OATS
-    - examples/core/unexpectedException # Exception usage in OATS
-    - examples/core/ok_verify #  Demonstrate automatic file output comparison features

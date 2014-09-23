@@ -1,9 +1,0 @@
-execution:
-#  yml_handler: occTest.rb
-  test_files:
-#    - variation1.yml
-#    - variation2.yml
-    - occTest_1_1.rb
-    - occTest_1_2.rb
-    - occTest_1_3.rb
-    - occTest_1_4.rb

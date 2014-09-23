@@ -122,8 +122,8 @@ module Oats
   #
   #  # Param2 is Symbol
   #  Oats.data 'My', :data  # returns  Oats.data(My.data)
-  #  Oats.data 'My', :data, option  # returns (option[:data] || Oats.data(My.data)) or raises if result is nil
-  #  Oats.data 'My', :data, option, true  # Allows returning nil, but still raises if missing key
+  #  Oats.data 'My', :data, option  # Returns (option[:data] || Oats.data(My.data)), but raises if missing key
+  #  Oats.data 'My', :data, option ,true #  But also raises if result is nil
   def Oats.data(map_str = nil, param2 = nil, param3 = nil, param4 = nil)
     return $oats unless map_str
     sym = nil
@@ -149,9 +149,7 @@ module Oats
         if sym.nil?
           return value
         else
-          unless do_raise_if_missing
-            Oats.assert(value, 'Need to specify Oats.data: ' + map_str) if opt
-          end
+          Oats.assert(value, 'Need to specify Oats.data: ' + map_str) if opt and do_raise_if_missing
           return value
         end
       end

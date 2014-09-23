@@ -210,7 +210,7 @@ module Oats
         return
       end
       # Clean download directory
-      Oats::Selenium.mark_downloaded if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:mark_downloaded)
+      # Oats::Selenium.mark_downloaded if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:mark_downloaded)
       # Initialize classes this test may need
       #    $ide = Ide.new unless ENV['JRUBY_BASE']
       # Execute the test

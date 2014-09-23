@@ -1,8 +1,0 @@
-# Tests to demo and verify various OATS framework features.
----
-execution:
-  test_files:
-
-    - examples/keywords/keywordsTestlist.yml # Using Oats data and keywords
-
-    - examples/keywords/SampleXlLists.xls  # Using XL data and keywords

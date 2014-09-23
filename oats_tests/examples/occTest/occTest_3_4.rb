@@ -1,1 +1,0 @@
-Oats.oload 'occTest.rb'

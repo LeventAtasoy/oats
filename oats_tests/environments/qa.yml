@@ -1,4 +1,0 @@
-env:
-  type: qa # production
-  web:
-    host: https://google.com
