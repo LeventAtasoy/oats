@@ -540,10 +540,9 @@ module Oats
       Timeout::timeout seconds do
         loop do
           return_val = yield
-          break if return_val
+          return return_val if return_val
           sleep interval
         end
-        return return_val
       end
     rescue Timeout::Error
       if is_return
