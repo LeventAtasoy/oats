@@ -613,7 +613,7 @@ module Oats
     Oats.info(arg, 'debug')
   end
 
-# Output error level log entries.
+# Output error level log entries.  Argument should respond to to_s.
   def Oats.error(arg)
     if defined?(TestData)
       ex = OatsTestError.exception(arg.to_s)

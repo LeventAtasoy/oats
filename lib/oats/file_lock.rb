@@ -7,7 +7,14 @@ module Oats
     attr_accessor :lock_file # used to set the lock file in between
 
     def initialize(file)
-      @lock_file = file
+      if file[0] == '/'
+        @lock_file = file
+      else
+        lock_dir = ENV[' TMP '] || '/tmp'
+        Oats.assert lock_dir, "TMP"
+        # if lock_dir.nil? and Oats.os != :windows or ENV['TEMP'] =~ /^\/cygdrive/
+        @lock_file = File.join(lock_dir, file)
+      end
     end
 
     # Returns returns existing lock file contents or nil if it succeeds in setting a new one.
@@ -55,7 +62,7 @@ module Oats
             # raise "Process should have been defunct but Unexpectedly killed #{pid} for pid_line." unless killed.empty?
             # The line below should not execute unless multiple PIDs registered in the flag file
             # pid_lines.each { |pid_line| Util.kill(pid._line.chomp.split(',')[0]) }
-            Oats.warn "Resetting the defunct flag file for: #{pid_line}"
+            Oats.warn "Resetting the defunct lock flag file for #{pid_line}: #{busy_file}"
             FileUtils.rm(busy_file)
           end
         end
