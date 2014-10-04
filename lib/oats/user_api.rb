@@ -5,6 +5,9 @@ require 'timeout'
 require 'rbconfig'
 
 # Need these set for OCC when this is required from OCC
+ENV['OATS_TESTS'] = ENV['OATS_TESTS'].gsub('\\','/') if ENV['OATS_TESTS']
+ENV['OATS_HOME'] = ENV['OATS_HOME'].gsub('\\','/') if ENV['OATS_HOME']
+ENV['OATS_USER_HOME'] = ENV['OATS_USER_HOME'].gsub('\\','/') if ENV['OATS_USER_HOME']
 ENV['OATS_HOME'] ||= File.expand_path('../..', File.dirname(__FILE__))
 ENV['OATS_TESTS'] ||= (ENV['OATS_HOME'] + '/oats_tests')
 
