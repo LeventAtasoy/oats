@@ -1,6 +1,7 @@
 *.gem
 .bundle
 pkg/*
+Gemfile.lock
 
 # MacOS
 .DS_Store

@@ -15,12 +15,15 @@ module Oats
         @@file_handle = File.open(in_progress_file, 'w')
         my_pid = Process.pid.to_s
         @@file_handle.puts my_pid
-        if Oats.os != :windows or ENV['TEMP'] =~ /^\/cygdrive/
-          # Leave file handle open for windows to detect and kill associated java, etc.
-          # processes using file handles.
+
+        # This causes killing of BUpdater started by an earlier OATS execution also on WIndows
+        #  if Oats.os != :windows or ENV['TEMP'] =~ /^\/cygdrive/
+        #   Leave file handle open for windows to detect and kill associated java, etc.
+        #   processes using file handles.
           @@file_handle.close
           @@file_handle = nil
-        end
+        # end
+
         @@is_locked = true
         return true
       end
@@ -90,13 +93,13 @@ module Oats
                 $log.warn "Will attempt to kill [#{proc_name}] with PID #{pid}"
                 signal = 'KILL'
                 killed = Process.kill(signal,pid.to_i)
-                if RUBY_VERSION =~ /^1.9/
-                  if killed.empty?
-                    killed = 0
-                  else
-                    killed = 1
-                  end
-                end
+                # if RUBY_VERSION =~ /^1.9/
+                #   if killed.empty?
+                #     killed = 0
+                #   else
+                #     killed = 1
+                #   end
+                # end
                 if killed == 0
                   $log.warn "Failed to kill the process"
                 else
