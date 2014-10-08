@@ -40,7 +40,7 @@ module Oats
           ruby_pid = pids.shift
           return @@is_locked unless ruby_pid
           ps_line = `ps -p #{ruby_pid} `
-          if ps_line =~ /bin\/ruby/
+          if ps_line =~ /bin\/(ruby|rdebug-ide)/
             @@is_locked = true
             $log.error "Another oats session is possibly in progress:"
             $log.error ">> #{ps_line}"
