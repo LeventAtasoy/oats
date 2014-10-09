@@ -8,9 +8,10 @@ $oats_execution = {}  # Keeps variables that persists throughout a agents life, 
 
 require 'pp'
 
+
 # Add oats/lib into the path
 ENV['OATS_TESTS'] = ENV['OATS_TESTS'].gsub('\\','/') if ENV['OATS_TESTS']
-ENV['OATS_HOME'] = ENV['OATS_HOME'].gsub('\\','/') if ENV['OATS_HOME']
+ENV['OATS_HOME'] = ENV['OATS_HOME'] ? ENV['OATS_HOME'].gsub('\\','/') : File.expand_path( '..', File.dirname(__FILE__) )
 oats_lib = File.join(ENV['OATS_HOME'] , 'lib')
 $:.unshift(oats_lib) unless $:.include?(oats_lib)
 

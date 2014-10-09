@@ -335,7 +335,7 @@ module Oats
                 test_files = list + test_files
                 skip_test = true
 
-              else
+                else
                 tst = TestCase.new(test_file, id, extension, path, handler)
                 tst.run
               end
@@ -358,6 +358,10 @@ module Oats
           end
           tst = TestCase.new(test_file) unless tst # just in case something happened above before test creation
           TestData.error(e)
+          if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
+              ! Oats.data['selenium']['skip_capture']
+            Selenium.system_capture
+          end
         ensure
           if $oats_global['test_files'].instance_of?(Array)
             test_files += $oats_global['test_files']
