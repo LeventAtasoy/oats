@@ -24,7 +24,8 @@ module Oats
     # Returns last test in the currently executing list
     # index:: of the test in tests array. Default is last
     def TestData.current_test
-      TestData.tests[-1]
+      tests =TestData.tests
+      tests ? test[-1] : nil
     end
 
     def TestData.previous_test
