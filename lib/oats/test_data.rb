@@ -25,7 +25,7 @@ module Oats
     # index:: of the test in tests array. Default is last
     def TestData.current_test
       tests =TestData.tests
-      tests ? test[-1] : nil
+      tests ? tests[-1] : nil
     end
 
     def TestData.previous_test
