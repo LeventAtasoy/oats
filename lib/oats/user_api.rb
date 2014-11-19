@@ -5,8 +5,8 @@ require 'timeout'
 require 'rbconfig'
 
 # Need these set for OCC when this is required from OCC
-ENV['OATS_HOME'] = ENV['OATS_HOME'] ? ENV['OATS_HOME'].gsub('\\','/') : File.expand_path('../..', File.dirname(__FILE__))
-ENV['OATS_TESTS'] = ENV['OATS_TESTS'] ? ENV['OATS_TESTS'].gsub('\\','/') : (ENV['OATS_HOME'] + '/oats_tests')
+ENV['OATS_HOME'] = ENV['OATS_HOME'] ? ENV['OATS_HOME'].gsub('\\', '/') : File.expand_path('../..', File.dirname(__FILE__))
+ENV['OATS_TESTS'] = ENV['OATS_TESTS'] ? ENV['OATS_TESTS'].gsub('\\', '/') : (ENV['OATS_HOME'] + '/oats_tests')
 module Oats
 
   # Main method that starts oats execution.
@@ -593,7 +593,11 @@ module Oats
   end
 
   # Output info level log entries.
-  def Oats.info(arg, level='info')
+  def Oats.info(arg, level=nil)
+    if level.nil?
+      return if LOG_LEVEL.index(Oats.data('execution.log_level')) > 1
+      level = 'info'
+    end
     arg = arg.inspect unless arg.instance_of?(String)
     if $log
       $log.send(level, arg)
@@ -605,12 +609,18 @@ module Oats
 
 # Output warning level log entries.
   def Oats.warn(arg)
-    Oats.info(arg, 'warn')
+    Oats.info(arg, 'warn') if LOG_LEVEL.index(Oats.data('execution.log_level')) < 3
   end
 
 # Output debug level log entries.
   def Oats.debug(arg)
-    Oats.info(arg, 'debug')
+    Oats.info(arg, 'debug') if LOG_LEVEL.index(Oats.data('execution.log_level')) < 1
+  end
+
+  LOG_LEVEL = %w(DEBUG INFO WARN ERROR FATAL)
+# Set logging level
+  def self.log_level=(level)
+    Oats.data('execution')['log_level']= level
   end
 
 # Output error level log entries.  Argument should respond to to_s.
@@ -619,7 +629,7 @@ module Oats
       ex = OatsTestError.exception(arg.to_s)
       TestData.error(ex)
     end
-    Oats.info(arg, 'error')
+    Oats.info(arg, 'error') if LOG_LEVEL.index(Oats.data('execution.log_level')) < 4
   end
 
   def self.os
