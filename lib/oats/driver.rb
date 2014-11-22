@@ -18,9 +18,9 @@ module Oats
         end
       end
       Log4r::Logger.root.level = Log4r::DEBUG
-      Log4r::StdoutOutputter.new('console', :level=>1,
-        :formatter=>Log4r::PatternFormatter.new(:depth=>50,
-          :pattern => "%-5l %d %M", :date_pattern=>"%y-%m-%d %H:%M:%S"))
+      Log4r::StdoutOutputter.new('console', :level => 1,
+                                 :formatter => Log4r::PatternFormatter.new(:depth => 50,
+                                                                           :pattern => "%-5l %d %M", :date_pattern => "%y-%m-%d %H:%M:%S"))
       $log = Log4r::Logger.new('R')
       $log.add('console')
       options = CommandlineOptions.options(args)
@@ -32,22 +32,22 @@ module Oats
       ENV['OATS_USER_HOME'] = Util.expand_path(ENV['OATS_USER_HOME']) if ENV['OATS_USER_HOME'] # Normalize for cygwin
       options
     end
-    
+
     # Main method that starts oats execution in either agent or standalone mode.
     # Parameters are command-line arguments
     # Returns oats_info object containing execution results
     def Driver.run(args)
       options = Driver.init(args)
-      Driver.start(nil,options)
+      Driver.start(nil, options)
       $oats_info
     end
 
     # Executes OATS
     # Returns oats_info object containing execution results
-    def Driver.start(jid,options)
+    def Driver.start(jid, options)
       begin
-        $oats_info = {}  # Holds Oats.context, to be transmitted to OCC
-        $oats_global = {}  # Holds Oats.global for inter-test data, within an execution sequence
+        $oats_info = {} # Holds Oats.context, to be transmitted to OCC
+        $oats_global = {} # Holds Oats.global for inter-test data, within an execution sequence
         Oats.context['start_time'] = Time.new.to_i
         if jid
           Oats.global['agent'] = $oats_execution['agent']
@@ -61,22 +61,22 @@ module Oats
           klas.init
         end
         Oats.global['test_data'] = {}
-        TestList.current = nil  # Initialize
-        $oats = nil  # Holds Oats.data, the resolved oats.yml contents
+        TestList.current = nil # Initialize
+        $oats = nil # Holds Oats.data, the resolved oats.yml contents
         oats_data = OatsData.load(options['_:ini_file'])
         $oats = oats_data
         $oats['_']['options'] = options
         Roptions.override(options)
         Oats.result_archive_dir # Adjust results_ dir variables if running on agent mode
         oats_data = $oats
-        Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)# Initialize class variables and kill running browsers, in case running in server host mode
+        Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset) # Initialize class variables and kill running browsers, in case running in server host mode
         #      oats_data['execution']['test_files'] = test_files if test_files and ! test_files.empty?
         dir_res = oats_data['execution']['dir_results']
         stop_file = dir_res + '/stop_oats'
         oats_data['execution']['stop_file'] = stop_file
         if stop_file and File.exist?(stop_file)
           $oats_info['stop_oats'] = Time.new.to_i
-          FileUtils.mv(stop_file, dir_res + '/stop_file_' + Oats.context['jobid'] )
+          FileUtils.mv(stop_file, dir_res + '/stop_file_' + Oats.context['jobid'])
         end
         Report.archive_results
         FileUtils.mkdir_p(dir_res)
@@ -85,15 +85,15 @@ module Oats
         unless oats_data['execution']['tail_logs_ip']
           if oats_log
             dir_oats_log = File.dirname(oats_log)
-            raise(OatsBadInput,"Can not locate directory of execution:log #{dir_oats_log}") unless File.directory?(dir_oats_log)
+            raise(OatsBadInput, "Can not locate directory of execution:log #{dir_oats_log}") unless File.directory?(dir_oats_log)
             oats_log = Util.expand_path(oats_log)
             # Ensure log_level valid
             level = Log4r::Log4rConfig::LogLevels.index($oats['execution']['log_level'])
             raise(OatsBadInput, "Unrecognized execution:log_level [#{$oats['execution']['log_level']}]") unless level
             Log4r::FileOutputter.new('logfile',
-              :filename=>oats_log, :trunc=>false, :level=>level,
-              :formatter=>Log4r::PatternFormatter.new(:depth=>50,
-                :pattern => "%-5l %d %M", :date_pattern=>"%y-%m-%d %H:%M:%S"))
+                                     :filename => oats_log, :trunc => false, :level => level,
+                                     :formatter => Log4r::PatternFormatter.new(:depth => 50,
+                                                                               :pattern => "%-5l %d %M", :date_pattern => "%y-%m-%d %H:%M:%S"))
             $log.info "Redirecting output to logfile: " + oats_log
             $log.add('logfile')
           end
@@ -108,12 +108,24 @@ module Oats
           Report.oats_info_store
           $log.warn "*** Stopping per stop_oats request [#{$oats_info['stop_oats']}]" if $oats_info['stop_oats']
           $log.info "Finished OATS execution [#{Oats.context['jobid']}] at #{Time.at($oats_info['end_time'])} [#{$oats_info['end_time']}]" +
-            (oats_log ? ": " + oats_log : '')
+                        (oats_log ? ": " + oats_log : '')
           Report.archive_results(true)
         ensure
           Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)
           OatsLock.reset
-          $log.add('console') if options['_:quiet'] and ! @@quiet
+          $log.add('console') if options['_:quiet'] and !@@quiet
+          if oats_data['execution']['email']
+            log_output = Base64.encode64(File.read(oats_log))
+            email = {:attachments => [{:type => "text/plain", :name => "oats.log", :content => log_output}]}
+            fail_files = Dir.glob(File.join dir_res, "*-fail.yml")
+            if fail_files.empty?
+              email[:subject] = "Upgrade succeeded"
+            else
+              email[:subject] = "Upgrade failed"
+              email[:text] = File.read(fail_files[0])
+            end
+            Oats::Email.send email
+          end
         end
       rescue Exception => e
         $log.debug "Top level Exception caught by test driver."
@@ -128,59 +140,59 @@ module Oats
       if test_yaml
         oats_data['execution']['test_files'] = nil # Ensure test files exist and taken from the input oats_file
         case test_yaml
-        when /\.yml$/
-          yaml_file = TestData.locate(test_yaml)
-          unless yaml_file
-            Oats.error "Can not locate file: #{test_yaml}"
-            return
-          end
-          oats_data = OatsData.load( yaml_file, oats_data)
+          when /\.yml$/
+            yaml_file = TestData.locate(test_yaml)
+            unless yaml_file
+              Oats.error "Can not locate file: #{test_yaml}"
+              return
+            end
+            oats_data = OatsData.load(yaml_file, oats_data)
           #      oats_data['_']['load_history'].last.omit = true
-        when /\.xls$/
-          suite = id
-          require 'spreadsheet' unless defined?(Spreadsheet)
-          book = Spreadsheet.open test_yaml, 'rb'
-          tests = $oats_global['xl']
-          unless tests and tests[id]
-            xl_id = File.dirname(id)
-            list_id = File.basename(id)
-            path = test_yaml.sub(/#{list_id}\.xls$/, File.basename(xl_id)+'.xls')
-            Driver.parse_xl(path, xl_id)
+          when /\.xls$/
+            suite = id
+            require 'spreadsheet' unless defined?(Spreadsheet)
+            book = Spreadsheet.open test_yaml, 'rb'
             tests = $oats_global['xl']
-          end
-          header = nil
-          book.worksheet('Business Flow').each do |row|
-            unless header
-              header = row.dup
-              next
+            unless tests and tests[id]
+              xl_id = File.dirname(id)
+              list_id = File.basename(id)
+              path = test_yaml.sub(/#{list_id}\.xls$/, File.basename(xl_id)+'.xls')
+              Driver.parse_xl(path, xl_id)
+              tests = $oats_global['xl']
             end
-            test_name = row.shift
-            next unless tests[id].include?(test_name)
-            test_id = suite + '/' + test_name
-            tests[test_id] = { 'keywords' => row.collect{|i|i}} # Need to convert to Array
-          end
+            header = nil
+            book.worksheet('Business Flow').each do |row|
+              unless header
+                header = row.dup
+                next
+              end
+              test_name = row.shift
+              next unless tests[id].include?(test_name)
+              test_id = suite + '/' + test_name
+              tests[test_id] = {'keywords' => row.collect { |i| i }} # Need to convert to Array
+            end
 
-          header = nil
-          book.worksheet('Test Data').each do |row|
-            unless header
-              header = row.dup
-              header.shift
-              next
+            header = nil
+            book.worksheet('Test Data').each do |row|
+              unless header
+                header = row.dup
+                header.shift
+                next
+              end
+              test_name = row.shift
+              next unless tests[id].include?(test_name)
+              test_id = suite + '/' + test_name
+              Oats.assert tests[test_id],
+                          "No corresponding TC_ID was defined in Business Flow worksheet for Test Data worksheet TC_ID: " + File.basename(test_id)
+              tests[test_id]['data'] = {}
+              row.each_with_index do |cell, idx|
+                next unless header[idx] and cell
+                tests[test_id]['data'][header[idx]] = cell
+              end
             end
-            test_name = row.shift
-            next unless tests[id].include?(test_name)
-            test_id = suite + '/' + test_name
-            Oats.assert tests[test_id],
-              "No corresponding TC_ID was defined in Business Flow worksheet for Test Data worksheet TC_ID: " + File.basename(test_id)
-            tests[test_id]['data'] = {}
-            row.each_with_index do |cell,idx|
-              next unless header[idx] and cell
-              tests[test_id]['data'][header[idx]] = cell
-            end
-          end
-          list = tests[id].collect{|t| suite + '/' + t + '.xltest'}
-          $log.info "Processing worksheet [#{suite}] tests: #{tests[id].inspect}"
-          oats_data['execution']['test_files'] = list
+            list = tests[id].collect { |t| suite + '/' + t + '.xltest' }
+            $log.info "Processing worksheet [#{suite}] tests: #{tests[id].inspect}"
+            oats_data['execution']['test_files'] = list
         end
       end
       pre = $oats['execution']['handler_pre_test_list']
@@ -195,11 +207,11 @@ module Oats
       variations = oats_data['execution']['environments']
       Oats.assert variations, "Missing entry for Oats.data execution.environments"
       # Don't let environment variations propogate down OatsData.history.inspect variations.inspect
-      variations = nil if OatsData.history.find{|var|  var =~ /\/environments\/#{variations.first}/ }
+      variations = nil if OatsData.history.find { |var| var =~ /\/environments\/#{variations.first}/ }
       # Should also eliminate propogations of other variations if want to support other variations.
       cur_list = TestList.current
       cur_list.variations.last.end_time = Time.now.to_i if cur_list and cur_list.variations.last.end_time.nil?
-      new_list = TestList.new(id,test_yaml)
+      new_list = TestList.new(id, test_yaml)
       if variations.nil? or variations.empty?
 
         Driver.process_oats_data(oats_data)
@@ -212,24 +224,24 @@ module Oats
           begin
             new_list.add_variation(variation)
             break if $oats_info['stop_oats']
-            variation = variation.sub(/\.yml$/,'') # Get rid of extension, if provided.
+            variation = variation.sub(/\.yml$/, '') # Get rid of extension, if provided.
             $oats_info['environment_name'] = variation if variation
             # Look for variation in environments
-            environment_variation = Util.expand_path( variation+'.yml',
-              File.join(oats_data['execution']['dir_tests'], 'environments') )
-            raise(OatsError, "Can not locate variation [#{variation}]: #{environment_variation}" ) \
+            environment_variation = Util.expand_path(variation+'.yml',
+                                                     File.join(oats_data['execution']['dir_tests'], 'environments'))
+            raise(OatsError, "Can not locate variation [#{variation}]: #{environment_variation}") \
               unless File.exist?(environment_variation)
-            new_oats_data = OatsData.load( environment_variation, oats_data)
+            new_oats_data = OatsData.load(environment_variation, oats_data)
             new_oats_data['env']['name'] = variation
             new_oats_data['_']['load_history'].last.in_result_dir = false if variations.length == 1
             new_oats_data['_']['environments'] << variation
             # If the same variation is found in user's directories, merge it
             user_var_dir = oats_data['execution']['dir_environments']
             if user_var_dir and File.directory?(user_var_dir)
-              users_variation = Util.expand_path(variation+'.yml',user_var_dir)
+              users_variation = Util.expand_path(variation+'.yml', user_var_dir)
               if File.exist?(users_variation) and # in case input was absolute
-                not File.identical?(users_variation, environment_variation)
-                new_oats_data = OatsData.load( users_variation, new_oats_data)
+                  not File.identical?(users_variation, environment_variation)
+                new_oats_data = OatsData.load(users_variation, new_oats_data)
                 new_oats_data['_']['load_history'].last.in_result_dir = false if variations.length == 1
                 new_oats_data['_']['environments'] << users_variation
                 # Keep only one name, the one in the user's variation in history
@@ -260,7 +272,7 @@ module Oats
     # Process each test_file in oats_data once
     def Driver.process_oats_data(oats_data)
       stop_file = oats_data['execution']['stop_file']
-      $oats = oats_data  # Oats Data becomes global only this point down to allow recursion.
+      $oats = oats_data # Oats Data becomes global only this point down to allow recursion.
       # begin
       #   ApplicationLogs.tail_errors # If the user just wants to tail, this never returns
       # rescue OatsBadInput
@@ -269,19 +281,19 @@ module Oats
       # end
       # The environment file for tailing is included only in the user's very first variation.
       test_files = oats_data['execution']['test_files']
-      if ! test_files or test_files.empty?
-        $log.fatal( "Must provide at least one test.")
+      if !test_files or test_files.empty?
+        $log.fatal("Must provide at least one test.")
         $log.fatal 'Effective config file sequence ' + OatsData.history[1..-1].inspect
         return
       end
-      BuildId.generate  # Specific to the AUT, supplied in the test_dir/lib
+      BuildId.generate # Specific to the AUT, supplied in the test_dir/lib
       # Dump oats_data and start each test with a fresh copy each time to avoid contamination
       oats_data_dump = Marshal.dump(oats_data)
       while test_file = test_files.shift do
         skip_test = false
         if stop_file and File.exist?(stop_file)
           $oats_info['stop_oats'] = Time.new.to_i
-          FileUtils.mv(stop_file, stop_file + '_' + $oats_info['start_time'].to_s[2..-1] )
+          FileUtils.mv(stop_file, stop_file + '_' + $oats_info['start_time'].to_s[2..-1])
         end
         break if $oats_info['stop_oats']
         $oats = Marshal.load(oats_data_dump)
@@ -304,7 +316,7 @@ module Oats
                 return
               end
               begin
-                Driver.process_test_yaml( $oats, id, path)
+                Driver.process_test_yaml($oats, id, path)
               ensure
                 post = $oats['execution']['handler_post_test_list']
                 $oats = Marshal.load(oats_data_dump)
@@ -319,47 +331,47 @@ module Oats
               end
             else
               case extension
-              when 'xls'
-                # Use it to include for suite.worksheet entries into test_files.
-                # Later process these similar to list.yml files
-                unless path
-                  $log.error "Could not locate XL file '#{id}'"
-                  TestList.current.variations.last.tests.pop
-                  return
-                end
-                test_files.concat Driver.parse_xl(path, id)
+                when 'xls'
+                  # Use it to include for suite.worksheet entries into test_files.
+                  # Later process these similar to list.yml files
+                  unless path
+                    $log.error "Could not locate XL file '#{id}'"
+                    TestList.current.variations.last.tests.pop
+                    return
+                  end
+                  test_files.concat Driver.parse_xl(path, id)
 
-              when 'txt'
-                list = TestList.txt_tests(path)
-                $log.info "Including test list [#{path}]: #{list.inspect}"
-                test_files = list + test_files
-                skip_test = true
+                when 'txt'
+                  list = TestList.txt_tests(path)
+                  $log.info "Including test list [#{path}]: #{list.inspect}"
+                  test_files = list + test_files
+                  skip_test = true
 
                 else
-                tst = TestCase.new(test_file, id, extension, path, handler)
-                tst.run
+                  tst = TestCase.new(test_file, id, extension, path, handler)
+                  tst.run
               end
             end
           end
-          #      rescue OatsError  # OatsTestError # Explicit Test Failure Assertion
-          #        $log.debug "OatsError exception caught by test driver"
-          #        tst = TestCase.new(test_file,path) unless path # TestData.Locate has failed
-          #        $log.error $!.to_s.chomp
-          #        TestData.error($!)
+            #      rescue OatsError  # OatsTestError # Explicit Test Failure Assertion
+            #        $log.debug "OatsError exception caught by test driver"
+            #        tst = TestCase.new(test_file,path) unless path # TestData.Locate has failed
+            #        $log.error $!.to_s.chomp
+            #        TestData.error($!)
         rescue Exception => e
           $log.debug "General Exception caught by test driver."
           case e
-          when OatsVerifyError # Selenium::CommandError, Timeout::Error then $log.error backtrace($!)
-            $log.error e.to_s.chomp
-          when OatsError
-            $log.error TestCase.backtrace(e)
-          else
-            $log.error e
+            when OatsVerifyError # Selenium::CommandError, Timeout::Error then $log.error backtrace($!)
+              $log.error e.to_s.chomp
+            when OatsError
+              $log.error TestCase.backtrace(e)
+            else
+              $log.error e
           end
           tst = TestCase.new(test_file) unless tst # just in case something happened above before test creation
           TestData.error(e)
           if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
-              ! Oats.data['selenium']['skip_capture']
+              !Oats.data['selenium']['skip_capture']
             Selenium.system_capture
           end
         ensure
@@ -370,19 +382,22 @@ module Oats
           next if skip_test or tst.nil? or tst.instance_of?(TestList) # coming from next above
           tst.end_time = Time.new.to_i
           case tst.status
-          when 0 then $log.info "PASSED: #{tst.id}"
-          when 1 then $log.warn "FAILED: #{tst.id} [#{tst.errors.last[1].chomp}]"
-          when 2 then $log.warn "SKIPPED: #{tst.id}"
-          else
-            if tst.status.nil? and $oats_execution['agent']
-              $log.error "Removing results of last test due to empty test.status, possibly due to agent shutdown."
-              TestData.tests.pop
+            when 0 then
+              $log.info "PASSED: #{tst.id}"
+            when 1 then
+              $log.warn "FAILED: #{tst.id} [#{tst.errors.last[1].chomp}]"
+            when 2 then
+              $log.warn "SKIPPED: #{tst.id}"
             else
-              $log.error "Unrecognized test.status: [#{tst.status}] for [#{tst.name}] . Please inform OATS administrator."
-            end
+              if tst.status.nil? and $oats_execution['agent']
+                $log.error "Removing results of last test due to empty test.status, possibly due to agent shutdown."
+                TestData.tests.pop
+              else
+                $log.error "Unrecognized test.status: [#{tst.status}] for [#{tst.name}] . Please inform OATS administrator."
+              end
           end
           test_outputter = Log4r::Outputter['test_log']
-          if test_outputter and ! test_outputter.closed?
+          if test_outputter and !test_outputter.closed?
             test_outputter.close
             $log.remove('test_log')
           end
@@ -394,7 +409,7 @@ module Oats
 
     # Return all the included worksheet lists in XL and place all
     # their test arrays in $oats_global['xl']
-    def Driver.parse_xl(path,id)
+    def Driver.parse_xl(path, id)
       require 'spreadsheet' unless defined?(Spreadsheet)
       book = Spreadsheet.open path, 'rb'
       sheet = book.worksheet 'Main'
@@ -417,7 +432,7 @@ module Oats
       test_files
     end
 
-    def Driver.xl_sheet_tests(sheet,xl, ws, test_header)
+    def Driver.xl_sheet_tests(sheet, xl, ws, test_header)
       execute_index = test_index = nil
       msg = " in worksheet '#{ws}' of: #{xl}"
       sheet.collect do |row|
@@ -425,10 +440,12 @@ module Oats
           #          Oats.assert row[test_index], "Missing value in column '#{test_header}'" + msg
           row[test_index] if row[execute_index] and (row[execute_index] == true or row[execute_index].downcase == 'true')
         else
-          row.each_with_index do |col,idx|
+          row.each_with_index do |col, idx|
             case col
-            when test_header then test_index = idx
-            when 'Execute' then execute_index = idx
+              when test_header then
+                test_index = idx
+              when 'Execute' then
+                execute_index = idx
             end
           end
           Oats.assert test_index, "Missing column '#{test_header}' "+ msg

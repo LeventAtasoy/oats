@@ -121,6 +121,7 @@ module Oats
           TestData.error Exception.new("Unrecognized extension #{@is_file} for test file [#{@path}]")
           return
         end
+        FileTest.exists?(@path) or Oats.warn "Test file does not exist, but continuing as a handler."
       elsif !@method
         unless FileTest.directory?(@path)
           TestData.error Exception.new("Test file must have extension")

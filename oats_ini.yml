@@ -118,6 +118,9 @@ execution:
   # When the test has an error and this is set, no further rtest_* files are executed
   quit_on_error:
 
+  # Calls Oats::Email.send when there are failures
+  email:  # YES
+
   # Skip the current test if there was a previous test and that it did not pass
   skip_unless_previous_test_is_ok:
 
