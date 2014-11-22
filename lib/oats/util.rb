@@ -106,12 +106,13 @@ module Oats
       # file_name:: Appends '_count' to the the basename if the file already exists.
       # dir:: if not given, uses the dirname of file_name. If file_name does not
       #       have dirname, assumes dir = '.'  If dir does not exist, it is created.
-      # opts[:rename] Rename existing file to a unique file
+      # opts[:rename] Rename existing file to the returned unique file
+      # @return [String] New unique path (maybe the renamed file)
       def file_unique(file_name, *args)
         opts = args.last.instance_of?(Hash) ? args.pop : {}
         dir, other = *args
         new_path, existing_path = Util.file_examine(file_name, dir)
-        opts[:rename] and new_path != existing_path and File.rename(existing_path, new_path)
+        opts[:rename] and existing_path and File.rename(existing_path, new_path)
         return new_path
       end
 

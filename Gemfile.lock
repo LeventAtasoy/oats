@@ -13,8 +13,6 @@ GEM
     ffi (1.9.3)
     hashdiff (0.2.1)
     i18n (0.6.11)
-    libusb (0.4.1)
-      ffi (>= 1.0)
     log4r (1.1.10)
     mime-types (2.3)
     multi_json (1.10.1)
@@ -50,7 +48,6 @@ DEPENDENCIES
   aspector
   deep_merge
   hashdiff
-  libusb
   log4r
   net-ssh
   net-ssh-telnet
