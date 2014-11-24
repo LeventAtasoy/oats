@@ -4,6 +4,7 @@ require 'oats/application_logs'
 require 'oats/oats_data'
 require 'oats/roptions'
 require 'oats/build_id'
+require 'oats/email'
 
 module Oats
 
@@ -112,20 +113,30 @@ module Oats
           Report.archive_results(true)
         ensure
           Selenium.reset if defined?(Selenium) and Selenium.respond_to?(:reset)
+          message = oats_data['email']
+          fail_files = Dir.glob(File.join dir_res, "*-fail.yml")
+          if fail_files.empty? && message['pass']
+            message = message.merge(message['pass'])
+          elsif !fail_files.empty? && message['fail']
+            message = message.merge(message['fail'])
+          end
+          if message['to']
+            message['attachments'] ||= [{:type => "text/plain", :name => "oats.log",
+                                         :content => Base64.encode64(File.read(oats_log))}]
+            unless message[:subject]
+              var = $oats_info['test_files'].variations[0].tests[0].variations[0]
+              list_name = nil
+              5.times do
+                break if list_name = var.list_name
+                var = var.tests[0].variations[0]
+              end
+              message['subject'] = (fail_files.empty? ? 'Passed' : 'Failed') + (list_name ? ' Test List: ' + list_name : '')
+            end
+            message['text'] ||= File.read(fail_files[0]) + '\n' unless fail_files.empty?
+            Oats::Email.send message
+          end
           OatsLock.reset
           $log.add('console') if options['_:quiet'] and !@@quiet
-          if oats_data['execution']['email']
-            log_output = Base64.encode64(File.read(oats_log))
-            email = {:attachments => [{:type => "text/plain", :name => "oats.log", :content => log_output}]}
-            fail_files = Dir.glob(File.join dir_res, "*-fail.yml")
-            if fail_files.empty?
-              email[:subject] = "Upgrade succeeded"
-            else
-              email[:subject] = "Upgrade failed"
-              email[:text] = File.read(fail_files[0])
-            end
-            Oats::Email.send email
-          end
         end
       rescue Exception => e
         $log.debug "Top level Exception caught by test driver."
