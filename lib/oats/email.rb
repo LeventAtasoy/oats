@@ -9,7 +9,7 @@ module Oats
             :text => opts['text'],
         }
         message[:to] = []
-        to_list = opts['to'].instance_of?(Array) ? opts['to'] : opts['to']
+        to_list = opts['to'].instance_of?(Array) ? opts['to'] : [opts['to']]
         to_list.each do |i|
           item = if i.instance_of?(Hash)
                    {:email => i['email'], :name => i['name']}
