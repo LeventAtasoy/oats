@@ -1,6 +1,6 @@
 #require 'yaml'            # http://www.ruby-doc.org/core/classes/YAML.html
 
-# HOSTNSAME is needed to properly resolve ENV[HOSTNAME] references that may exist inside YAMLS
+# HOSTNAME is needed to properly resolve ENV[HOSTNAME] references that may exist inside YAMLS
 # when this module is called from outside Oats framework
 require 'rbconfig'
 ENV['HOSTNAME'] ||= RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/ ?
@@ -102,6 +102,7 @@ module Oats
     @@aut_ini = nil
 
     def OatsData.load(oats_file = ENV['OATS_INI'], oats_default = nil)
+      @@merged_path = nil # Keep track of merged Oats.data hash key path
       @@define_always = nil
       @@oats_def_file ||= ENV['OATS_HOME'] + '/oats_ini.yml'
 
@@ -230,7 +231,14 @@ module Oats
     # At each level keep only the items specified by the include_list array
     def OatsData.merge(config_ini, custom_ini)
       merged_config = config_ini
-      raise(OatsError, ".. original YAML is not a hash: " + config_ini.inspect) unless config_ini.class == Hash
+      unless config_ini.class == Hash
+        if config_ini.nil? && custom_ini.has_key?('(define)')
+          custom_ini.delete('(define)')
+          return custom_ini
+        else
+          raise(OatsError, ".. previous Oats.data '#{@@merged_path}' is not a hash: " + config_ini.inspect)
+        end
+      end
       return config_ini unless custom_ini # If input YAML is empty
       raise(OatsError, ".. override YAML is not a hash: " + custom_ini.inspect) unless custom_ini.class == Hash
       include_array = []
@@ -262,7 +270,7 @@ module Oats
             add_key = key.sub(/\s*\(define\)\s*/, '')
             if add_key == key and !@@define_always
               master_file = @@aut_ini || @@oats_def_file
-              raise(OatsError, ".. override YAML key [#{key}] is not included into: " + master_file)
+              raise(OatsError, ".. override Oats.data '#{key}' is not included into: " + master_file)
             else
               if merged_config.has_key?(add_key)
                 key = add_key
@@ -277,7 +285,10 @@ module Oats
         end
         case val
           when Hash then
+            merged_path = @@merged_path
+            @@merged_path = @@merged_path ?  @@merged_path + '.'  + key : key
             merged_config[key] = merge(old_val, val) # Deep copy for Hashes
+            @@merged_path = merged_path
           when Array then # Only shallow copy for Arrays
             new_arr = []
             val.each { |e| new_arr << e }
@@ -313,6 +324,10 @@ module Oats
         rescue
           raise(OatsError, "While loading [#{oats_file}] #{$!}")
         end
+      end
+      unless oats_overlay
+        Oats.warn "Skipping empty YAML file: #{oats_file}"
+        return $oats
       end
       incl_yamls = oats_overlay['include_yaml']
       if incl_yamls and not oats_overlay['include_yaml_later']

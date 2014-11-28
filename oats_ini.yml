@@ -22,8 +22,8 @@
 # OATS recognizes the following key modifiers
 # (define) # used by oats_user and environments, adds new keys w/o issuing error messages
 # (default) # used by test.yml, defines default values
-# Advertiser (define): Name
-# Setting this at any level will prevent (define) errors, at least in all keys below
+# Advertiser (define): Name # Setting this ill prevent (define) errors, at least in all keys below
+#   (define): # Allows additianal Hash entries to be added below Advertiser: declared w/o (define)
 # and possibly in other branches of Oats.data. Reset it under other branches if needed.
 # define_always: TRUE
 
@@ -118,9 +118,6 @@ execution:
   # When the test has an error and this is set, no further rtest_* files are executed
   quit_on_error:
 
-  # Calls Oats::Email.send when there are failures
-  email:  # YES
-
   # Skip the current test if there was a previous test and that it did not pass
   skip_unless_previous_test_is_ok:
 
@@ -148,6 +145,26 @@ execution:
     agent_port: 3010
     # Timeout for OCC to respond, may take a while if OCC is listing all jobs
     timeout_waiting_for_occ: 15
+
+##############################
+# Interface to  Oats::Email.send, implemented via mandrill_api or SMTP
+# Entries are for all tests, so must be defined in aut_ini.yml or oats_user.yml
+email:
+  host: # for STMP # Commenting this will use mandrill API
+  domaion: # for SMTP
+  port: # for SMTP
+  username: # for SMTP
+  password: # for SMTP or Api key for Mandrill
+  to: #name@domain.com # email address to send.
+#   - email: name@domain.com  # or an array of email addresses
+  from: # name@domain.com  # Defaults for 'from:' is the first one in 'to'
+  subject: # defaults to Pass/Fail message
+  text: # Defaults to contents of -fail.yml file in case of failure
+  html: # version of text
+  attachements: # only implemented for Mandrill API for now, defaults to oats.log
+#  fail (define): # override one or more of the headers above when there is a failure
+#  pass:(define):# override one or more of the headers above when all tests pass
+
 
 
 ##############################
