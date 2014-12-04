@@ -112,7 +112,7 @@ module Oats
         opts = args.last.instance_of?(Hash) ? args.pop : {}
         dir, other = *args
         new_path, existing_path = Util.file_examine(file_name, dir)
-        opts[:rename] and existing_path and File.rename(existing_path, new_path)
+        opts[:rename] and existing_path and File.rename(file_name, new_path)
         return new_path
       end
 
