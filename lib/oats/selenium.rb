@@ -3,6 +3,11 @@ module Oats
   module Selenium
     @@browser = nil # pointer to current browser
 
+    # Returns Oats.data 'selenium.browser_type'
+    def self.browser_type
+      Oats.data('selenium.browser_type')
+    end
+
     # Returns existing browser or creates a new one
     # Parameters
     #  :is_existing:: [True] Returns existing browser or nil
