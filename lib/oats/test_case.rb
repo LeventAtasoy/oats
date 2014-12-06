@@ -303,10 +303,7 @@ module Oats
                         $log.error $! # Full stackstrace
                     end
                     TestData.error($!)
-                    if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
-                        ! Oats.data['selenium']['skip_capture']
-                      Selenium.system_capture
-                    end
+                    Oats.system_capture
                   ensure
                     Selenium.pause_browser if defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:pause_browser)
                   end

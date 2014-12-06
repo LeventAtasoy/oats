@@ -64,7 +64,7 @@ module Oats
       # return if $selenium.nil? or # Snapshots are not supported on Ubuntu/Chrome
       #     ($oats['selenium']['browser_type'] == 'chrome' and Oats.os == :linux)
       browser = Selenium.browser(true)
-      return unless browser
+      return nil unless browser
       ct = TestData.current_test
       file = Util.file_unique(fn="selenium_screenshot.png", ct.result)
       Oats.info "Will attempt to capture webpage: #{file}"
@@ -73,14 +73,16 @@ module Oats
         ct.error_capture_file = file
       rescue ::Selenium::WebDriver::Error::NoSuchWindowError => e
         file = nil
-        $log.warn "Could not capture page. Resetting browser, due to: #{e}"
+        Oats.warn "Could not capture page. Resetting browser, due to: #{e}"
         self.reset
-      rescue Exception => e
+      rescue => e
         file = nil
-        $log.warn "Could not capture page screenshot: #{e}"
+        Oats.warn "Could not capture page screenshot due to: #{e}"
       end
       return file
     end
+
+
 
     def self.close
       br = self.browser(true)

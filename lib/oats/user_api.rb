@@ -1,4 +1,3 @@
-require_relative 'util'
 require_relative 'oats_exceptions'
 require 'fileutils'
 require 'timeout'
@@ -373,6 +372,7 @@ module Oats
   # Examples:
   #  Oats.out_file('my_file.txt', "Check this string" }
   #  Oats.out_file('my_file.txt') { |f| f.puts "Check this string" }
+  # @return [String] Full path of the output file
   def Oats.out_file(file_name, content = nil, no_raise = nil)
     out_path = Util.file_unique(file_name, Oats.test.result)
     File.open(out_path, 'w+') do |f|
@@ -383,7 +383,8 @@ module Oats
       end
     end
     Oats.assert(File.exist?(out_path), "Can not find file #{out_path}") # Verify did create the file
-    File.basename(out_path)
+    out_path
+    #File.basename(out_path)
     #    file_ok = File.join Oats.test.ok_out, basename
     #    is_ok = true
     #    if File.exist?(file_ok)
@@ -650,5 +651,15 @@ module Oats
     )
   end
 
+  # Called by default by the system when uncaught exceptions occur in oats.
+  # Takes the desktop screen_capture followed by Selenium page capture if it exists.
+  def self.system_capture
+    Util::screen_capture
+    defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
+        !Oats.data['selenium']['skip_capture'] and
+        Selenium.system_capture  # Overrides the current_test.error_file of screen_capture if it works
+  end
+
 end
 
+require_relative 'util'

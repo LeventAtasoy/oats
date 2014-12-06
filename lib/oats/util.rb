@@ -1,10 +1,31 @@
-require 'rbconfig'
-require 'win32/process' if RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/ and not defined?(Process)
-# require 'FileUtils' unless defined? FileUtils
+if  Oats.os == :windows
+  require 'win32/process' unless defined?(Process)
+  require 'win32/screenshot'
+end
 
 module Oats
   module Util
     class << self
+
+
+      # Takes  desktop screenshots, returns the name of the file
+      def screen_capture()
+        ct = Oats::TestData.current_test
+        file = Oats::Util.file_unique(fn="desktop_screenshot.png", ct.result)
+        Oats.info "Will attempt to capture desktop screen: #{file}"
+        #timeout(Oats.data('selenium.capture_timeout')||15)
+        case Oats.os
+          when :windows
+            Win32::Screenshot::Take.of(:desktop).write(file)
+          when :macosx
+            out = `screencapture -x -C #{file} 2>&1`
+            Oats.debug "Screen capture console output: #{out}" unless out == ''
+          else
+            Oats.debug "Screen capture is unsupported on this platform"
+        end
+        ct.error_capture_file = file
+        file
+      end
 
       # Kills processes matching the given Regexp
 
