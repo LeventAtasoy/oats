@@ -654,10 +654,10 @@ module Oats
   # Called by default by the system when uncaught exceptions occur in oats.
   # Takes the desktop screen_capture followed by Selenium page capture if it exists.
   def self.system_capture
+    Util::screen_capture
     defined?(Oats::Selenium) and Oats::Selenium.respond_to?(:system_capture) and
         !Oats.data['selenium']['skip_capture'] and
         Selenium.system_capture  # Overrides the current_test.error_file of screen_capture if it works
-    Util::screen_capture
   end
 
 end
