@@ -102,7 +102,7 @@ module Oats
       # Oats.debug "Resetting Selenium Browser..."
       Timeout::timeout(timeout) { self.close }
     rescue Timeout::Error
-      Oats.debug "Graceful Selenium close took longer than #{timeout}..."
+      Oats.debug "#{self.class} close took longer than #{timeout} seconds ..."
     ensure ## Browsers sometimes doesn't die gracefully. In that case, they will be killed below.
       @@browser = nil
       Oats::Util.kill(/IEDriverServer|IEXPLORE.EXE\" -noframemerging|\/safaridriver-|chromedriver|chrome\.exe\" .* --enable-logging |firefox(-bin|\.exe\") -no-remote/) #if Oats.os == :darwin
