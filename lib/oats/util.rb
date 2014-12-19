@@ -157,23 +157,25 @@ module Oats
         dir = '.' unless dir
         existing_path = nil
         path = File.join dir, fname
+        dir = File.dirname(path)
+        ext = File.extname(path)
+        base = File.basename(path, ext)
+        sbase = base.sub!(/(_\d*)?\z/, '')
         if File.directory?(dir)
-          (1..100).each do |cnt|
-            break unless File.exist?(path)
-            existing_path = path
-            extn = File.extname(path)
-            if extn
-              base = path.sub(/#{extn}\z/, '')
-              base.sub!(/(_\d*)?\z/, "_#{cnt}")
-              path = base + extn
-            else
-              path = File.join dir, file_name + "_#{cnt}"
-            end
+          fil = File.join(dir, sbase+'_*'+ext)
+          files = Dir.glob(fil)
+          nums = files.collect { |f| f[/#{dir}\/#{sbase}_(.*)#{ext}/, 1].to_i }
+          num = nums.sort.last
+          if num
+            existing_path = File.join(dir, sbase + '_' + num.to_s + ext)
+            path = File.join(dir, sbase + '_' + (num + 1).to_s + ext)
+          else
+            path = File.join(dir, sbase + '_1' + ext)
           end
         else
           FileUtils.mkdir_p(dir)
+          path = File.join(dir, sbase + '_1' + ext)
         end
-        existing_path = Util.expand_path(existing_path) unless existing_path.nil?
         return Util.expand_path(path), existing_path
       end
 
