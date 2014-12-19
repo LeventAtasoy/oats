@@ -24,7 +24,7 @@ module Oats
           profile = ::Selenium::WebDriver::Firefox::Profile.from_name profile if profile
           profile = ::Selenium::WebDriver::Firefox::Profile.new unless profile # if profile above not created
           profile['browser.download.dir'] = download_dir
-          profile["browser.helperApps.neverAsk.saveToDisk"] = "text/plain, application/vnd.ms-excel, application/pdf, text/csv, application/octet-stream"
+          profile["browser.helperApps.neverAsk.saveToDisk"] = "text/plain, application/vnd.ms-excel, application/zip, application/pdf, text/csv, application/octet-stream"
           profile['browser.download.folderList'] = 2
           $oats['selenium']['firefox_profile_set'].each { |method, value| profile.send method+'=', value }
           Selenium::WebDriver::Firefox.path = $oats_global['Selenium::browser_path'] if $oats_global['Selenium::browser_path']
@@ -77,12 +77,15 @@ module Oats
         timeout(Oats.data('selenium.capture_timeout')||15) { browser.screenshot.save(file) }
         ct.error_capture_file = file
       rescue ::Selenium::WebDriver::Error::NoSuchWindowError => e
-        file = nil
         Oats.warn "Could not capture page. Resetting browser, due to: #{e}"
         self.reset
       rescue => e
-        file = nil
         Oats.warn "Could not capture page screenshot due to: #{e}"
+      end
+      if File.zero?(file)
+        Oats.info "Removing selenium_screenshot.pgn file since it is empty."
+        File.delete(file)
+        file = nil
       end
       return file
     end
