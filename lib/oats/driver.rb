@@ -124,7 +124,7 @@ module Oats
             message['attachments'] ||= [{:type => "text/plain", :name => "oats.log",
                                          :content => Base64.encode64(File.read(oats_log))}]
             unless message[:subject]
-              var = $oats_info['test_files'].variations[0].tests[0].variations[0]
+              var = $oats_info['test_files'].variations[0]
               list_name = nil
               5.times do
                 break if list_name = var.list_name
