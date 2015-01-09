@@ -520,8 +520,8 @@ module Oats
   #
   # Examples:
   #  wait_str = 'loadingIcon'
-  #  Oats.wait_until("Page did not have [#{wait_str}]") {
-  #    $selenium.get_html_source.include?(wait_str)
+  #  Oats.wait_until("Page did not have expected string) {
+  #    $selenium.get_html_source.include?('expected_string')
   #  }
   def Oats.wait_until(*args)
     raise(OatsTestError, 'Oats.wait_until requires an input block.') unless block_given?
