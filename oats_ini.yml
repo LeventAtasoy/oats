@@ -173,7 +173,7 @@ selenium:
 
   # Decides which browser to use for IDE tests. Only this selenium parameter can
   # be overridden from the commandline.
-  browser_type: firefox  # C-L,R-U:opt
+  browser_type: chrome # firefox  # C-L,R-U:opt
 
   # Set to YES for switching to webdriver instead of Watir
   webdriver: NO  # Default is watir # env
