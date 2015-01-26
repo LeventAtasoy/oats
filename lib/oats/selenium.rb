@@ -101,7 +101,7 @@ module Oats
     end
 
     def self.reset
-      timeout = 5
+      timeout = 30
       # Oats.debug "Resetting Selenium Browser..."
       Timeout::timeout(timeout) { self.close }
     rescue Timeout::Error
