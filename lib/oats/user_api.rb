@@ -511,7 +511,7 @@ module Oats
   #
   # Parameters (also allowed as Hash):
   #  :message::  Exception message to issue upon timeout.
-  #              Appended with 'in N seconds' unless seconds is negative.
+  #              Appended with 'in N seconds' if seconds is negative.
   #  :seconds::  For timeout, defaults from Oats.data 'execution.wait_until_timeout'.
   #              Use -sec to append timeout to the message
   #  :is_return:: Returns false if times out instead of raising OatsTestError.
