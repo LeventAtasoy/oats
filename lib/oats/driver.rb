@@ -98,7 +98,7 @@ module Oats
             $log.info "Redirecting output to logfile: " + oats_log
             $log.add('logfile')
           end
-          $log.info "Started OATS execution [#{Oats.context['jobid']}] at #{Time.now}"
+          $log.info "Started OATS execution [#{Oats.context['jobid']}] on #{ENV['HOSTNAME']} at #{Time.now}"
         end
         begin
           Oats.info "OATS_TESTS Directory: " + ENV['OATS_TESTS']
