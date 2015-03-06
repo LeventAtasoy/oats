@@ -232,8 +232,8 @@ module Oats
     def OatsData.merge(config_ini, custom_ini)
       merged_config = config_ini
       unless config_ini.class == Hash
-        if config_ini.nil? && custom_ini.has_key?('(define)')
-          custom_ini.delete('(define)')
+        if config_ini.nil?
+          custom_ini.delete('(define)') if  custom_ini.has_key?('(define)')
           return custom_ini
         else
           raise(OatsError, ".. previous Oats.data '#{@@merged_path}' is not a hash: " + config_ini.inspect)
