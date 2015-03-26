@@ -233,7 +233,9 @@ module Oats
       merged_config = config_ini
       unless config_ini.class == Hash
         if config_ini.nil?
-          custom_ini.delete('(define)') if  custom_ini.has_key?('(define)')
+          if custom_ini.has_key?('(define)')
+            custom_ini.delete('(define)')
+          end
           return custom_ini
         else
           raise(OatsError, ".. previous Oats.data '#{@@merged_path}' is not a hash: " + config_ini.inspect)
@@ -245,6 +247,7 @@ module Oats
       include_list_exists = false
       @@define_always = custom_ini['define_always'] if custom_ini.include?('define_always')
       custom_ini.each do |key, val|
+        new_define = false
         if config_ini.has_key?(key)
           old_val = config_ini[key]
           unless old_val.nil? or val.nil?
@@ -261,7 +264,7 @@ module Oats
               end
             end
           end
-        else
+        else  # Key is introduced the first time
           if key == "include_list"
             raise(OatsError, "The include_list " + val.inspect + " is not an Array") unless val.class == Array
             include_array = val
@@ -272,6 +275,9 @@ module Oats
               master_file = @@aut_ini || @@oats_def_file
               raise(OatsError, ".. override Oats.data '#{key}' is not included into: " + master_file)
             else
+              if add_key != key
+                new_define = true
+              end
               if merged_config.has_key?(add_key)
                 key = add_key
                 old_val = config_ini[key]
@@ -282,6 +288,10 @@ module Oats
               end
             end
           end
+        end
+        saved_define = @@define_always
+        if new_define
+          @@define_always = true
         end
         case val
           when Hash then
@@ -300,6 +310,7 @@ module Oats
               merged_config[key] = val
             end
         end
+        @@define_always = saved_define
       end
       if include_list_exists
         return nil if  include_array.nil?

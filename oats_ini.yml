@@ -22,10 +22,11 @@
 # OATS recognizes the following key modifiers
 # (define) # used by oats_user and environments, adds new keys w/o issuing error messages
 # (default) # used by test.yml, defines default values
-# Advertiser (define): Name # Setting this ill prevent (define) errors, at least in all keys below
-#   (define): # Allows additianal Hash entries to be added below Advertiser: declared w/o (define)
-# and possibly in other branches of Oats.data. Reset it under other branches if needed.
+# Advertiser (define): Name # Setting this will prevent (define) errors for this node and below
 # define_always: TRUE
+# Allows additianal Hash entries to be added below Advertiser that is : declared w/o (define)
+# and possibly in other branches of Oats.data. Reset it under other branches if needed.
+
 
 # This section contains parameters controlling oats execution.  All
 # parameters in this section plus a few from other sections can be overridden
