@@ -108,7 +108,7 @@ module Oats
       Oats.debug "#{self.class} close took longer than #{timeout} seconds ..."
     ensure ## Browsers sometimes doesn't die gracefully. In that case, they will be killed below.
       @@browser = nil
-      Oats::Util.kill(/IEDriverServer|IEXPLORE.EXE\" -noframemerging|\/safaridriver-|chromedriver|chrome\.exe\" .* --enable-logging |firefox(-bin|\.exe\") -no-remote/) #if Oats.os == :darwin
+      Oats::Util.kill(/IEDriverServer|IEXPLORE.EXE\" -noframemerging|\/safaridriver-|chromedriver|chromium|chrome\.exe\" .*|firefox(-bin|\.exe\") -no-remote/) #if Oats.os == :darwin
     end
 
     def self.download_dir
