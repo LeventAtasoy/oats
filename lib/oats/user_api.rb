@@ -362,6 +362,7 @@ module Oats
     out_lines
   end
 
+  require 'tempfile'
   # Creates a file handle to output into the out directory with given name
   # Returns the comparison with any previous ok file if exists.
   #
@@ -374,7 +375,7 @@ module Oats
   #  Oats.out_file('my_file.txt') { |f| f.puts "Check this string" }
   # @return [String] Full path of the output file
   def Oats.out_file(file_name, content = nil, no_raise = nil)
-    out_path = Util.file_unique(file_name, Oats.test.result)
+    out_path = defined?(Oats::TestData) ? Util.file_unique(file_name, Oats.test.result) : Tempfile.new(file_name).path
     File.open(out_path, 'w+') do |f|
       if block_given?
         yield f
